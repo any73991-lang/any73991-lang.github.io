@@ -232,19 +232,119 @@ function genFallbackOrderbook(symbol, basePrice) {
   }
   return { bids: bids, asks: asks, price: p };
 }
+// 带趋势的随机游走 K 线生成器 —— 模拟真实市场走势
 function genFallbackKlines(symbol, interval) {
-  var len = { '1m':200,'5m':200,'15m':200,'30m':150,'1h':100,'4h':80,'1d':60,'1w':40 }[interval] || 80;
-  var ms = { '1m':60000,'5m':300000,'15m':900000,'30m':1800000,'1h':3600000,'4h':14400000,'1d':86400000,'1w':604800000 }[interval] || 3600000;
+  var lens = { '1m':200,'5m':200,'15m':200,'30m':150,'1h':100,'4h':80,'1d':60,'1w':40 };
+  var len = lens[interval] || 80;
+  var msMap = { '1m':60000,'5m':300000,'15m':900000,'30m':1800000,'1h':3600000,'4h':14400000,'1d':86400000,'1w':604800000 };
+  var ms = msMap[interval] || 3600000;
   var bp = ST.prices[symbol]?.price || BASE_PRICES[symbol] || 10;
-  var k = [], now = Date.now(), pr = bp * (0.9 + Math.random() * 0.2);
-  for (var i = len; i >= 0; i--) {
-    var o = pr, v = o * 0.015;
-    var h = o + Math.random() * v, l = o - Math.random() * v;
-    var c = (h + l) / 2 + (Math.random() - 0.5) * v * 0.3;
-    k.push({ time: now - i * ms, open: +o.toFixed(2), high: +h.toFixed(2), low: +l.toFixed(2), close: +c.toFixed(2), volume: +(Math.random() * bp * 8).toFixed(2) });
-    pr = c;
+  var k = [], now = Date.now();
+
+  // === 阶段 1: 生成趋势驱动的基础价格线 ===
+  // 用种子生成伪随机序列，保证同一币种同一周期走势一致
+  var seed = hashStr(symbol) + hashStr(interval);
+  var points = [];
+  // 价格波动率：模拟真实市场（BTC 1m≈0.08%, 1h≈0.8%, 1d≈4%）
+  var volatility = { '1m':0.0008,'5m':0.0015,'15m':0.003,'30m':0.005,'1h':0.008,'4h':0.015,'1d':0.03,'1w':0.07 }[interval] || 0.005;
+
+  // 生成多段趋势：每段有一个方向(+1涨/-1跌)和持续时间
+  var price = bp;
+  var segmentLen = Math.floor(len / 4);
+  var trendDir = 0;
+
+  for (var i = 0; i <= len; i++) {
+    // 每 segmentLen 根K线换个趋势方向
+    if (i % segmentLen === 0) {
+      trendDir = prng(seed + i * 1000) > 0.35 ? (prng(seed + i * 2000) > 0.5 ? 1 : -1) : 0;
+    }
+
+    // 价格漂移 = 趋势项 + 随机项
+    var drift = trendDir * volatility * bp * 0.6;
+    var noise = (prng(seed + i * 3 + 777) - 0.5) * volatility * bp * 2;
+    var change = drift + noise;
+
+    // 限制单根K线最大波动
+    var maxMove = bp * volatility * 5;
+    change = Math.max(-maxMove, Math.min(maxMove, change));
+
+    price += change;
+    price = Math.max(bp * 0.7, Math.min(bp * 1.5, price));
+    points.push(price);
+  }
+
+  // === 阶段 2: 基于价格线生成 OHLC K线 ===
+  // 每根K线的本体+影线比例接近真实市场（本体占30-60%蜡烛总范围）
+  for (var i = 0; i < points.length; i++) {
+    var trendP = points[i];
+    var prevP = i > 0 ? points[i - 1] : bp;
+
+    // open 从上根 close 开始（连续市场，无跳空）
+    var open = i > 0 ? k[i-1].close : prevP;
+
+    // 预期这根蜡烛的移动范围
+    var expectedRange = volatility * bp * 5;
+
+    // 蜡烛涨跌方向：70%跟随趋势，30%随机
+    var followTrend = prng(seed + i * 19 + 777) < 0.7;
+    var up = followTrend ? (trendP >= open) : (prng(seed + i * 23 + 888) > 0.5);
+
+    // 本体高度 = 蜡烛范围的 30%-60%
+    var bodyPct = 0.3 + prng(seed + i * 29 + 999) * 0.3;
+    var bodySize = expectedRange * bodyPct;
+
+    var close;
+    if (up) {
+      close = open + bodySize;
+      close = Math.min(close, trendP + expectedRange * 0.3);
+    } else {
+      close = open - bodySize;
+      close = Math.max(close, trendP - expectedRange * 0.3);
+    }
+
+    // 确保 close 始终在价格线附近合理范围内
+    close = Math.max(trendP - expectedRange * 0.5, Math.min(trendP + expectedRange * 0.5, close));
+
+    // 影线：在上/下方随机延伸（上影线 10-50% 范围，下影线同理）
+    var bodyTop = Math.max(open, close);
+    var bodyBot = Math.min(open, close);
+    var upperWick = expectedRange * (0.1 + prng(seed + i * 11 + 111) * 0.4);
+    var lowerWick = expectedRange * (0.1 + prng(seed + i * 13 + 222) * 0.4);
+    var high = bodyTop + upperWick;
+    var low = bodyBot - lowerWick;
+
+    // 成交量：大波动=大成交量，涨跌比例微调
+    var bodyRatio = (high - low) / bp;  // 这跟蜡烛的波动率
+    var volume = bp * bodyRatio * 200 * (0.5 + prng(seed + i * 17 + 444) * 1.5);
+
+    var dp = bp >= 1 ? 2 : 6;
+    k.push({
+      time: now - (len - i) * ms,
+      open: +open.toFixed(dp),
+      high: +high.toFixed(dp),
+      low: +low.toFixed(dp),
+      close: +close.toFixed(dp),
+      volume: +volume.toFixed(2)
+    });
   }
   return k;
+}
+
+// 简单哈希函数（生成伪随机种子）
+function hashStr(s) {
+  var h = 0;
+  for (var i = 0; i < s.length; i++) {
+    h = ((h << 5) - h) + s.charCodeAt(i);
+    h |= 0;
+  }
+  return Math.abs(h);
+}
+
+// 确定性伪随机数生成器（线性同余）
+function prng(seed) {
+  var s = seed % 2147483647;
+  s = (s * 16807) % 2147483647;
+  return (s - 1) / 2147483646;
 }
 
 // ========== Toast ==========
@@ -839,20 +939,12 @@ async function loadKline() {
 }
 
 function _genEmergencyKlines() {
-  // 优先用 ST.prices 中当前币种的价格，否则用已知真实价格
-  let p = ST.prices[ST.symbol]?.price;
-  if (!p || p <= 0) {
-    var realPrice = { BTC:87000, ETH:3400, BNB:620, SOL:145, XRP:2.3, ADA:0.7, DOGE:0.17, LINK:14.5, UNI:8.5, ATOM:7, LTC:80, FIL:5, AVAX:37, DOT:6.8, MATIC:0.55 };
-    p = realPrice[ST.symbol] || 10;
+  // 降级到 genFallbackKlines 使用统一随机游走算法
+  ST.prices = ST.prices || {};
+  if (!ST.prices[ST.symbol]) {
+    ST.prices[ST.symbol] = { price: BASE_PRICES[ST.symbol] || 10, change24h: 0 };
   }
-  var k = [], now = Date.now(), pr = p * 0.95;
-  for (var i = 60; i >= 0; i--) {
-    var o = pr, v = o * 0.02;
-    var h = o + Math.random() * v, l = o - Math.random() * v, c = (h + l) / 2;
-    k.push({ time: now - i * 3600000, open: +o.toFixed(2), high: +h.toFixed(2), low: +l.toFixed(2), close: +c.toFixed(2), volume: +(Math.random() * p * 5).toFixed(2) });
-    pr = c;
-  }
-  return k;
+  return genFallbackKlines(ST.symbol, ST.interval || '1h');
 }
 
 function drawChart() {
