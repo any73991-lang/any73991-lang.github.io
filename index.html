@@ -289,10 +289,12 @@
             <button class="interval-btn" data-interval="1w">周线</button>
           </div>
         </div>
-        <div class="panel chart-panel">
+        <div class="panel chart-panel" id="chart-panel">
           <canvas id="price-chart"></canvas>
+          <canvas id="chart-crosshair"></canvas>
           <div class="chart-loading hidden" id="chart-loading">加载中...</div>
           <div class="chart-source" id="chart-source"></div>
+          <div class="chart-tooltip hidden" id="chart-tooltip"></div>
         </div>
       </div>
 

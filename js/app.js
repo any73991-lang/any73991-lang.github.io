@@ -1108,6 +1108,16 @@ function drawChart() {
   canvas.width = rect.width * dpr; canvas.height = rect.height * dpr;
   canvas.style.width = rect.width + 'px'; canvas.style.height = rect.height + 'px';
 
+  // 同步 crosshair canvas 尺寸并清空
+  var cc = document.getElementById('chart-crosshair');
+  if (cc) {
+    cc.width = rect.width * dpr;
+    cc.height = rect.height * dpr;
+    cc.style.width = rect.width + 'px';
+    cc.style.height = rect.height + 'px';
+    cc.getContext('2d').clearRect(0, 0, cc.width, cc.height);
+  }
+
   const ctx = canvas.getContext('2d');
   ctx.scale(dpr, dpr);
   const W = rect.width, H = rect.height;
@@ -1191,6 +1201,204 @@ function drawChart() {
     ctx.fillStyle = k.close >= k.open ? 'rgba(14,203,129,0.35)' : 'rgba(246,70,93,0.35)';
     ctx.fillRect(x - cw / 2, volTop + volH - vh, cw, vh);
   });
+
+  // 存储柱体位置供鼠标交互使用
+  chartMeta = {
+    W: W, H: H, pad: pad, pw: pw, ph: ph, chartH: chartH, volH: volH, volTop: volTop,
+    maxP: maxP, minP: minP, range: range, maxV: maxV, cw: cw,
+    candles: ST.klines.map(function(k, i) {
+      return {
+        x: pad.left + (pw / (ST.klines.length - 1)) * i,
+        k: k
+      };
+    })
+  };
+}
+
+// ========== K线图鼠标交互 (十字光标 + 浮动提示) ==========
+var chartMeta = null;
+var chartHoverId = -1;
+
+function initChartInteraction() {
+  var canvas = document.getElementById('price-chart');
+  var cc = document.getElementById('chart-crosshair');
+  var tip = document.getElementById('chart-tooltip');
+  if (!canvas || !cc || !tip) return;
+
+  function syncCrosshairSize() {
+    if (!chartMeta) return;
+    var dpr = window.devicePixelRatio || 1;
+    cc.width = chartMeta.W * dpr;
+    cc.height = chartMeta.H * dpr;
+    cc.style.width = chartMeta.W + 'px';
+    cc.style.height = chartMeta.H + 'px';
+  }
+
+  function drawCrosshair(idx, mouseY) {
+    if (!chartMeta || idx < 0 || idx >= chartMeta.candles.length) {
+      cc.getContext('2d').clearRect(0, 0, cc.width, cc.height);
+      return;
+    }
+    syncCrosshairSize();
+    var ctx = cc.getContext('2d');
+    var dpr = window.devicePixelRatio || 1;
+    ctx.save();
+    ctx.scale(dpr, dpr);
+    ctx.clearRect(0, 0, chartMeta.W, chartMeta.H);
+
+    var c = chartMeta.candles[idx];
+    var x = c.x;
+    var pad = chartMeta.pad;
+    var chartH = chartMeta.chartH;
+    var volTop = chartMeta.volTop;
+    var volH = chartMeta.volH;
+    var y = mouseY;
+
+    // 竖线 - 半透明灰白
+    ctx.strokeStyle = 'rgba(132,142,156,0.25)';
+    ctx.lineWidth = 0.5;
+    ctx.setLineDash([4, 4]);
+    ctx.beginPath();
+    ctx.moveTo(x, pad.top);
+    ctx.lineTo(x, volTop + volH);
+    ctx.stroke();
+    ctx.setLineDash([]);
+
+    // 横线 - 只画在K线区域
+    var crossY = Math.max(pad.top, Math.min(pad.top + chartH, y));
+    ctx.strokeStyle = 'rgba(132,142,156,0.35)';
+    ctx.beginPath();
+    ctx.moveTo(pad.left, crossY);
+    ctx.lineTo(chartMeta.W - pad.right, crossY);
+    ctx.stroke();
+
+    // 横线价格标签 - 右侧
+    var priceAtY = chartMeta.maxP - ((crossY - pad.top) / chartH) * chartMeta.range;
+    var dp = ST.prices[ST.symbol]?.price >= 1 ? 2 : 6;
+    ctx.fillStyle = '#1A1E26';
+    ctx.fillRect(chartMeta.W - pad.right + 2, crossY - 9, 58, 18);
+    ctx.strokeStyle = 'rgba(132,142,156,0.5)';
+    ctx.strokeRect(chartMeta.W - pad.right + 2, crossY - 9, 58, 18);
+    ctx.fillStyle = '#F0B90B';
+    ctx.font = 'bold 10px Cascadia Code, Consolas, monospace';
+    ctx.textAlign = 'right';
+    ctx.fillText(fmtP(priceAtY), chartMeta.W - 4, crossY + 4);
+
+    // 时间标签 - 底部
+    var d = new Date(c.k.time);
+    var tLabel = ['1d', '1w'].includes(ST.interval)
+      ? (d.getFullYear() + '/' + (d.getMonth()+1) + '/' + d.getDate())
+      : (String(d.getMonth()+1).padStart(2,'0') + '/' + String(d.getDate()).padStart(2,'0') + ' ' +
+         String(d.getHours()).padStart(2,'0') + ':' + String(d.getMinutes()).padStart(2,'0'));
+    ctx.fillStyle = '#1A1E26';
+    var tw = 130;
+    ctx.fillRect(x - tw/2, volTop + volH + 2, tw, 16);
+    ctx.fillStyle = '#848E9C';
+    ctx.font = '10px -apple-system, sans-serif';
+    ctx.textAlign = 'center';
+    ctx.fillText(tLabel, x, volTop + volH + 14);
+
+    ctx.restore();
+  }
+
+  function showTooltip(idx, evt) {
+    if (!chartMeta || idx < 0 || idx >= chartMeta.candles.length) {
+      tip.classList.add('hidden');
+      return;
+    }
+    var c = chartMeta.candles[idx];
+    var k = c.k;
+    var dp = ST.prices[ST.symbol]?.price >= 1 ? 2 : 6;
+    var up = k.close >= k.open;
+    var change = ((k.close - k.open) / k.open * 100).toFixed(2);
+
+    var d = new Date(k.time);
+    var tLabel = ['1d', '1w'].includes(ST.interval)
+      ? (d.getFullYear() + '/' + (d.getMonth()+1) + '/' + d.getDate())
+      : (String(d.getMonth()+1).padStart(2,'0') + '-' + String(d.getDate()).padStart(2,'0') + ' ' +
+         String(d.getHours()).padStart(2,'0') + ':' + String(d.getMinutes()).padStart(2,'0'));
+
+    tip.innerHTML =
+      '<div class="tt-time">' + tLabel + '  <span style="color:' + (up ? '#0ECB81' : '#F6465D') + '">' + (up ? '+' : '') + change + '%</span></div>' +
+      '<div class="tt-row"><span class="tt-label">开</span><span class="tt-open">' + k.open.toFixed(dp) + '</span></div>' +
+      '<div class="tt-row"><span class="tt-label">高</span><span class="tt-high">' + k.high.toFixed(dp) + '</span></div>' +
+      '<div class="tt-row"><span class="tt-label">低</span><span class="tt-low">' + k.low.toFixed(dp) + '</span></div>' +
+      '<div class="tt-row"><span class="tt-label">收</span><span class="tt-close">' + k.close.toFixed(dp) + '</span></div>' +
+      '<div class="tt-vol">VOL ' + formatVol(k.volume) + '</div>';
+
+    tip.classList.remove('hidden');
+
+    // 定位 — 偏右避开手指
+    var rect = canvas.getBoundingClientRect();
+    var tx = evt.clientX - rect.left + 20;
+    var ty = evt.clientY - rect.top - 10;
+    if (tx + 140 > rect.width) tx = evt.clientX - rect.left - 150;
+    tip.style.left = tx + 'px';
+    tip.style.top = ty + 'px';
+  }
+
+  function hideAll() {
+    if (cc) { var c2 = cc.getContext('2d'); c2.clearRect(0, 0, cc.width, cc.height); }
+    if (tip) tip.classList.add('hidden');
+    chartHoverId = -1;
+  }
+
+  canvas.addEventListener('mousemove', function(e) {
+    if (!chartMeta || !chartMeta.candles.length) { hideAll(); return; }
+    var rect = canvas.getBoundingClientRect();
+    var mx = e.clientX - rect.left;
+    var my = e.clientY - rect.top;
+
+    // 找最近的蜡烛
+    var candles = chartMeta.candles;
+    var best = 0;
+    var bestDist = Math.abs(candles[0].x - mx);
+    for (var i = 1; i < candles.length; i++) {
+      var d = Math.abs(candles[i].x - mx);
+      if (d < bestDist) { bestDist = d; best = i; }
+    }
+
+    // 限制在K线价格区域内
+    if (mx >= chartMeta.pad.left && mx <= chartMeta.W - chartMeta.pad.right &&
+        my >= chartMeta.pad.top && my <= chartMeta.pad.top + chartMeta.chartH + chartMeta.volH) {
+      chartHoverId = best;
+      drawCrosshair(best, my);
+      showTooltip(best, e);
+    } else {
+      hideAll();
+    }
+  });
+
+  canvas.addEventListener('mouseleave', hideAll);
+  canvas.addEventListener('mouseout', function(e) {
+    if (!e.relatedTarget || !canvas.contains(e.relatedTarget)) hideAll();
+  });
+
+  // 触摸支持
+  canvas.addEventListener('touchmove', function(e) {
+    if (!chartMeta || !chartMeta.candles.length) return;
+    var rect = canvas.getBoundingClientRect();
+    var mx = e.touches[0].clientX - rect.left;
+    var my = e.touches[0].clientY - rect.top;
+    var candles = chartMeta.candles;
+    var best = 0, bestDist = Math.abs(candles[0].x - mx);
+    for (var i = 1; i < candles.length; i++) {
+      var d = Math.abs(candles[i].x - mx);
+      if (d < bestDist) { bestDist = d; best = i; }
+    }
+    if (mx >= chartMeta.pad.left && mx <= chartMeta.W - chartMeta.pad.right) {
+      drawCrosshair(best, my);
+      showTooltip(best, e.touches[0]);
+    }
+  });
+  canvas.addEventListener('touchend', hideAll);
+}
+
+function formatVol(v) {
+  if (v >= 1e9) return (v / 1e9).toFixed(2) + 'B';
+  if (v >= 1e6) return (v / 1e6).toFixed(2) + 'M';
+  if (v >= 1e3) return (v / 1e3).toFixed(1) + 'K';
+  return v.toFixed(2);
 }
 
 // ========== 订单簿 ==========
@@ -1544,4 +1752,7 @@ document.addEventListener('DOMContentLoaded', () => {
       ST.token = null; localStorage.removeItem('ct_token'); route();
     });
   }
+
+  // 初始化K线图鼠标交互
+  initChartInteraction();
 });
