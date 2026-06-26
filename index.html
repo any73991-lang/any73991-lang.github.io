@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>CoinUSDT C2C | Cryptocurrency Exchange</title>
+  <meta name="description" content="CoinUSDT C2C - Professional cryptocurrency exchange with real-time charts, BTC/ETH trading, market and limit orders. Secure C2C trading platform.">
+  <meta name="keywords" content="cryptocurrency exchange,BTC,ETH,Bitcoin,Ethereum,trading,crypto,USDT,market,limit,order">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://any73991-lang.github.io/">
+  <meta property="og:title" content="CoinUSDT C2C | Cryptocurrency Exchange">
+  <meta property="og:description" content="Professional cryptocurrency exchange with real-time charts and secure trading.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://any73991-lang.github.io/">
+  <meta property="og:site_name" content="CoinUSDT C2C">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="CoinUSDT C2C | Cryptocurrency Exchange">
+  <meta name="twitter:description" content="Professional cryptocurrency exchange with real-time charts and secure trading.">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Ccircle cx='24' cy='24' r='22' fill='%23F0B90B'/%3E%3Ctext x='24' y='31' text-anchor='middle' font-size='22' font-weight='700' fill='%231E2329'%3EC%3C/text%3E%3C/svg%3E">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <!-- ============================================================
+       全局导航
+  ============================================================ -->
+  <nav class="global-nav">
+    <div class="nav-inner">
+      <a href="/trade/BTC_USDT" class="nav-brand"
+        <svg width="32" height="32" viewBox="0 0 48 48">
+          <circle cx="24" cy="24" r="22" fill="#F0B90B"/>
+          <text x="24" y="31" text-anchor="middle" font-size="22" font-weight="700" fill="#1E2329">C</text>
+        </svg>
+        <span class="brand-name">CoinUSDT C2C</span>
+      </a>
+      <div class="nav-links" id="nav-links">
+        <a href="/trade/BTC_USDT" class="nav-link" data-path="/trade" data-i18n="trade">Trade</a>
+        <a href="/wallet" class="nav-link" data-path="/wallet" data-i18n="assets">Assets</a>
+        <a href="/orders" class="nav-link" data-path="/orders" data-i18n="orders">Orders</a>
+      </div>
+      <span class="nav-market-status">
+        <span class="status-dot"></span> <span data-i18n="market_live">Live Market</span>
+      </span>
+      <div class="nav-actions" id="nav-actions">
+        <!-- 语言切换 -->
+        <div class="lang-switch" id="lang-switch">
+          <button class="lang-btn" id="lang-current" onclick="var d=document.getElementById('lang-drop');d.classList.toggle('hidden');event.stopPropagation()">🌐 English</button>
+          <div class="lang-drop hidden" id="lang-drop" onclick="event.stopPropagation()">
+            <div class="lang-option" data-lang="zh-CN" onclick="setLang('zh-CN')">🇨🇳 简体中文</div>
+            <div class="lang-option" data-lang="zh-TW" onclick="setLang('zh-TW')">🇹🇼 繁體中文</div>
+            <div class="lang-option active" data-lang="en" onclick="setLang('en')">🇺🇸 English</div>
+            <div class="lang-option" data-lang="ja" onclick="setLang('ja')">🇯🇵 日本語</div>
+            <div class="lang-option" data-lang="ko" onclick="setLang('ko')">🇰🇷 한국어</div>
+            <div class="lang-option" data-lang="es" onclick="setLang('es')">🇪🇸 Español</div>
+            <div class="lang-option" data-lang="ru" onclick="setLang('ru')">🇷🇺 Русский</div>
+            <div class="lang-option" data-lang="fr" onclick="setLang('fr')">🇫🇷 Français</div>
+            <div class="lang-option" data-lang="de" onclick="setLang('de')">🇩🇪 Deutsch</div>
+            <div class="lang-option" data-lang="pt" onclick="setLang('pt')">🇧🇷 Português</div>
+            <div class="lang-option" data-lang="vi" onclick="setLang('vi')">🇻🇳 Tiếng Việt</div>
+            <div class="lang-option" data-lang="th" onclick="setLang('th')">🇹🇭 ไทย</div>
+          </div>
+        </div>
+        <div id="nav-guest" class="nav-guest">
+          <a href="/login" class="nav-btn nav-btn-text" data-i18n="login">Login</a>
+          <a href="/register" class="nav-btn nav-btn-primary" data-i18n="register">Register</a>
+        </div>
+        <div id="nav-user" class="nav-user hidden">
+          <div class="nav-user-info" id="nav-user-trigger">
+            <div class="nav-user-avatar" id="nav-user-avatar"></div>
+            <div class="nav-user-detail">
+              <span id="nav-username">--</span>
+              <span class="nav-balance" id="nav-balance">0.00 USDT</span>
+            </div>
+          </div>
+          <div class="nav-user-dropdown hidden" id="nav-dropdown">
+            <a href="#" id="nav-deposit-btn" data-i18n="sim_deposit">Simulated Deposit</a>
+            <a href="/wallet" data-i18n="assets">Assets</a>
+            <a href="/orders" data-i18n="order_history">Order History</a>
+            <a href="/invite" data-i18n="invite_title">Invite</a>
+            <a href="#" id="nav-logout" data-i18n="logout">Logout</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ============================================================
+       登录页 /login
+  ============================================================ -->
+  <div id="page-login" class="page-auth hidden">
+    <div class="auth-wrapper">
+      <div class="auth-card">
+        <div class="auth-card-left">
+          <div class="auth-brand">
+            <svg width="56" height="56" viewBox="0 0 48 48">
+              <defs><linearGradient id="lg"><stop offset="0%" stop-color="#F0B90B"/><stop offset="100%" stop-color="#f8d33a"/></linearGradient></defs>
+              <circle cx="24" cy="24" r="22" fill="url(#lg)"/>
+              <text x="24" y="31" text-anchor="middle" font-size="22" font-weight="700" fill="#1E2329">C</text>
+            </svg>
+          </div>
+          <h2 data-i18n="welcome">Welcome Back</h2>
+          <p class="auth-sub" data-i18n="login_sub">Log in to your CoinUSDT C2C account</p>
+          <div class="auth-benefits">
+            <div class="benefit-item">✓ 100+ Crypto Trading Pairs</div>
+            <div class="benefit-item">✓ Real-time Binance Market Data</div>
+            <div class="benefit-item">✓ Professional Charting Tools</div>
+          </div>
+        </div>
+        <div class="auth-card-right">
+          <div class="auth-form-wrapper">
+            <div class="auth-form-tabs">
+              <span class="aft active" data-i18n="login">Login</span>
+              <a href="/register" class="aft" data-i18n="register">Register</a>
+            </div>
+            <div class="form-group">
+              <label data-i18n="username">Username</label>
+              <input type="text" id="login-username" placeholder="Enter your username" autocomplete="username">
+            </div>
+            <div class="form-group">
+              <label data-i18n="password">Password</label>
+              <input type="password" id="login-password" placeholder="Enter your password" autocomplete="current-password">
+            </div>
+            <div id="login-error" class="form-error"></div>
+            <button class="btn btn-gold btn-full" id="login-btn" data-i18n="login">Login</button>
+            <div class="auth-alt">
+              <span data-i18n="dont_have_account">Don't have an account?</span> <a href="/register" data-i18n="register">Register</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       注册页 /register
+  ============================================================ -->
+  <div id="page-register" class="page-auth hidden">
+    <div class="auth-wrapper">
+      <div class="auth-card">
+        <div class="auth-card-left">
+          <div class="auth-brand">
+            <svg width="56" height="56" viewBox="0 0 48 48">
+              <circle cx="24" cy="24" r="22" fill="url(#lg)"/>
+              <text x="24" y="31" text-anchor="middle" font-size="22" font-weight="700" fill="#1E2329">C</text>
+            </svg>
+          </div>
+          <h2 data-i18n="create_acct">Create Account</h2>
+          <p class="auth-sub" data-i18n="reg_sub">Start your crypto trading journey</p>
+          <div class="auth-benefits">
+            <div class="benefit-item">✓ Zero threshold real trading</div>
+            <div class="benefit-item">✓ Free registration, simulated trading</div>
+            <div class="benefit-item">✓ Real-time market + charts</div>
+            <div class="benefit-item">✓ Market & Limit orders</div>
+          </div>
+        </div>
+        <div class="auth-card-right">
+          <div class="auth-form-wrapper">
+            <div class="auth-form-tabs">
+              <a href="/login" class="aft" data-i18n="login">Login</a>
+              <span class="aft active" data-i18n="register">Register</span>
+            </div>
+            <!-- Step 1 -->
+            <div id="reg-step1">
+              <div class="form-group">
+                <label data-i18n="username">Username</label>
+                <input type="text" id="reg-username" placeholder="3-20 characters" autocomplete="username">
+              </div>
+              <div class="form-group">
+                <label data-i18n="email">Email</label>
+                <input type="email" id="reg-email" placeholder="example@mail.com" autocomplete="email">
+              </div>
+              <div class="form-group">
+                <label data-i18n="password">Password</label>
+                <input type="password" id="reg-password" placeholder="At least 6 characters" autocomplete="new-password">
+              </div>
+              <div class="form-group">
+                <label data-i18n="invite_code_label">Invite Code <small data-i18n="optional">(optional)</small></label>
+                <input type="text" id="reg-invite" placeholder="Enter invite code" autocapitalize="characters" style="font-family:var(--mono);letter-spacing:2px;text-transform:uppercase">
+              </div>
+              <div id="reg-error" class="form-error"></div>
+              <button class="btn btn-gold btn-full" id="reg-btn" data-i18n="send_code">Send Verification Code</button>
+            </div>
+            <!-- Step 2 -->
+            <div id="reg-step2" class="hidden">
+              <p class="verify-hint" style="color:var(--text2);font-size:12px;margin-bottom:12px" data-i18n="verify_hint">Verification code sent. Enter the 6-digit code below</p>
+              <div class="form-group">
+                <label data-i18n="verify_code">Verification Code</label>
+                <input type="text" id="reg-code" placeholder="••••••" maxlength="6" inputmode="numeric" style="font-size:22px;letter-spacing:8px;text-align:center;font-family:var(--mono)">
+              </div>
+              <div id="reg-error2" class="form-error"></div>
+              <button class="btn btn-gold btn-full" id="reg-verify-btn" data-i18n="complete_reg">Complete Registration</button>
+              <button class="btn btn-outline btn-full" id="reg-back-btn" style="margin-top:8px" data-i18n="back">Back</button>
+            </div>
+            <div class="auth-alt">
+              <span data-i18n="already_have_account">Already have an account?</span> <a href="/login" data-i18n="login">Login</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       交易主页 /trade/:symbol
+  ============================================================ -->
+  <div id="page-trade" class="page-trade hidden">
+    <div class="trade-subnav">
+      <div class="subnav-left">
+        <a href="/trade/BTC_USDT" class="subnav-link" data-sym="BTC">BTC/USDT</a>
+        <a href="/trade/ETH_USDT" class="subnav-link" data-sym="ETH">ETH/USDT</a>
+        <a href="/trade/BNB_USDT" class="subnav-link" data-sym="BNB">BNB/USDT</a>
+        <a href="/trade/SOL_USDT" class="subnav-link" data-sym="SOL">SOL/USDT</a>
+        <a href="/trade/XRP_USDT" class="subnav-link" data-sym="XRP">XRP/USDT</a>
+        <a href="/trade/DOGE_USDT" class="subnav-link" data-sym="DOGE">DOGE/USDT</a>
+        <a href="/trade/ADA_USDT" class="subnav-link" data-sym="ADA">ADA/USDT</a>
+      </div>
+    </div>
+
+    <div class="main-content">
+      <!-- 左侧: 行情 + 资产 -->
+      <div class="panel panel-left-stack">
+        <div class="panel market-panel">
+          <div class="panel-header">
+            <span class="panel-title" data-i18n="all_pairs">All</span>
+            <div class="panel-header-right">
+              <span class="panel-badge" id="price-status" data-i18n="market_live">Live</span>
+              <button class="btn-icon" id="toggle-sort" title="Sort">↕</button>
+            </div>
+          </div>
+          <div class="market-search">
+            <input type="text" id="market-search" placeholder="Search coins...">
+          </div>
+          <div class="market-headers">
+            <span class="mh-pair" data-i18n="all_pairs">Pairs</span>
+            <span class="mh-price" data-i18n="latest_price">Price</span>
+            <span class="mh-change" data-i18n="24h_change">24h Chg</span>
+          </div>
+          <div class="market-list" id="market-list"></div>
+        </div>
+        <div class="panel wallet-panel">
+          <div class="panel-header">
+            <span class="panel-title" data-i18n="assets">Assets</span>
+            <button class="btn btn-xs btn-gold-outline" id="quick-deposit-btn" data-i18n="deposit">Deposit</button>
+          </div>
+          <div class="wallet-quick">
+            <div class="wallet-quick-item">
+              <span class="wq-label">USDT</span>
+              <span class="wq-value" id="wallet-usdt">0.00</span>
+            </div>
+            <div class="wallet-quick-item">
+              <span class="wq-label" data-i18n="total_value">Est. Value</span>
+              <span class="wq-value gold" id="wallet-total">0.00</span>
+            </div>
+          </div>
+          <div class="wallet-assets" id="wallet-assets">
+            <div class="empty-hint" data-i18n="no_data">None</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 中间: 图表 -->
+      <div class="panel panel-center-stack">
+        <div class="symbol-stat" id="symbol-stat">
+          <div class="stat-main">
+            <div class="stat-symbol" id="stat-symbol">BTC/USDT</div>
+            <div class="stat-price" id="stat-price">0.00</div>
+            <div class="stat-change up" id="stat-change">+0.00%</div>
+          </div>
+          <div class="stat-details">
+            <div class="stat-row"><span data-i18n="24h_high">24h High</span><span id="stat-high">0.00</span></div>
+            <div class="stat-row"><span data-i18n="24h_low">24h Low</span><span id="stat-low">0.00</span></div>
+            <div class="stat-row"><span data-i18n="24h_vol">24h Vol</span><span id="stat-volume">0.00</span></div>
+          </div>
+          <div class="stat-interval">
+            <button class="interval-btn" data-interval="1m">1分</button>
+            <button class="interval-btn" data-interval="5m">5分</button>
+            <button class="interval-btn" data-interval="15m">15分</button>
+            <button class="interval-btn" data-interval="30m">30分</button>
+            <button class="interval-btn" data-interval="1h">1时</button>
+            <button class="interval-btn active" data-interval="4h">4时</button>
+            <button class="interval-btn" data-interval="1d">日线</button>
+            <button class="interval-btn" data-interval="1w">周线</button>
+          </div>
+        </div>
+        <div class="panel chart-panel">
+          <canvas id="price-chart"></canvas>
+          <div class="chart-loading hidden" id="chart-loading">加载中...</div>
+          <div class="chart-source" id="chart-source"></div>
+        </div>
+      </div>
+
+      <!-- 右侧: 订单簿 + 交易 -->
+      <div class="panel panel-right-stack">
+        <div class="panel orderbook-panel">
+          <div class="panel-header">
+            <span class="panel-title" data-i18n="order_book">订单簿</span>
+            <span id="ob-spread" class="ob-spread"></span>
+          </div>
+          <div class="ob-headers"><span data-i18n="price">Price(USDT)</span><span data-i18n="amount">Amount</span><span data-i18n="total">Total</span></div>
+          <div class="ob-asks" id="ob-asks"></div>
+          <div class="ob-mid" id="ob-mid">0.00</div>
+          <div class="ob-bids" id="ob-bids"></div>
+        </div>
+
+        <div class="panel trade-panel">
+          <div class="panel-header">
+            <span class="panel-title" data-i18n="place_order">下单</span>
+            <span class="pending-badge hidden" id="pending-badge">0 <span data-i18n="pending">挂单</span></span>
+          </div>
+          <div class="order-type-tabs">
+            <button class="ot-tab active" data-type="market" data-i18n="market">市价</button>
+            <button class="ot-tab" data-type="limit" data-i18n="limit">限价</button>
+            <button class="ot-tab" data-type="pending" id="pending-tab">
+              <span data-i18n="pending">挂单</span><span class="pending-count hidden" id="pending-count">0</span>
+            </button>
+          </div>
+          <div class="trade-tabs">
+            <button class="trade-tab active" data-side="buy" data-i18n="buy">Buy</button>
+            <button class="trade-tab" data-side="sell" data-i18n="sell">Sell</button>
+          </div>
+          <div class="trade-form" id="trade-form-market">
+            <div class="form-row" id="limit-price-row" style="display:none">
+              <label data-i18n="limit">Limit (USDT)</label>
+              <input type="number" id="trade-price-input" placeholder="Limit price" step="any">
+            </div>
+            <div class="form-row">
+              <label><span data-i18n="amount">Amount</span> <span class="trade-sym" id="trade-sym">BTC</span></label>
+              <input type="number" id="trade-amount" placeholder="0.00" step="any" min="0">
+              <div class="quick-btns">
+                <button class="btn btn-xs quick-pct" data-pct="25">25%</button>
+                <button class="btn btn-xs quick-pct" data-pct="50">50%</button>
+                <button class="btn btn-xs quick-pct" data-pct="75">75%</button>
+                <button class="btn btn-xs quick-pct" data-pct="100">100%</button>
+              </div>
+            </div>
+            <div class="form-row">
+              <label data-i18n="total">Total</label>
+              <div class="total-display" id="trade-total">0.00 USDT</div>
+            </div>
+            <div class="form-row">
+              <label data-i18n="fee">Fee (0.1%)</label>
+              <div class="fee-display" id="trade-fee">0.00 USDT</div>
+            </div>
+            <div id="trade-error" class="form-error"></div>
+            <button class="btn btn-buy btn-full" id="trade-btn">Buy BTC</button>
+          </div>
+          <div class="trade-info">
+            <div class="info-row"><span data-i18n="available">Available</span><span id="available-usdt">0.00</span></div>
+            <div class="info-row"><span data-i18n="holding">Holding</span><span id="holding-info">0.00</span></div>
+          </div>
+        </div>
+
+        <div class="panel pending-panel hidden" id="pending-panel">
+          <div class="panel-header">
+            <span class="panel-title" data-i18n="pending">Pending Orders</span>
+            <button class="btn btn-xs btn-outline" id="cancel-all-btn" data-i18n="cancel_all">Cancel All</button>
+          </div>
+          <div class="pending-list" id="pending-list">
+            <div class="empty-hint" data-i18n="no_data">No pending orders</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 底部面板 -->
+      <div class="panel bottom-panel">
+        <div class="panel-header">
+          <div class="bottom-tabs">
+            <button class="bottom-tab active" data-panel="orders" data-i18n="order_history">Order History</button>
+            <button class="bottom-tab" data-panel="transactions" data-i18n="tx_history">Transactions</button>
+          </div>
+        </div>
+        <div class="bottom-content">
+          <div class="bottom-table" id="orders-table">
+            <table>
+              <thead><tr><th>Time</th><th>Pair</th><th>Side</th><th>Price</th><th>Amount</th><th>Total</th><th>Type</th><th>Status</th></tr></thead>
+              <tbody id="orders-body"><tr><td colspan="8" class="empty-hint">No orders</td></tr></tbody>
+            </table>
+          </div>
+          <div class="bottom-table hidden" id="transactions-table">
+            <table>
+              <thead><tr><th>Time</th><th>Pair</th><th>Side</th><th>Price</th><th>Amount</th><th>Total</th><th>Fee</th><th>Note</th></tr></thead>
+              <tbody id="transactions-body"><tr><td colspan="8" class="empty-hint">No records</td></tr></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       充值弹窗
+  ============================================================ -->
+  <div class="modal-overlay hidden" id="deposit-modal">
+    <div class="modal-card">
+      <div class="modal-header">
+        <span id="deposit-title" data-i18n="deposit">Deposit</span>
+        <button class="modal-close" id="modal-close">&times;</button>
+      </div>
+      <!-- 步骤1 -->
+      <div class="modal-body" id="deposit-step1">
+        <div class="form-group">
+          <label data-i18n="deposit_coin">Deposit Coin</label>
+          <div class="coin-select" id="deposit-coin-select">
+            <button class="coin-option active" data-coin="USDT" data-network="TRC20">
+              <div class="coin-icon">💵</div>
+              <div class="coin-info"><span>USDT</span><small>TRC20</small></div>
+            </button>
+            <button class="coin-option" data-coin="BTC" data-network="Bitcoin">
+              <div class="coin-icon">₿</div>
+              <div class="coin-info"><span>BTC</span><small>Bitcoin</small></div>
+            </button>
+            <button class="coin-option" data-coin="ETH" data-network="ERC20">
+              <div class="coin-icon">Ξ</div>
+              <div class="coin-info"><span>ETH</span><small>ERC20</small></div>
+            </button>
+          </div>
+        </div>
+        <div class="form-group">
+          <label data-i18n="deposit_amt">Deposit Amount</label>
+          <input type="number" id="deposit-amount" placeholder="Enter amount" min="1" max="1000000" step="any">
+        </div>
+        <div class="deposit-presets">
+          <button class="btn btn-xs deposit-preset" data-amt="1000">1K</button>
+          <button class="btn btn-xs deposit-preset" data-amt="5000">5K</button>
+          <button class="btn btn-xs deposit-preset" data-amt="10000">10K</button>
+          <button class="btn btn-xs deposit-preset" data-amt="50000">50K</button>
+          <button class="btn btn-xs deposit-preset" data-amt="100000">100K</button>
+        </div>
+        <div id="deposit-error" class="form-error"></div>
+        <button class="btn btn-gold btn-full" id="deposit-next" data-i18n="deposit_next">Next</button>
+      </div>
+      <!-- 步骤2 -->
+      <div class="modal-body hidden" id="deposit-step2">
+        <div class="deposit-network-info">
+          <span>Network: </span><strong id="deposit-network">TRC20</strong>
+          <span class="network-warn">⚠ Use the correct network</span>
+        </div>
+        <div class="qr-container">
+          <canvas id="deposit-qr" width="180" height="180"></canvas>
+        </div>
+        <div class="deposit-addr-section">
+          <label data-i18n="deposit_addr">Deposit Address</label>
+          <div class="addr-box">
+            <code id="deposit-address">--</code>
+            <button class="btn btn-xs btn-outline" id="copy-addr" data-i18n="copy_addr">Copy</button>
+          </div>
+        </div>
+        <div class="deposit-amount-info">
+          Amount: <strong id="deposit-summary">0 USDT</strong>
+        </div>
+        <div id="deposit-step2-error" class="form-error"></div>
+        <button class="btn btn-gold btn-full" id="deposit-confirm" data-i18n="transfer_done">I have transferred, confirm deposit</button>
+        <button class="btn btn-outline btn-full" id="deposit-back" style="margin-top:8px" data-i18n="back">Back</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       资产页 /wallet
+  ============================================================ -->
+  <div id="page-wallet" class="page-generic hidden">
+    <div class="panel-content" style="max-width:900px;margin:40px auto;padding:0 20px">
+      <h2 style="color:var(--gold);margin-bottom:20px" data-i18n="assets">Assets</h2>
+      <div class="wallet-summary" style="display:flex;gap:16px;margin-bottom:24px">
+        <div style="flex:1;background:var(--bg3);border-radius:8px;padding:16px;text-align:center">
+          <div style="font-size:12px;color:var(--text2)" data-i18n="available">Available</div>
+          <div style="font-size:24px;font-weight:700;margin-top:4px" id="w-page-usdt">0.00</div>
+          <div style="font-size:12px;color:var(--text3)">USDT</div>
+        </div>
+        <div style="flex:1;background:var(--bg3);border-radius:8px;padding:16px;text-align:center">
+          <div style="font-size:12px;color:var(--text2)" data-i18n="total_value">Est. Value</div>
+          <div style="font-size:24px;font-weight:700;color:var(--gold);margin-top:4px" id="w-page-total">0.00</div>
+          <div style="font-size:12px;color:var(--text3)">USDT</div>
+        </div>
+      </div>
+      <table style="width:100%;border-collapse:collapse">
+        <thead><tr style="border-bottom:1px solid var(--border)">
+          <th style="padding:8px;text-align:left;font-size:11px;color:var(--text2)" data-i18n="all_pairs">Asset</th>
+          <th style="padding:8px;text-align:right;font-size:11px;color:var(--text2)" data-i18n="amount">Balance</th>
+          <th style="padding:8px;text-align:right;font-size:11px;color:var(--text2)" data-i18n="latest_price">Price</th>
+          <th style="padding:8px;text-align:right;font-size:11px;color:var(--text2)" data-i18n="total_value">Value (USDT)</th>
+        </tr></thead>
+        <tbody id="w-assets-body"><tr><td colspan="4" style="padding:24px;text-align:center;color:var(--text2)" data-i18n="no_data">No holdings</td></tr></tbody>
+      </table>
+      <button class="btn btn-gold" id="w-deposit-btn" style="margin-top:20px" data-i18n="deposit" onclick="openDeposit()">Deposit</button>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       订单页 /orders
+  ============================================================ -->
+  <div id="page-orders" class="page-generic hidden">
+    <div class="panel-content" style="max-width:1000px;margin:40px auto;padding:0 20px">
+      <h2 style="color:var(--gold);margin-bottom:20px" data-i18n="order_history">Order History</h2>
+      <table style="width:100%;border-collapse:collapse">
+        <thead><tr style="border-bottom:1px solid var(--border)">
+          <th style="padding:8px;text-align:left;font-size:11px;color:var(--text2)">Time</th>
+          <th style="padding:8px;text-align:left;font-size:11px;color:var(--text2)">Pair</th>
+          <th style="padding:8px;text-align:left;font-size:11px;color:var(--text2)">Side</th>
+          <th style="padding:8px;text-align:right;font-size:11px;color:var(--text2)">Price</th>
+          <th style="padding:8px;text-align:right;font-size:11px;color:var(--text2)">Amount</th>
+          <th style="padding:8px;text-align:right;font-size:11px;color:var(--text2)">Total</th>
+          <th style="padding:8px;text-align:left;font-size:11px;color:var(--text2)">Type</th>
+          <th style="padding:8px;text-align:left;font-size:11px;color:var(--text2)">Status</th>
+        </tr></thead>
+        <tbody id="o-orders-body"><tr><td colspan="8" style="padding:24px;text-align:center;color:var(--text2)" data-i18n="no_data">No orders</td></tr></tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       邀请页 /invite
+  ============================================================ -->
+  <div id="page-invite" class="page-generic hidden">
+    <div class="panel-content" style="max-width:700px;margin:40px auto;padding:0 20px;text-align:center">
+      <h2 style="color:var(--gold);margin-bottom:8px" data-i18n="invite_title">Invite Friends</h2>
+      <p style="color:var(--text2);font-size:13px;margin-bottom:24px" data-i18n="invite_desc">Share your invite code and earn rewards</p>
+      <div style="background:var(--bg3);border-radius:12px;padding:32px;margin-bottom:16px">
+        <div style="font-size:11px;color:var(--text2);margin-bottom:8px" data-i18n="your_invite_code">Your Invite Code</div>
+        <div style="font-size:36px;font-weight:700;letter-spacing:6px;color:var(--gold);font-family:var(--mono)" id="inv-code-display">--------</div>
+        <button class="btn btn-gold" id="inv-copy-btn" style="margin-top:16px" onclick="copyInviteCode()" data-i18n="copy_invite_link">Copy Invite Link</button>
+      </div>
+      <div style="background:var(--bg3);border-radius:8px;padding:16px">
+        <div style="font-size:13px;color:var(--text);margin-bottom:12px" data-i18n="invited_friends">Friends Invited: <strong id="inv-count">0</strong></div>
+        <table style="width:100%;border-collapse:collapse">
+          <thead><tr style="border-bottom:1px solid var(--border)">
+            <th style="padding:6px 8px;text-align:left;font-size:11px;color:var(--text2)">User</th>
+            <th style="padding:6px 8px;text-align:left;font-size:11px;color:var(--text2)">Registered</th>
+          </tr></thead>
+          <tbody id="inv-users-body"><tr><td colspan="2" style="padding:16px;text-align:center;color:var(--text2)" data-i18n="no_data">No invites yet</td></tr></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- 全局自定义提示弹窗 -->
+  <div id="global-toast" class="toast-overlay hidden">
+    <div class="toast-box">
+      <div class="toast-msg" id="toast-msg">Message</div>
+      <button class="btn btn-gold" onclick="hideToast()">OK</button>
+    </div>
+  </div>
+
+  <script src="/js/app.js"></script>
+</body>
+</html>
