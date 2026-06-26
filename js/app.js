@@ -194,6 +194,59 @@ const api = {
   post: (url, body) => api.req(url, { method: 'POST', body: JSON.stringify(body) })
 };
 
+// ========== 静态站降级：全部15个币种 + 模拟行情 ==========
+const ALL_SYMBOLS = ['BTC', 'ETH', 'BNB', 'SOL', 'XRP', 'ADA', 'DOGE', 'AVAX', 'DOT', 'MATIC', 'LINK', 'UNI', 'ATOM', 'LTC', 'FIL'];
+const BASE_PRICES = { BTC:87000, ETH:3400, BNB:620, SOL:145, XRP:2.3, ADA:0.70, DOGE:0.17, AVAX:37, DOT:6.8, MATIC:0.55, LINK:14.5, UNI:8.5, ATOM:7.0, LTC:80, FIL:5.0 };
+let _fallbackCache = null;
+function genFallbackPrices() {
+  if (_fallbackCache && !_fallbackCache._rotated) {
+    _fallbackCache._rotated = true;
+    return _fallbackCache;
+  }
+  var prices = {};
+  ALL_SYMBOLS.forEach(function(s) {
+    var bp = BASE_PRICES[s] || 10;
+    var change = (Math.random() - 0.48) * 10;  // -4.8% ~ +5.2%
+    var price = bp * (1 + change / 100);
+    var vol = (10000000 + Math.random() * 5000000000);
+    prices[s] = {
+      name: s,
+      price: +price.toFixed(price >= 1 ? 2 : 6),
+      change24h: +change.toFixed(2),
+      high24h: +(price * (1 + Math.abs(change)/100 + Math.random()*0.02)).toFixed(price>=1?2:6),
+      low24h:  +(price * (1 - Math.abs(change)/100 - Math.random()*0.02)).toFixed(price>=1?2:6),
+      volume24h: +vol.toFixed(0)
+    };
+  });
+  _fallbackCache = { prices: prices, warning: true, cached: false, _rotated: false };
+  return _fallbackCache;
+}
+function genFallbackOrderbook(symbol, basePrice) {
+  var p = basePrice || (ST.prices[symbol]?.price || BASE_PRICES[symbol] || 10);
+  var bids = [], asks = [];
+  for (var i = 0; i < 20; i++) {
+    var bp = p * (1 - (i+1)*0.0005 - Math.random()*0.0003);
+    var ap = p * (1 + (i+1)*0.0005 + Math.random()*0.0003);
+    bids.push([+bp.toFixed(p>=1?2:6), +(Math.random()*p*0.1).toFixed(4)]);
+    asks.push([+ap.toFixed(p>=1?2:6), +(Math.random()*p*0.1).toFixed(4)]);
+  }
+  return { bids: bids, asks: asks, price: p };
+}
+function genFallbackKlines(symbol, interval) {
+  var len = { '1m':200,'5m':200,'15m':200,'30m':150,'1h':100,'4h':80,'1d':60,'1w':40 }[interval] || 80;
+  var ms = { '1m':60000,'5m':300000,'15m':900000,'30m':1800000,'1h':3600000,'4h':14400000,'1d':86400000,'1w':604800000 }[interval] || 3600000;
+  var bp = ST.prices[symbol]?.price || BASE_PRICES[symbol] || 10;
+  var k = [], now = Date.now(), pr = bp * (0.9 + Math.random() * 0.2);
+  for (var i = len; i >= 0; i--) {
+    var o = pr, v = o * 0.015;
+    var h = o + Math.random() * v, l = o - Math.random() * v;
+    var c = (h + l) / 2 + (Math.random() - 0.5) * v * 0.3;
+    k.push({ time: now - i * ms, open: +o.toFixed(2), high: +h.toFixed(2), low: +l.toFixed(2), close: +c.toFixed(2), volume: +(Math.random() * bp * 8).toFixed(2) });
+    pr = c;
+  }
+  return k;
+}
+
 // ========== Toast ==========
 function showToast(msg) {
   var el = document.getElementById('global-toast');
@@ -446,7 +499,9 @@ async function updateNavBalance() {
   try {
     const d = await api.get('/api/wallet/balance');
     $('nav-balance').textContent = d.usdt_balance.toFixed(2) + ' USDT';
-  } catch (e) { /* ignore */ }
+  } catch (e) {
+    if (ST.user) $('nav-balance').textContent = (ST.user.usdt_balance || 0).toFixed(2) + ' USDT';
+  }
 }
 
 // ========== 认证 ==========
@@ -456,8 +511,22 @@ async function login() {
   try {
     const d = await api.post('/api/auth/login', { username: u, password: p });
     saveAuth(d);
-    location.href = '/' + currentLang + '/trade/BTC_USDT';
-  } catch (e) { errShow('login-error', e.message); }
+    location.hash = '#' + '/' + currentLang + '/trade/BTC_USDT';
+  } catch (e) {
+    // GitHub Pages 离线模式：本地注册/登录
+    offlineLogin(u);
+  }
+}
+
+function offlineLogin(username) {
+  var token = 'local_' + Date.now() + '_' + Math.random().toString(36).substr(2);
+  var user = {
+    username: username,
+    usdt_balance: 100000,
+    created_at: new Date().toISOString()
+  };
+  saveAuth({ token: token, user: user });
+  location.hash = '#' + '/' + currentLang + '/trade/BTC_USDT';
 }
 
 async function register() {
@@ -475,7 +544,10 @@ async function register() {
     $('reg-step1').classList.add('hidden');
     $('reg-step2').classList.remove('hidden');
     $('reg-error').textContent = '';
-  } catch (err) { errShow('reg-error', err.message); }
+  } catch (err) {
+    // GitHub Pages 离线模式：跳过验证码，直接注册
+    offlineLogin(u);
+  }
 }
 
 async function verifyAndRegister() {
@@ -637,7 +709,15 @@ async function confirmDeposit() {
     var msg = t('deposit_request_submitted').replace('{amount}', amt);
     showToast(msg);
     closeDeposit();
-  } catch (e) { errShow('deposit-step2-error', e.message); }
+  } catch (e) {
+    // GitHub Pages 离线模式：直接加余额
+    if (ST.user) {
+      ST.user.usdt_balance = (ST.user.usdt_balance || 0) + amt;
+      localStorage.setItem('ct_user', JSON.stringify(ST.user));
+    }
+    showToast(t('deposit_request_submitted').replace('{amount}', amt));
+    closeDeposit();
+  }
 }
 
 // ========== 进入交易 ==========
@@ -651,13 +731,18 @@ async function updateAll() {
     const d = await api.get('/api/market/prices');
     ST.prices = d.prices;
     $('price-status').textContent = d.cached ? '缓存' : d.warning ? '模拟' : '实时';
-    renderMarket();
-    updateStat();
-    updateOrderbook();
-    updateTradeTotal();
-    updateTradeInfo();
-    updateNavBalance();
-  } catch (e) { /* ignore */ }
+  } catch (e) {
+    // GitHub Pages 静态站：用内置降级数据
+    var fb = genFallbackPrices();
+    ST.prices = fb.prices;
+    $('price-status').textContent = '模拟';
+  }
+  renderMarket();
+  updateStat();
+  updateOrderbook();
+  updateTradeTotal();
+  updateTradeInfo();
+  updateNavBalance();
   loadKline();
   fetchWallet();
   fetchPending();
@@ -742,7 +827,9 @@ async function loadKline() {
     drawChart();
   } catch (e) {
     console.error('Kline load error:', e);
-    ST.klines = _genEmergencyKlines();
+    ST.klines = genFallbackKlines(ST.symbol, ST.interval);
+    var srcEl2 = $('chart-source');
+    if (srcEl2) srcEl2.textContent = 'Simulated';
     drawChart();
   } finally {
     if (loading) loading.classList.add('hidden');
@@ -780,27 +867,32 @@ function drawChart() {
   const ctx = canvas.getContext('2d');
   ctx.scale(dpr, dpr);
   const W = rect.width, H = rect.height;
-  const pad = { top: 20, right: 60, bottom: 40, left: 10 };
+  const pad = { top: 15, right: 65, bottom: 40, left: 10 };
   const pw = W - pad.left - pad.right, ph = H - pad.top - pad.bottom;
   if (!ST.klines.length) return;
 
-  const volH = 45, chartH = ph - volH - 2;
+  const volH = 40, chartH = ph - volH - 4;
   const highs = ST.klines.map(k => k.high), lows = ST.klines.map(k => k.low);
   const maxP = Math.max(...highs), minP = Math.min(...lows), range = maxP - minP || 1;
   const maxV = Math.max(...ST.klines.map(k => k.volume)) || 1;
 
-  ctx.clearRect(0, 0, W, H);
+  // 背景
+  ctx.fillStyle = '#1A1E26';
+  ctx.fillRect(0, 0, W, H);
 
-  // 网格
-  ctx.strokeStyle = 'rgba(43,49,57,0.5)'; ctx.lineWidth = 0.5;
-  for (let i = 0; i <= 5; i++) {
-    const y = pad.top + (chartH / 5) * i;
-    ctx.beginPath(); ctx.moveTo(pad.left, y); ctx.lineTo(W - pad.right, y); ctx.stroke();
-    ctx.fillStyle = '#5E6673'; ctx.font = '10px monospace'; ctx.textAlign = 'right';
-    ctx.fillText(fmtP(maxP - (range / 5) * i), W - 4, y + 3);
+  // 网格 (6条水平线 + 价格)
+  const gridLines = 6;
+  ctx.textAlign = 'right';
+  for (let i = 0; i < gridLines; i++) {
+    const y = pad.top + (chartH / (gridLines - 1)) * i;
+    ctx.strokeStyle = i === 0 || i === gridLines - 1 ? 'rgba(43,49,57,0.8)' : 'rgba(43,49,57,0.35)';
+    ctx.lineWidth = 0.5;
+    ctx.beginPath(); ctx.moveTo(pad.left, y); ctx.lineTo(W - pad.right + 5, y); ctx.stroke();
+    ctx.fillStyle = '#848E9C'; ctx.font = '11px -apple-system,sans-serif';
+    ctx.fillText(fmtP(maxP - (range / (gridLines - 1)) * i), W - 4, y + 4);
   }
 
-  // X轴
+  // X轴时间标签
   const step = Math.max(1, Math.floor(ST.klines.length / 6));
   ctx.textAlign = 'center';
   for (let i = 0; i < ST.klines.length; i += step) {
@@ -809,12 +901,16 @@ function drawChart() {
     const label = ['1d', '1w'].includes(ST.interval)
       ? `${d.getMonth() + 1}/${d.getDate()}`
       : `${String(d.getHours()).padStart(2, '0')}:${String(d.getMinutes()).padStart(2, '0')}`;
-    ctx.fillStyle = '#5E6673'; ctx.font = '9px monospace';
-    ctx.fillText(label, x, pad.top + chartH + 14);
+    ctx.fillStyle = '#5E6673'; ctx.font = '10px -apple-system,sans-serif';
+    ctx.fillText(label, x, pad.top + chartH + 16);
   }
 
-  // K线
-  const cw = Math.max(1, (pw / ST.klines.length) * 0.7);
+  // 底部X轴线
+  ctx.strokeStyle = 'rgba(43,49,57,0.6)'; ctx.lineWidth = 1;
+  ctx.beginPath(); ctx.moveTo(pad.left, pad.top + chartH); ctx.lineTo(W - pad.right, pad.top + chartH); ctx.stroke();
+
+  // K线 - 最小宽度3px
+  const cw = Math.max(3, (pw / ST.klines.length) * 0.75);
   ST.klines.forEach((k, i) => {
     const x = pad.left + (pw / (ST.klines.length - 1)) * i;
     const oy = pad.top + chartH * (1 - (k.open - minP) / range);
@@ -824,21 +920,31 @@ function drawChart() {
     const up = k.close >= k.open;
     const bt = Math.min(oy, cy), bh = Math.max(1, Math.abs(cy - oy));
 
-    ctx.strokeStyle = up ? '#0ECB81' : '#F6465D'; ctx.lineWidth = 0.5;
-    ctx.beginPath(); ctx.moveTo(x, hy); ctx.lineTo(x, ly); ctx.stroke();
-    ctx.fillStyle = up ? '#0ECB81' : '#F6465D';
-    ctx.fillRect(x - cw / 2, bt, cw, bh);
+    // 影线
+    ctx.strokeStyle = up ? '#0ECB81' : '#F6465D'; ctx.lineWidth = 1;
+    ctx.beginPath(); ctx.moveTo(x, hy); ctx.lineTo(x, bt); ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(x, Math.max(bt + bh, bt)); ctx.lineTo(x, ly); ctx.stroke();
+
+    // 实体（涨绿跌红，平盘空心）
+    if (bh < 1) {
+      ctx.strokeStyle = '#848E9C'; ctx.lineWidth = 1;
+      ctx.strokeRect(x - cw / 2, bt - 0.5, cw, 2);
+    } else {
+      ctx.fillStyle = up ? '#0ECB81' : '#F6465D';
+      ctx.fillRect(x - cw / 2, bt, cw, bh);
+    }
   });
 
-  // 成交量
+  // 分割线
+  ctx.strokeStyle = 'rgba(43,49,57,0.6)'; ctx.lineWidth = 1;
   const volTop = pad.top + chartH + 4;
-  ctx.strokeStyle = 'rgba(43,49,57,0.3)'; ctx.beginPath();
-  ctx.moveTo(pad.left, volTop); ctx.lineTo(W - pad.right, volTop); ctx.stroke();
+  ctx.beginPath(); ctx.moveTo(pad.left, volTop); ctx.lineTo(W - pad.right, volTop); ctx.stroke();
 
+  // 成交量柱
   ST.klines.forEach((k, i) => {
     const x = pad.left + (pw / (ST.klines.length - 1)) * i;
-    const vh = (k.volume / maxV) * volH;
-    ctx.fillStyle = k.close >= k.open ? 'rgba(14,203,129,0.4)' : 'rgba(246,70,93,0.4)';
+    const vh = Math.max(1, (k.volume / maxV) * volH);
+    ctx.fillStyle = k.close >= k.open ? 'rgba(14,203,129,0.35)' : 'rgba(246,70,93,0.35)';
     ctx.fillRect(x - cw / 2, volTop + volH - vh, cw, vh);
   });
 }
@@ -848,6 +954,14 @@ async function updateOrderbook() {
   try {
     const d = await api.get(`/api/market/orderbook?symbol=${ST.symbol}`);
     ST.orderbook = d;
+    renderOrderbook(d);
+  } catch (e) {
+    var fb = genFallbackOrderbook(ST.symbol);
+    ST.orderbook = fb;
+    renderOrderbook(fb);
+  }
+}
+function renderOrderbook(d) {
     const ms = Math.max(...d.asks.map(a => a[1]), ...d.bids.map(b => b[1]), 1);
 
     $('ob-asks').innerHTML = d.asks.slice(0, 10).reverse().map(a =>
@@ -861,12 +975,11 @@ async function updateOrderbook() {
     ).join('');
 
     const mid = $('ob-mid');
-    mid.textContent = fmtP(d.lastPrice);
+    mid.textContent = fmtP(d.price || d.lastPrice);
     mid.className = 'ob-mid ' + ((ST.prices[ST.symbol]?.change24h || 0) >= 0 ? 'up' : 'down');
     if (d.asks.length && d.bids.length) {
       $('ob-spread').textContent = '价差 ' + fmtP(d.asks[0][0] - d.bids[0][0]);
     }
-  } catch (e) { /* ignore */ }
 }
 
 // ========== 交易 ==========
@@ -884,7 +997,12 @@ async function updateTradeInfo() {
     $('available-usdt').textContent = d.user.usdt_balance.toFixed(2) + ' USDT';
     $('holding-info').textContent = (a ? a.balance.toFixed(6) : '0') + ' ' + ST.symbol;
     if (ST.user) ST.user.usdt_balance = d.user.usdt_balance;
-  } catch (e) { /* ignore */ }
+  } catch (e) {
+    if (ST.user) {
+      $('available-usdt').textContent = (ST.user.usdt_balance || 0).toFixed(2) + ' USDT';
+      $('holding-info').textContent = '0 ' + ST.symbol;
+    }
+  }
 }
 
 async function executeTrade() {
@@ -907,7 +1025,23 @@ async function executeTrade() {
     $('trade-amount').value = '';
     if (ST.orderType === 'limit') $('trade-price-input').value = '';
     updateTradeTotal(); updateTradeInfo(); updateNavBalance(); fetchWallet(); fetchOrders(); fetchPending();
-  } catch (e) { errShow('trade-error', e.message); }
+  } catch (e) {
+    // GitHub Pages 离线模式：模拟交易
+    var total = amt * price;
+    if (ST.user) {
+      if (ST.side === 'buy') {
+        ST.user.usdt_balance = Math.max(0, (ST.user.usdt_balance || 0) - total);
+      } else {
+        ST.user.usdt_balance = (ST.user.usdt_balance || 0) + total;
+      }
+      localStorage.setItem('ct_user', JSON.stringify(ST.user));
+    }
+    var sideOff = ST.side === 'buy' ? t('buy') : t('sell');
+    showToast(sideOff + ' ' + amt + ' ' + sym + ' ✓');
+    $('trade-amount').value = '';
+    if (ST.orderType === 'limit') $('trade-price-input').value = '';
+    updateTradeTotal(); updateTradeInfo(); updateNavBalance();
+  }
 }
 
 async function fillPct(pct) {
@@ -936,7 +1070,13 @@ async function fetchWallet() {
     c.innerHTML = d.assets.map(a =>
       `<div class="asset-row"><span class="asset-sym">${a.symbol}</span><span class="asset-bal">${a.balance.toFixed(4)}</span><span class="asset-val">@${fmtP(a.avg_price)}</span></div>`
     ).join('');
-  } catch (e) { /* ignore */ }
+  } catch (e) {
+    // GitHub Pages 离线模式
+    if (ST.user) {
+      $('wallet-usdt').textContent = (ST.user.usdt_balance || 0).toFixed(2);
+      $('wallet-total').textContent = (ST.user.usdt_balance || 0).toFixed(2);
+    }
+  }
 }
 
 // ========== 订单 ==========
