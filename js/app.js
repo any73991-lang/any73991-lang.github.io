@@ -194,10 +194,162 @@ const api = {
   post: (url, body) => api.req(url, { method: 'POST', body: JSON.stringify(body) })
 };
 
-// ========== 静态站降级：全部15个币种 + 模拟行情 ==========
+// ========== 币安 API 实时数据 ==========
 const ALL_SYMBOLS = ['BTC', 'ETH', 'BNB', 'SOL', 'XRP', 'ADA', 'DOGE', 'AVAX', 'DOT', 'MATIC', 'LINK', 'UNI', 'ATOM', 'LTC', 'FIL'];
 const BASE_PRICES = { BTC:87000, ETH:3400, BNB:620, SOL:145, XRP:2.3, ADA:0.70, DOGE:0.17, AVAX:37, DOT:6.8, MATIC:0.55, LINK:14.5, UNI:8.5, ATOM:7.0, LTC:80, FIL:5.0 };
 let _fallbackCache = null;
+let _binanceOnline = false;
+
+// 缓存币安限流: 短时间内同一endpoint不重复请求
+var _bCache = {};
+function _bGet(url, ttl) {
+  var now = Date.now();
+  var e = _bCache[url];
+  if (e && (now - e.ts) < (ttl || 2000)) return Promise.resolve(e.data);
+  return fetch(url).then(function(r) {
+    if (!r.ok) throw new Error('HTTP ' + r.status + ' ' + r.statusText);
+    return r.json();
+  }).then(function(d) {
+    _bCache[url] = { data: d, ts: now };
+    _binanceOnline = true;
+    return d;
+  });
+}
+
+// 从币安获取全部24h行情
+function fetchBinancePrices() {
+  return _bGet('https://api.binance.com/api/v3/ticker/24hr', 3000).then(function(data) {
+    if (!Array.isArray(data)) throw new Error('Invalid response');
+    var prices = {};
+    ALL_SYMBOLS.forEach(function(s) {
+      var sym = s + 'USDT';
+      var t = data.find(function(x) { return x.symbol === sym; });
+      if (t) {
+        var p = parseFloat(t.lastPrice);
+        prices[s] = {
+          name: s,
+          price: p,
+          change24h: parseFloat(t.priceChangePercent),
+          high24h: parseFloat(t.highPrice),
+          low24h: parseFloat(t.lowPrice),
+          volume24h: parseFloat(t.volume)
+        };
+      }
+    });
+    return { prices: prices, source: 'Binance' };
+  }).catch(function(e) {
+    console.warn('Binance 24hr failed:', e.message);
+    _binanceOnline = false;
+    throw e;
+  });
+}
+
+// 从币安获取K线
+function fetchBinanceKlines(symbol, interval) {
+  var sym = symbol + 'USDT';
+  var limit = { '1m':200,'5m':200,'15m':200,'30m':150,'1h':100,'4h':80,'1d':60,'1w':40 }[interval] || 100;
+  var url = 'https://api.binance.com/api/v3/klines?symbol=' + sym + '&interval=' + interval + '&limit=' + limit;
+  return _bGet(url, 2000).then(function(data) {
+    if (!Array.isArray(data)) throw new Error('Invalid kline response');
+    return data.map(function(k) {
+      return {
+        time: k[0],
+        open: parseFloat(k[1]),
+        high: parseFloat(k[2]),
+        low: parseFloat(k[3]),
+        close: parseFloat(k[4]),
+        volume: parseFloat(k[5])
+      };
+    });
+  });
+}
+
+// 从币安获取深度
+function fetchBinanceDepth(symbol) {
+  var sym = symbol + 'USDT';
+  return _bGet('https://api.binance.com/api/v3/depth?symbol=' + sym + '&limit=20', 2000).then(function(d) {
+    var bids = d.bids.slice(0, 20).map(function(b) { return [parseFloat(b[0]), parseFloat(b[1])]; });
+    var asks = d.asks.slice(0, 20).map(function(a) { return [parseFloat(a[0]), parseFloat(a[1])]; });
+    return { bids: bids, asks: asks, price: parseFloat(d.asks[0][0]), source: 'Binance' };
+  });
+}
+
+// ========== CoinGecko K线备源 (完全支持CORS) ==========
+var _cgIds = { BTC:'bitcoin', ETH:'ethereum', BNB:'binancecoin', SOL:'solana', XRP:'ripple', ADA:'cardano', DOGE:'dogecoin', AVAX:'avalanche-2', DOT:'polkadot', MATIC:'matic-network', LINK:'chainlink', UNI:'uniswap', ATOM:'cosmos', LTC:'litecoin', FIL:'filecoin' };
+// days→interval映射: 返回的K线原始粒度
+var _cgIntToDays = { '1m':1, '5m':1, '15m':1, '30m':2, '1h':7, '4h':30, '1d':90, '1w':365 };
+var _cgRawInterval = { '1m':'minutely','5m':'5minute','15m':'hourly','30m':'hourly','1h':'hourly','4h':'hourly','1d':'daily','1w':'weekly' };
+var _cgCache = {};
+
+function fetchCoinGeckoKlines(symbol, interval) {
+  var cgId = _cgIds[symbol];
+  if (!cgId) return Promise.reject(new Error('Unknown symbol'));
+  var days = _cgIntToDays[interval] || 7;
+  var rawInt = _cgRawInterval[interval] || 'hourly';
+
+  // CoinGecko OHLC 返回 [timestamp, open, high, low, close]
+  var url = 'https://api.coingecko.com/api/v3/coins/' + cgId + '/market_chart?vs_currency=usd&days=' + days;
+
+  // 缓存Key
+  var ck = url;
+  var now = Date.now();
+  var ce = _cgCache[ck];
+  if (ce && (now - ce.ts) < 15000) return Promise.resolve(ce.data);
+
+  return fetch(url).then(function(r) {
+    if (!r.ok) throw new Error('CoinGecko HTTP ' + r.status);
+    return r.json();
+  }).then(function(data) {
+    if (!data.prices || !data.prices.length) throw new Error('No price data');
+    // 将prices转换为OHLC-like数据
+    var klines = [];
+    var prices = data.prices;
+    var total_volumes = data.total_volumes || [];
+    var STEP = prices.length > 500 ? Math.ceil(prices.length / 200) : 1;
+
+    for (var i = 0; i < prices.length; i += STEP) {
+      var slice = prices.slice(i, Math.min(i + STEP, prices.length));
+      var opens = slice[0];
+      var close = slice[slice.length - 1];
+      var high = slice.reduce(function(a, b) { return b[1] > a ? b[1] : a; }, slice[0][1]);
+      var low = slice.reduce(function(a, b) { return b[1] < a ? b[1] : a; }, slice[0][1]);
+      var vol = total_volumes.length ? (total_volumes[Math.min(i + STEP - 1, total_volumes.length - 1)] || [0,0])[1] || 0 : 0;
+      klines.push({
+        time: opens[0],
+        open: +opens[1].toFixed(6),
+        high: +high.toFixed(6),
+        low: +low.toFixed(6),
+        close: +close[1].toFixed(6),
+        volume: +vol.toFixed(2)
+      });
+    }
+    // 只保留最近200根
+    if (klines.length > 200) klines = klines.slice(-200);
+    _cgCache[ck] = { data: klines, ts: now };
+    return klines;
+  });
+}
+
+// ========== 统一K线获取 (币安 → CoinGecko → 模拟) ==========
+function getKlines(symbol, interval) {
+  return fetchBinanceKlines(symbol, interval).then(function(data) {
+    var st = document.getElementById('chart-source');
+    if (st) st.textContent = 'Binance';
+    return data;
+  }).catch(function() {
+    return fetchCoinGeckoKlines(symbol, interval).then(function(data) {
+      var st = document.getElementById('chart-source');
+      if (st) st.textContent = 'CoinGecko';
+      return data;
+    });
+  }).catch(function() {
+    var st = document.getElementById('chart-source');
+    if (st) st.textContent = 'Simulated';
+    return genFallbackKlines(symbol, interval);
+  });
+}
+
+// ========== 降级模拟行情 ==========
 function genFallbackPrices() {
   if (_fallbackCache && !_fallbackCache._rotated) {
     _fallbackCache._rotated = true;
@@ -206,7 +358,7 @@ function genFallbackPrices() {
   var prices = {};
   ALL_SYMBOLS.forEach(function(s) {
     var bp = BASE_PRICES[s] || 10;
-    var change = (Math.random() - 0.48) * 10;  // -4.8% ~ +5.2%
+    var change = (Math.random() - 0.48) * 10;
     var price = bp * (1 + change / 100);
     var vol = (10000000 + Math.random() * 5000000000);
     prices[s] = {
@@ -827,15 +979,18 @@ function enterTrade() {
 }
 
 async function updateAll() {
+  // 优先从币安获取实时行情
   try {
-    const d = await api.get('/api/market/prices');
+    const d = await fetchBinancePrices();
     ST.prices = d.prices;
-    $('price-status').textContent = d.cached ? '缓存' : d.warning ? '模拟' : '实时';
+    $('price-status').textContent = '实时';
+    $('price-status').style.color = '#0ECB81';
   } catch (e) {
-    // GitHub Pages 静态站：用内置降级数据
+    // 降级：用模拟数据
     var fb = genFallbackPrices();
     ST.prices = fb.prices;
     $('price-status').textContent = '模拟';
+    $('price-status').style.color = '#F0B90B';
   }
   renderMarket();
   updateStat();
@@ -920,10 +1075,7 @@ async function loadKline() {
   const loading = $('chart-loading');
   if (loading) loading.classList.remove('hidden');
   try {
-    const d = await api.get(`/api/market/kline?symbol=${ST.symbol}&interval=${ST.interval}`);
-    ST.klines = d.klines;
-    const srcEl = $('chart-source');
-    if (srcEl) srcEl.textContent = d.source === 'binance' ? 'Binance' : 'Simulated';
+    ST.klines = await getKlines(ST.symbol, ST.interval);
     drawChart();
   } catch (e) {
     console.error('Kline load error:', e);
@@ -1044,7 +1196,7 @@ function drawChart() {
 // ========== 订单簿 ==========
 async function updateOrderbook() {
   try {
-    const d = await api.get(`/api/market/orderbook?symbol=${ST.symbol}`);
+    var d = await fetchBinanceDepth(ST.symbol);
     ST.orderbook = d;
     renderOrderbook(d);
   } catch (e) {
