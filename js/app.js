@@ -208,7 +208,7 @@ const FEE = 0.001;
 
 // ========== API ==========
 const API_BASE = location.hostname === 'any73991-lang.github.io'
-  ? 'https://c7d9ba38c28143a68ea435db424353c3.codebuddy.cloudstudio.run'
+  ? 'https://0d38265c0bea408098ab6351f6752aea.codebuddy.cloudstudio.run'
   : '';
 const api = {
   async req(url, opts = {}) {
@@ -457,8 +457,11 @@ function copyInviteCode() {
 function updateNavAuth(loggedIn) {
   $('nav-guest').classList.toggle('hidden', loggedIn);
   $('nav-user').classList.toggle('hidden', !loggedIn);
-  // 控制所有充值按钮：仅登录用户可见
-  $$('.auth-only').forEach(function(el) { el.style.display = loggedIn ? '' : 'none'; });
+  // 控制所有需要登录的元素：仅登录且 user 信息就绪后显示
+  $$('.auth-only').forEach(function(el) {
+    if (loggedIn && ST.user) el.classList.add('auth-shown');
+    else el.classList.remove('auth-shown');
+  });
   if (loggedIn && ST.user) {
     $('nav-username').textContent = ST.user.username;
     $('nav-user-avatar').textContent = ST.user.username[0].toUpperCase();
@@ -604,8 +607,13 @@ function drawQR(text) {
 let depositCoin = 'USDT', depositNetwork = 'TRC20';
 
 function openDeposit() {
-  // 未登录则跳转登录页
-  if (!ST.token) { location.href = '/' + currentLang + '/login?redirect=' + encodeURIComponent(location.pathname); return; }
+  // 双重检查：必须有 token 且已通过后端验证
+  if (!ST.token || !ST.user) {
+    ST.token = null; ST.user = null;
+    localStorage.removeItem('ct_token'); localStorage.removeItem('ct_user');
+    location.href = '/' + currentLang + '/login?redirect=' + encodeURIComponent(location.pathname);
+    return;
+  }
   $('deposit-modal').classList.remove('hidden');
   $('deposit-step1').classList.remove('hidden');
   $('deposit-step2').classList.add('hidden');
