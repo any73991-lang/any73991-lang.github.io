@@ -784,6 +784,13 @@ function closeDeposit() {
 }
 
 function showDepositStep2() {
+  // 必须登录
+  if (!ST.token || !ST.authVerified || !ST.user) {
+    ST.token = null; ST.user = null; ST.authVerified = false;
+    localStorage.removeItem('ct_token'); localStorage.removeItem('ct_user');
+    location.href = '/' + currentLang + '/login';
+    return;
+  }
   const amt = parseFloat($('deposit-amount').value);
   if (!amt || amt <= 0) return errShow('deposit-error', '请输入有效金额');
 
@@ -818,6 +825,13 @@ function copyAddress() {
 }
 
 async function confirmDeposit() {
+  // 必须登录才能充值
+  if (!ST.token || !ST.authVerified || !ST.user) {
+    ST.token = null; ST.user = null; ST.authVerified = false;
+    localStorage.removeItem('ct_token'); localStorage.removeItem('ct_user');
+    location.href = '/' + currentLang + '/login';
+    return;
+  }
   const amt = parseFloat($('deposit-amount').value);
   if (!amt || amt <= 0) return errShow('deposit-step2-error', '金额无效');
 
