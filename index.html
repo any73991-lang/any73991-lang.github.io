@@ -240,7 +240,7 @@
         <div class="panel wallet-panel">
           <div class="panel-header">
             <span class="panel-title" data-i18n="assets">Assets</span>
-            <button class="btn btn-xs btn-gold-outline" id="quick-deposit-btn" data-i18n="deposit" style="display:none">Deposit</button>
+            <button class="btn btn-xs btn-gold-outline auth-only" id="quick-deposit-btn" data-i18n="deposit" style="display:none">Deposit</button>
           </div>
           <div class="wallet-quick">
             <div class="wallet-quick-item">
@@ -482,7 +482,7 @@
         </tr></thead>
         <tbody id="w-assets-body"><tr><td colspan="4" style="padding:24px;text-align:center;color:var(--text2)" data-i18n="no_data">No holdings</td></tr></tbody>
       </table>
-      <button class="btn btn-gold" id="w-deposit-btn" style="margin-top:20px" data-i18n="deposit" onclick="openDeposit()">Deposit</button>
+      <button class="btn btn-gold auth-only" id="w-deposit-btn" style="margin-top:20px;display:none" data-i18n="deposit" onclick="openDeposit()">Deposit</button>
     </div>
   </div>
 

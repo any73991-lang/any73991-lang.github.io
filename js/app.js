@@ -457,6 +457,8 @@ function copyInviteCode() {
 function updateNavAuth(loggedIn) {
   $('nav-guest').classList.toggle('hidden', loggedIn);
   $('nav-user').classList.toggle('hidden', !loggedIn);
+  // 控制所有充值按钮：仅登录用户可见
+  $$('.auth-only').forEach(function(el) { el.style.display = loggedIn ? '' : 'none'; });
   if (loggedIn && ST.user) {
     $('nav-username').textContent = ST.user.username;
     $('nav-user-avatar').textContent = ST.user.username[0].toUpperCase();
@@ -673,9 +675,6 @@ async function confirmDeposit() {
 
 // ========== 进入交易 ==========
 function enterTrade() {
-  // 控制充值按钮：仅登录用户可见
-  const btn = $('quick-deposit-btn');
-  if (btn) btn.style.display = ST.token ? '' : 'none';
   ST.timers.push(setInterval(updateAll, 8000));
   updateAll();
 }
