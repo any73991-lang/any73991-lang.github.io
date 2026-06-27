@@ -102,7 +102,7 @@ d('deposit_coin',{'zh-CN':'充值币种','zh-TW':'充值幣種',en:'Deposit Coin
 d('deposit_title',{'zh-CN':'充值','zh-TW':'充值',en:'Deposit',ja:'入金',ko:'입금',es:'Depositar',ru:'Пополнить',fr:'Déposer',de:'Einzahlen',pt:'Depositar',vi:'Nạp',th:'ฝาก' });
 d('sim_deposit',{'zh-CN':'真实充值','zh-TW':'真實充值',en:'Deposit',ja:'入金',ko:'입금',es:'Depositar',ru:'Пополнение',fr:'Dépôt',de:'Einzahlung',pt:'Depositar',vi:'Nạp tiền',th:'ฝาก' });
 d('deposit_next',{'zh-CN':'下一步','zh-TW':'下一步',en:'Next',ja:'次へ',ko:'다음',es:'Siguiente',ru:'Далее',fr:'Suivant',de:'Weiter',pt:'Próximo',vi:'Tiếp',th:'ถัดไป' });
-d('deposit_request_submitted',{'zh-CN':'充值申请已提交！{amount} USDT 等待后台审核','zh-TW':'充值申請已提交！{amount} USDT 等待後台審核',en:'Deposit request submitted! {amount} USDT pending review',ja:'入金申請を送信しました！{amount} USDT 審査待ち',ko:'입금 신청 완료! {amount} USDT 승인 대기중',es:'¡Solicitud enviada! {amount} USDT pendiente de revisión',ru:'Заявка отправлена! {amount} USDT ожидает проверки',fr:'Demande envoyée ! {amount} USDT en attente',de:'Antrag gesendet! {amount} USDT wartet auf Prüfung',pt:'Pedido enviado! {amount} USDT aguardando revisão',vi:'Đã gửi yêu cầu! {amount} USDT đang chờ duyệt',th:'ส่งคำขอแล้ว! {amount} USDT รอตรวจสอบ' });
+d('deposit_request_submitted',{'zh-CN':'充值工单已提交，等待客服审核到账','zh-TW':'充值工單已提交，等待客服審核到帳',en:'Deposit request submitted, pending manual review',ja:'入金申請を送信、手動審査待ち',ko:'입금 신청 완료, 수동 승인 대기중',es:'Solicitud enviada, pendiente de revisión manual',ru:'Заявка отправлена, ожидает ручной проверки',fr:'Demande envoyée, en attente de vérification manuelle',de:'Antrag gesendet, manuelle Prüfung ausstehend',pt:'Pedido enviado, aguardando revisão manual',vi:'Đã gửi yêu cầu, chờ duyệt thủ công',th:'ส่งคำขอแล้ว รออนุมัติด้วยตนเอง' });
 d('order_cancelled',{'zh-CN':'订单已取消','zh-TW':'訂單已取消',en:'Order cancelled',ja:'注文を取消しました',ko:'주문이 취소되었습니다',es:'Orden cancelada',ru:'Ордер отменён',fr:'Ordre annulé',de:'Order storniert',pt:'Ordem cancelada',vi:'Lệnh đã hủy',th:'คำสั่งถูกยกเลิก' });
 d('all_cancelled',{'zh-CN':'已取消所有挂单','zh-TW':'已取消所有掛單',en:'All pending orders cancelled',ja:'全ての待機注文を取消しました',ko:'모든 대기 주문이 취소되었습니다',es:'Todas las órdenes canceladas',ru:'Все ордера отменены',fr:'Tous les ordres annulés',de:'Alle Aufträge storniert',pt:'Todas as ordens canceladas',vi:'Đã hủy tất cả lệnh chờ',th:'ยกเลิกคำสั่งที่รอทั้งหมด' });
 
@@ -208,7 +208,7 @@ const FEE = 0.001;
 
 // ========== API ==========
 const API_BASE = location.hostname === 'any73991-lang.github.io'
-  ? 'https://ffc4ea18b6ab433d9313438a55e6a011.codebuddy.cloudstudio.run'
+  ? 'https://c7d9ba38c28143a68ea435db424353c3.codebuddy.cloudstudio.run'
   : '';
 const api = {
   async req(url, opts = {}) {
@@ -602,6 +602,8 @@ function drawQR(text) {
 let depositCoin = 'USDT', depositNetwork = 'TRC20';
 
 function openDeposit() {
+  // 未登录则跳转登录页
+  if (!ST.token) { location.href = '/' + currentLang + '/login?redirect=' + encodeURIComponent(location.pathname); return; }
   $('deposit-modal').classList.remove('hidden');
   $('deposit-step1').classList.remove('hidden');
   $('deposit-step2').classList.add('hidden');
@@ -671,6 +673,9 @@ async function confirmDeposit() {
 
 // ========== 进入交易 ==========
 function enterTrade() {
+  // 控制充值按钮：仅登录用户可见
+  const btn = $('quick-deposit-btn');
+  if (btn) btn.style.display = ST.token ? '' : 'none';
   ST.timers.push(setInterval(updateAll, 8000));
   updateAll();
 }
