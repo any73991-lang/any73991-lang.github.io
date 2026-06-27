@@ -132,6 +132,39 @@ d('c2c_no_ads',   {'zh-CN':'暂无C2C广告','en':'No C2C ads available',ja:'広
 d('c2c_enter_amount',{'zh-CN':'请输入交易数量','en':'Enter trade amount',ja:'数量を入力',ko:'거래 수량 입력'});
 d('c2c_take_confirm',{'zh-CN':'确认购买 {amt} {coin} @ {price} CNY？','en':'Buy {amt} {coin} @ {price} CNY?',ja:'{amt} {coin} @ {price} CNY 購入？',ko:'{amt} {coin} @ {price} CNY 구매？'});
 
+// ====== 新功能翻译 ======
+d('withdraw',      {'zh-CN':'提现','en':'Withdraw',ja:'出金',ko:'출금'});
+d('withdraw_coin', {'zh-CN':'选择币种','en':'Select Coin',ja:'通貨選択',ko:'코인 선택'});
+d('withdraw_addr', {'zh-CN':'提现地址','en':'Withdraw Address',ja:'出金アドレス',ko:'출금 주소'});
+d('withdraw_memo', {'zh-CN':'备注/Memo','en':'Memo/Tag',ja:'メモ',ko:'메모'});
+d('withdraw_amount',{'zh-CN':'提现金额','en':'Amount',ja:'金額',ko:'금액'});
+d('withdraw_network',{'zh-CN':'网络','en':'Network',ja:'ネットワーク',ko:'네트워크'});
+d('withdraw_fee_label',{'zh-CN':'手续费','en':'Fee',ja:'手数料',ko:'수수료'});
+d('withdraw_receive',{'zh-CN':'实际到账','en':'You receive',ja:'受取額',ko:'수령액'});
+d('withdraw_confirm',{'zh-CN':'确认提现','en':'Confirm Withdrawal',ja:'出金確認',ko:'출금 확인'});
+d('withdraw_history',{'zh-CN':'提现记录','en':'Withdraw History',ja:'出金履歴',ko:'출금 내역'});
+d('stop_limit',    {'zh-CN':'止损限价','en':'Stop-Limit',ja:'ストップ指値',ko:'스탑 지정가'});
+d('stop_price',    {'zh-CN':'触发价(USDT)','en':'Trigger Price (USDT)',ja:'トリガー価格',ko:'트리거 가격'});
+d('settings',      {'zh-CN':'设置','en':'Settings',ja:'設定',ko:'설정'});
+d('profile_settings',{'zh-CN':'个人资料','en':'Profile',ja:'プロフィール',ko:'프로필'});
+d('change_pwd',    {'zh-CN':'修改密码','en':'Change Password',ja:'パスワード変更',ko:'비밀번호 변경'});
+d('old_pwd',       {'zh-CN':'当前密码','en':'Current Password',ja:'現在のパスワード',ko:'현재 비밀번호'});
+d('new_pwd',       {'zh-CN':'新密码','en':'New Password',ja:'新しいパスワード',ko:'새 비밀번호'});
+d('save',          {'zh-CN':'保存','en':'Save',ja:'保存',ko:'저장'});
+d('phone',         {'zh-CN':'手机号','en':'Phone',ja:'電話番号',ko:'전화번호'});
+d('lang_pref',     {'zh-CN':'语言偏好','en':'Language',ja:'言語',ko:'언어'});
+d('level',         {'zh-CN':'等级','en':'Level',ja:'レベル',ko:'레벨'});
+d('forgot_pwd',    {'zh-CN':'忘记密码','en':'Forgot Password?',ja:'パスワードをお忘れ？',ko:'비밀번호 찾기'});
+d('send_reset_code',{'zh-CN':'发送重置验证码','en':'Send Reset Code',ja:'リセットコード送信',ko:'재설정 코드 전송'});
+d('reset_pwd',     {'zh-CN':'重置密码','en':'Reset Password',ja:'パスワードリセット',ko:'비밀번호 재설정'});
+d('remembered_pwd',{'zh-CN':'想起来了？','en':'Remembered?',ja:'思い出した？',ko:'기억나셨나요?'});
+d('review',        {'zh-CN':'评价','en':'Review',ja:'レビュー',ko:'리뷰'});
+d('reviews',       {'zh-CN':'条评价','en':'reviews',ja:'レビュー',ko:'리뷰'});
+d('submit_review', {'zh-CN':'提交评价','en':'Submit Review',ja:'レビュー提出',ko:'리뷰 제출'});
+d('your_rating',   {'zh-CN':'您的评分','en':'Your Rating',ja:'評価',ko:'평점'});
+d('review_comment',{'zh-CN':'评价内容(可选)','en':'Comment (optional)',ja:'コメント（任意）',ko:'코멘트 (선택)'});
+d('c2c_submit_review',{'zh-CN':'提交评价','en':'Submit Review',ja:'レビュー提出',ko:'리뷰 제출'});
+
 window.t = function(key) {
   const entry = DICT[key];
   if (!entry) return key;
@@ -209,7 +242,7 @@ const FEE = 0.001;
 
 // ========== API ==========
 const API_BASE = location.hostname === 'any73991-lang.github.io'
-  ? 'https://fd5407678928422288ef14634818f337.codebuddy.cloudstudio.run'
+  ? 'https://944f463f7d064c1dab371f1e312eb203.codebuddy.cloudstudio.run'
   : '';
 const api = {
   async req(url, opts = {}) {
@@ -296,6 +329,8 @@ function route() {
   if (restPath === '/orders') { showOrders(); applyLang(); return; }
   if (restPath === '/invite') { showInvite(); applyLang(); return; }
   if (restPath === '/c2c' || restPath.startsWith('/c2c')) { showC2C(); applyLang(); return; }
+  if (restPath === '/settings') { showSettingsPage(); applyLang(); return; }
+  if (restPath === '/forgot') { showForgotPassword(); applyLang(); return; }
 
 
   // 默认 → 当前语言交易页
@@ -393,6 +428,8 @@ async function loadWalletPage() {
     $('w-assets-body').innerHTML = rows;
     $('w-page-total').textContent = total.toFixed(2);
     $('w-deposit-btn').onclick = openDeposit;
+    $('w-withdraw-btn').onclick = openWithdraw;
+    loadWithdrawHistory();
   } catch(e){ console.error(e); }
 }
 
@@ -453,6 +490,54 @@ function copyInviteCode() {
   }).catch(function(){
     showToast(t('copy_failed'));
   });
+}
+
+// ========== 设置页 ==========
+function showSettingsPage() {
+  if (!ST.token) { location.replace('/' + currentLang + '/login'); return; }
+  $$('.page-auth,.page-trade,.page-generic,.page-c2c').forEach(function(p){ p.classList.add('hidden'); });
+  $('page-settings').classList.remove('hidden');
+  updateNavAuth(true); highlightNav('');
+  document.title = t('settings') + ' | CoinUSDT C2C';
+  loadSettings(); setTimeout(function(){ applyLang(); }, 100);
+}
+async function loadSettings() {
+  try {
+    var d = await api.get('/api/auth/settings');
+    var s = d.settings;
+    $('set-username').value = s.username;
+    $('set-email').value = s.email || '未绑定';
+    $('set-phone').value = s.phone || '';
+    $('set-lang').value = s.language_pref || currentLang;
+    $('set-vip-info').innerHTML = 'VIP ' + (s.vip_level || 0) + ' | 2FA: ' + (s.two_fa_enabled ? '<span style="color:var(--green)">Enabled</span>' : 'Disabled') + ' | 邀请码: ' + s.invite_code;
+  } catch(e){}
+}
+async function saveProfile() {
+  var phone = $('set-phone').value.trim(), lang = $('set-lang').value;
+  try { await api.post('/api/auth/update-profile', { phone: phone, language: lang }); showToast(t('save') + ' ✓'); }
+  catch(e) { errShow('set-profile-error', e.message); }
+}
+async function changePassword() {
+  var oldPw = $('set-old-pw').value, newPw = $('set-new-pw').value;
+  if (!oldPw || !newPw) return errShow('set-pwd-error', t('fill_all_fields'));
+  if (newPw.length < 6) return errShow('set-pwd-error', t('password_too_short'));
+  try {
+    var d = await api.post('/api/auth/change-password', { old_password: oldPw, new_password: newPw });
+    showToast(d.message); $('set-old-pw').value = ''; $('set-new-pw').value = '';
+    setTimeout(function(){ logout(); }, 2000);
+  } catch(e) { errShow('set-pwd-error', e.message); }
+}
+
+// ========== C2C 评价 ==========
+async function submitReviewModal(orderId) {
+  var rating = parseInt(prompt(t('your_rating') + ' (1-5):', '5'));
+  if (!rating || rating < 1 || rating > 5) return;
+  var comment = prompt(t('review_comment'), '');
+  if (comment === null) return;
+  try {
+    await api.post('/api/c2c/orders/' + orderId + '/review', { rating: rating, comment: comment || '' });
+    showToast(t('c2c_submit_review') + ' ✓');
+  } catch(e) { showToast(e.message); }
 }
 
 function updateNavAuth(loggedIn) {
@@ -523,6 +608,54 @@ async function verifyAndRegister() {
     location.href = '/' + currentLang + '/trade/BTC_USDT';
   } catch (err) { errShow('reg-error2', err.message); }
 }
+
+// ====== 忘记密码 ======
+function showForgotPassword() {
+  $$('.page-auth,.page-trade,.page-c2c,.page-generic').forEach(p => p.classList.add('hidden'));
+  $('page-forgot').classList.remove('hidden');
+  updateNavAuth(false);
+  $('forgot-step1').classList.remove('hidden');
+  $('forgot-step2').classList.add('hidden');
+  $('forgot-email').value = '';
+  $('forgot-code').value = '';
+  $('forgot-new-pw').value = '';
+  $('forgot-error').textContent = '';
+  $('forgot-error2').textContent = '';
+  document.title = t('forgot_pwd') + ' | CoinUSDT C2C';
+  applyLang();
+}
+
+async function sendResetCode() {
+  var email = $('forgot-email').value.trim();
+  if (!email || !email.includes('@')) return errShow('forgot-error', t('invalid_email'));
+  try {
+    var d = await api.post('/api/auth/forgot-password', { email: email });
+    showToast(d.message);
+    $('forgot-step1').classList.add('hidden');
+    $('forgot-step2').classList.remove('hidden');
+  } catch(e) { errShow('forgot-error', e.message); }
+}
+
+async function resetPassword() {
+  var code = $('forgot-code').value.trim();
+  var pw = $('forgot-new-pw').value;
+  var email = $('forgot-email').value.trim();
+  if (!code || !pw) return errShow('forgot-error2', t('fill_all_fields'));
+  if (pw.length < 6) return errShow('forgot-error2', t('password_too_short'));
+  try {
+    var d = await api.post('/api/auth/reset-password', { email: email, code: code, password: pw });
+    showToast(d.message);
+    setTimeout(function(){ location.href = '/' + currentLang + '/login'; }, 1500);
+  } catch(e) { errShow('forgot-error2', e.message); }
+}
+
+function forgotBackStep1() {
+  $('forgot-step2').classList.add('hidden');
+  $('forgot-step1').classList.remove('hidden');
+  $('forgot-code').value = '';
+  $('forgot-error2').textContent = '';
+}
+
 
 function backToRegStep1() {
   $('reg-step2').classList.add('hidden');
@@ -682,6 +815,83 @@ async function confirmDeposit() {
     showToast(msg);
     closeDeposit();
   } catch (e) { errShow('deposit-step2-error', e.message); }
+}
+
+// ========== 提现流程 ==========
+let withdrawCoin = 'USDT', withdrawNetwork = 'TRC20';
+const WITHDRAW_FEES = { USDT: 1, BTC: 0.0005, ETH: 0.005 };
+const MIN_WITHDRAW = { USDT: 10, BTC: 0.001, ETH: 0.01 };
+
+function openWithdraw() {
+  if (!ST.token || !ST.authVerified || !ST.user) {
+    ST.token = null; ST.user = null; ST.authVerified = false;
+    localStorage.removeItem('ct_token'); localStorage.removeItem('ct_user');
+    location.href = '/' + currentLang + '/login';
+    return;
+  }
+  $('withdraw-modal').classList.remove('hidden');
+  $('withdraw-address').value = '';
+  $('withdraw-amount').value = '';
+  $('withdraw-memo').value = '';
+  $('withdraw-error').textContent = '';
+  withdrawCoin = 'USDT'; withdrawNetwork = 'TRC20';
+  updateWithdrawInfo();
+  $$('#withdraw-coin-select .coin-option').forEach(function(o){ o.classList.toggle('active', o.dataset.coin === 'USDT'); });
+}
+
+function updateWithdrawInfo() {
+  var amt = parseFloat($('withdraw-amount').value) || 0;
+  var fee = WITHDRAW_FEES[withdrawCoin] || 1;
+  var actual = Math.max(0, amt - fee);
+  $('wd-network').textContent = withdrawNetwork;
+  $('wd-fee').textContent = fee + ' ' + withdrawCoin;
+  $('wd-actual').textContent = actual.toFixed(6) + ' ' + withdrawCoin;
+}
+
+function closeWithdraw() {
+  $('withdraw-modal').classList.add('hidden');
+}
+
+async function submitWithdraw() {
+  var addr = $('withdraw-address').value.trim();
+  var amt = parseFloat($('withdraw-amount').value);
+  var memo = $('withdraw-memo').value.trim();
+
+  if (!addr) return errShow('withdraw-error', '请输入提现地址');
+  if (!amt || amt <= 0) return errShow('withdraw-error', '请输入有效金额');
+  var minW = MIN_WITHDRAW[withdrawCoin] || 10;
+  if (amt < minW) return errShow('withdraw-error', withdrawCoin + ' 最小提现 ' + minW);
+  if (addr.length < 20) return errShow('withdraw-error', '提现地址格式无效');
+
+  try {
+    var d = await api.post('/api/wallet/withdraw', {
+      coin: withdrawCoin, network: withdrawNetwork,
+      amount: amt, address: addr, memo: memo
+    });
+    showToast(d.message);
+    closeWithdraw();
+    updateNavBalance();
+  } catch(e) { errShow('withdraw-error', e.message); }
+}
+
+async function loadWithdrawHistory() {
+  try {
+    var d = await api.get('/api/wallet/withdraw-history');
+    var rows = '';
+    (d.withdrawals || []).forEach(function(w){
+      var sc = w.status === 'approved' ? 'var(--green)' : w.status === 'rejected' ? 'var(--red)' : 'var(--gold)';
+      rows += '<tr style="border-bottom:1px solid var(--border)">'
+        + '<td style="padding:6px 8px;color:var(--text2);font-size:10px">' + fmtT(w.created_at) + '</td>'
+        + '<td style="padding:6px 8px;font-weight:600">' + w.coin + '</td>'
+        + '<td style="padding:6px 8px;text-align:right;font-family:var(--mono)">' + w.amount + '</td>'
+        + '<td style="padding:6px 8px;text-align:right;font-family:var(--mono);color:var(--text2)">' + w.fee + '</td>'
+        + '<td style="padding:6px 8px;font-family:var(--mono);font-size:10px;color:var(--text2)">' + (w.address || '').substring(0, 14) + '...</td>'
+        + '<td style="padding:6px 8px;color:' + sc + '">' + (w.status === 'approved' ? 'Done' : w.status === 'rejected' ? 'Rejected' : 'Pending') + '</td>'
+        + '</tr>';
+    });
+    if (!rows) rows = '<tr><td colspan="6" style="padding:16px;text-align:center;color:var(--text2)">No withdrawals</td></tr>';
+    $('w-withdraws-body').innerHTML = rows;
+  } catch(e){}
 }
 
 // ========== 进入交易 ==========
@@ -943,13 +1153,18 @@ async function executeTrade() {
   }
 
   try {
-    const d = await api.post(ST.side === 'buy' ? '/api/trade/buy' : '/api/trade/sell',
-      { symbol: sym, amount: amt, price, type: ST.orderType });
-    // 翻译交易成功消息
+    var body = { symbol: sym, amount: amt, price, type: ST.orderType };
+    if (ST.orderType === 'stop_limit') {
+      var stopPrice = parseFloat($('trade-stop-price').value) || 0;
+      if (!stopPrice || stopPrice <= 0) return errShow('trade-error', '请输入有效的触发价格');
+      body.stop_price = stopPrice;
+      body.trigger_condition = ST.side === 'buy' ? 'gte' : 'lte';
+    }
+    const d = await api.post(ST.side === 'buy' ? '/api/trade/buy' : '/api/trade/sell', body);
     var side = ST.side === 'buy' ? t('buy') : t('sell');
     showToast(side + ' ' + amt + ' ' + sym + (d.status === 'pending' ? ' (' + t('pending') + ')' : ''));
     $('trade-amount').value = '';
-    if (ST.orderType === 'limit') $('trade-price-input').value = '';
+    if (ST.orderType === 'limit' || ST.orderType === 'stop_limit') { $('trade-price-input').value = ''; $('trade-stop-price').value = ''; }
     updateTradeTotal(); updateTradeInfo(); updateNavBalance(); fetchWallet(); fetchOrders(); fetchPending();
   } catch (e) { errShow('trade-error', e.message); }
 }
@@ -1259,6 +1474,9 @@ function updateOrderActions(order) {
   }
   if (order.status === 'completed') {
     html += '<span style="color:var(--green);font-weight:600">Trade Completed ✓</span>';
+    if (!order.reviewed) {
+      html += '<button class="btn btn-xs btn-gold-outline" style="margin-left:8px" onclick="submitReviewModal(\'' + order.order_id + '\')">' + t('review') + '</button>';
+    }
   }
   if (order.status === 'cancelled') {
     html += '<span style="color:var(--red);font-weight:600">Order Cancelled</span>';
@@ -1485,8 +1703,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     $$('.ot-tab').forEach(x => x.classList.remove('active')); this.classList.add('active');
     ST.orderType = type;
-    $('limit-price-row').style.display = type === 'limit' ? '' : 'none';
-    if (type === 'limit' && !$('trade-price-input').value)
+    $('limit-price-row').style.display = (type === 'limit' || type === 'stop_limit') ? '' : 'none';
+    $('stop-price-row').style.display = type === 'stop_limit' ? '' : 'none';
+    if ((type === 'limit' || type === 'stop_limit') && !$('trade-price-input').value)
       $('trade-price-input').value = ST.prices[ST.symbol]?.price || 0;
     updateTradeTotal();
   }));
@@ -1590,6 +1809,43 @@ document.addEventListener('DOMContentLoaded', () => {
   $('c2c-my-orders-modal')?.addEventListener('click', function(e) {
     if (e.target === this) $('c2c-my-orders-modal').classList.add('hidden');
   });
+
+  // ===== 忘记密码 =====
+  $('forgot-send-btn')?.addEventListener('click', sendResetCode);
+  $('forgot-reset-btn')?.addEventListener('click', resetPassword);
+  $('forgot-back-btn')?.addEventListener('click', forgotBackStep1);
+  ['forgot-email', 'forgot-code', 'forgot-new-pw'].forEach(function(id) {
+    $(id)?.addEventListener('keydown', function(e) {
+      if (e.key === 'Enter') {
+        e.preventDefault();
+        if (id === 'forgot-email') sendResetCode();
+        else if (id === 'forgot-code' || id === 'forgot-new-pw') resetPassword();
+      }
+    });
+  });
+
+  // ===== 提现 =====
+  $('withdraw-close')?.addEventListener('click', closeWithdraw);
+  $('withdraw-modal')?.addEventListener('click', function(e) {
+    if (e.target === this) closeWithdraw();
+  });
+  $('withdraw-submit')?.addEventListener('click', submitWithdraw);
+  $('withdraw-amount')?.addEventListener('input', updateWithdrawInfo);
+  $$('#withdraw-coin-select .coin-option').forEach(function(o) {
+    o.addEventListener('click', function() {
+      $$('#withdraw-coin-select .coin-option').forEach(function(x){ x.classList.remove('active'); });
+      this.classList.add('active');
+      withdrawCoin = this.dataset.coin; withdrawNetwork = this.dataset.network;
+      updateWithdrawInfo();
+    });
+  });
+
+  // ===== 设置页 =====
+  $('set-save-profile')?.addEventListener('click', saveProfile);
+  $('set-change-pwd')?.addEventListener('click', changePassword);
+
+  // ===== 止损限价输入 =====
+  $('trade-stop-price')?.addEventListener('input', updateTradeTotal);
 
   // 自动登录 — 只有 API 验证通过后才标记 authVerified
   if (ST.token) {

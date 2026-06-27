@@ -370,6 +370,20 @@ a:hover{opacity:.85}
 .toast-box{background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:24px 32px;text-align:center;max-width:380px;box-shadow:0 12px 48px rgba(0,0,0,.5)}
 .toast-msg{font-size:14px;margin-bottom:16px;line-height:1.6;color:var(--text)}
 
+/* ========== 提现弹窗 ========== */
+.withdraw-info { padding: 10px 12px; background: var(--bg3); border-radius: 6px; border: 1px solid var(--border); }
+
+/* ========== 设置页 ========== */
+#page-settings .form-group select { font-family: var(--font); }
+#page-settings .form-group input[disabled] { cursor: not-allowed; }
+
+/* ========== 忘记密码页 ========== */
+#page-forgot .auth-card { max-width: 440px !important; }
+
+/* ========== 评价样式 ========== */
+.c2c-rating-stars { display: inline-flex; gap: 1px; color: var(--gold); font-size: 12px; }
+.c2c-review-item { padding: 8px 12px; border-bottom: 1px solid var(--border); }
+
 /* scrollbar */
 ::-webkit-scrollbar{width:4px;height:4px}
 ::-webkit-scrollbar-track{background:transparent}

@@ -73,10 +73,11 @@
             </div>
           </div>
           <div class="nav-user-dropdown hidden" id="nav-dropdown">
-            <a href="#" id="nav-deposit-btn" data-i18n="sim_deposit">Simulated Deposit</a>
+            <a href="#" id="nav-deposit-btn" data-i18n="sim_deposit">Deposit</a>
             <a href="/wallet" data-i18n="assets">Assets</a>
             <a href="/orders" data-i18n="order_history">Order History</a>
             <a href="/invite" data-i18n="invite_title">Invite</a>
+            <a href="/settings" data-i18n="settings">Settings</a>
             <a href="#" id="nav-logout" data-i18n="logout">Logout</a>
           </div>
         </div>
@@ -124,6 +125,46 @@
             <button class="btn btn-gold btn-full" id="login-btn" data-i18n="login">Login</button>
             <div class="auth-alt">
               <span data-i18n="dont_have_account">Don't have an account?</span> <a href="/register" data-i18n="register">Register</a>
+            </div>
+            <div class="auth-alt" style="margin-top:8px">
+              <a href="#" onclick="showForgotPassword()" style="color:var(--text2);font-size:12px" data-i18n="forgot_pwd">Forgot Password?</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 忘记密码页 -->
+  <div id="page-forgot" class="page-auth hidden">
+    <div class="auth-wrapper">
+      <div class="auth-card" style="max-width:440px;margin:0 auto;flex-direction:column">
+        <div class="auth-card-right" style="width:100%">
+          <div class="auth-form-wrapper">
+            <h2 style="text-align:center;margin-bottom:16px" data-i18n="forgot_pwd">Forgot Password</h2>
+            <div id="forgot-step1">
+              <div class="form-group">
+                <label data-i18n="email">Registered Email</label>
+                <input type="email" id="forgot-email" placeholder="Enter your registered email" autocomplete="email">
+              </div>
+              <div id="forgot-error" class="form-error"></div>
+              <button class="btn btn-gold btn-full" id="forgot-send-btn" data-i18n="send_reset_code">Send Reset Code</button>
+            </div>
+            <div id="forgot-step2" class="hidden">
+              <div class="form-group">
+                <label data-i18n="verify_code">Verification Code</label>
+                <input type="text" id="forgot-code" placeholder="6-digit code" maxlength="6" inputmode="numeric" style="font-size:22px;letter-spacing:8px;text-align:center;font-family:var(--mono)">
+              </div>
+              <div class="form-group">
+                <label data-i18n="new_pwd">New Password</label>
+                <input type="password" id="forgot-new-pw" placeholder="At least 6 characters" autocomplete="new-password">
+              </div>
+              <div id="forgot-error2" class="form-error"></div>
+              <button class="btn btn-gold btn-full" id="forgot-reset-btn" data-i18n="reset_pwd">Reset Password</button>
+              <button class="btn btn-outline btn-full" id="forgot-back-btn" style="margin-top:8px" data-i18n="back">Back</button>
+            </div>
+            <div class="auth-alt" style="margin-top:16px">
+              <span data-i18n="remembered_pwd">Remembered?</span> <a href="/login" data-i18n="login">Login</a>
             </div>
           </div>
         </div>
@@ -310,6 +351,7 @@
           <div class="order-type-tabs">
             <button class="ot-tab active" data-type="market" data-i18n="market">市价</button>
             <button class="ot-tab" data-type="limit" data-i18n="limit">限价</button>
+            <button class="ot-tab" data-type="stop_limit" data-i18n="stop_limit">止损限价</button>
             <button class="ot-tab" data-type="pending" id="pending-tab">
               <span data-i18n="pending">挂单</span><span class="pending-count hidden" id="pending-count">0</span>
             </button>
@@ -322,6 +364,10 @@
             <div class="form-row" id="limit-price-row" style="display:none">
               <label data-i18n="limit">Limit (USDT)</label>
               <input type="number" id="trade-price-input" placeholder="Limit price" step="any">
+            </div>
+            <div class="form-row" id="stop-price-row" style="display:none">
+              <label data-i18n="stop_price">Trigger Price (USDT)</label>
+              <input type="number" id="trade-stop-price" placeholder="Trigger price" step="any">
             </div>
             <div class="form-row">
               <label><span data-i18n="amount">Amount</span> <span class="trade-sym" id="trade-sym">BTC</span></label>
@@ -482,7 +528,130 @@
         </tr></thead>
         <tbody id="w-assets-body"><tr><td colspan="4" style="padding:24px;text-align:center;color:var(--text2)" data-i18n="no_data">No holdings</td></tr></tbody>
       </table>
-      <button class="btn btn-gold auth-only" id="w-deposit-btn" style="margin-top:20px;display:none" data-i18n="deposit" onclick="openDeposit()">Deposit</button>
+      <div style="display:flex;gap:10px;margin-top:20px">
+        <button class="btn btn-gold auth-only" id="w-deposit-btn" style="display:none" data-i18n="deposit" onclick="openDeposit()">Deposit</button>
+        <button class="btn btn-outline auth-only" id="w-withdraw-btn" style="display:none;color:var(--red);border-color:var(--red)" data-i18n="withdraw" onclick="openWithdraw()">Withdraw</button>
+      </div>
+      <div style="margin-top:24px">
+        <h4 style="color:var(--text2);margin-bottom:8px;font-size:14px" data-i18n="withdraw_history">Withdraw History</h4>
+        <table style="width:100%;border-collapse:collapse;font-size:11px">
+          <thead><tr style="border-bottom:1px solid var(--border)">
+            <th style="padding:6px 8px;text-align:left;color:var(--text2)">Time</th>
+            <th style="padding:6px 8px;text-align:left;color:var(--text2)">Coin</th>
+            <th style="padding:6px 8px;text-align:right;color:var(--text2)">Amount</th>
+            <th style="padding:6px 8px;text-align:right;color:var(--text2)">Fee</th>
+            <th style="padding:6px 8px;text-align:left;color:var(--text2)">Address</th>
+            <th style="padding:6px 8px;text-align:left;color:var(--text2)">Status</th>
+          </tr></thead>
+          <tbody id="w-withdraws-body"><tr><td colspan="6" style="padding:16px;text-align:center;color:var(--text2)">--</td></tr></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       提现弹窗
+  ============================================================ -->
+  <div class="modal-overlay hidden" id="withdraw-modal">
+    <div class="modal-card">
+      <div class="modal-header">
+        <span data-i18n="withdraw">Withdraw</span>
+        <button class="modal-close" id="withdraw-close">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <label data-i18n="withdraw_coin">Select Coin</label>
+          <div class="coin-select" id="withdraw-coin-select">
+            <button class="coin-option active" data-coin="USDT" data-network="TRC20">
+              <div class="coin-icon">💵</div><div class="coin-info"><span>USDT</span><small>TRC20</small></div>
+            </button>
+            <button class="coin-option" data-coin="BTC" data-network="Bitcoin">
+              <div class="coin-icon">₿</div><div class="coin-info"><span>BTC</span><small>Bitcoin</small></div>
+            </button>
+            <button class="coin-option" data-coin="ETH" data-network="ERC20">
+              <div class="coin-icon">Ξ</div><div class="coin-info"><span>ETH</span><small>ERC20</small></div>
+            </button>
+          </div>
+        </div>
+        <div class="form-group">
+          <label data-i18n="withdraw_addr">Withdraw Address</label>
+          <input type="text" id="withdraw-address" placeholder="Enter receiving address">
+        </div>
+        <div class="form-group" id="withdraw-memo-group" style="display:none">
+          <label data-i18n="withdraw_memo">Memo / Tag</label>
+          <input type="text" id="withdraw-memo" placeholder="Optional">
+        </div>
+        <div class="form-group">
+          <label data-i18n="withdraw_amount">Amount</label>
+          <input type="number" id="withdraw-amount" placeholder="Minimum 10 USDT" min="0" step="any">
+        </div>
+        <div class="withdraw-info" style="font-size:11px;color:var(--text2);margin-bottom:12px;line-height:1.8">
+          <div><span data-i18n="withdraw_network">Network:</span> <strong id="wd-network">TRC20</strong></div>
+          <div><span data-i18n="withdraw_fee_label">Fee:</span> <strong id="wd-fee" style="color:var(--gold)">1 USDT</strong></div>
+          <div><span data-i18n="withdraw_receive">You will receive:</span> <strong id="wd-actual" style="color:var(--green)">0 USDT</strong></div>
+        </div>
+        <div id="withdraw-error" class="form-error"></div>
+        <button class="btn btn-gold btn-full" id="withdraw-submit" data-i18n="withdraw_confirm">Confirm Withdrawal</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       设置页 /settings
+  ============================================================ -->
+  <div id="page-settings" class="page-generic hidden">
+    <div class="panel-content" style="max-width:700px;margin:40px auto;padding:0 20px">
+      <h2 style="color:var(--gold);margin-bottom:24px" data-i18n="settings">Settings</h2>
+
+      <!-- 个人资料 -->
+      <div style="background:var(--bg3);border-radius:8px;padding:20px;margin-bottom:16px">
+        <h3 style="margin-bottom:16px;font-size:15px" data-i18n="profile_settings">Profile</h3>
+        <div class="form-group">
+          <label data-i18n="username">Username</label>
+          <input type="text" id="set-username" disabled style="opacity:0.6">
+        </div>
+        <div class="form-group">
+          <label data-i18n="email">Email</label>
+          <input type="email" id="set-email" disabled style="opacity:0.6">
+        </div>
+        <div class="form-group">
+          <label data-i18n="phone">Phone</label>
+          <input type="text" id="set-phone" placeholder="+86 13800138000">
+        </div>
+        <div class="form-group">
+          <label data-i18n="lang_pref">Language</label>
+          <select id="set-lang" style="width:100%;padding:10px 12px;background:var(--bg3);border:1px solid var(--border);border-radius:4px;color:var(--text);font-size:14px">
+            <option value="en">English</option>
+            <option value="zh-CN">简体中文</option>
+            <option value="zh-TW">繁體中文</option>
+            <option value="ja">日本語</option>
+            <option value="ko">한국어</option>
+          </select>
+        </div>
+        <div id="set-profile-error" class="form-error"></div>
+        <button class="btn btn-gold" id="set-save-profile" data-i18n="save">Save Profile</button>
+      </div>
+
+      <!-- 修改密码 -->
+      <div style="background:var(--bg3);border-radius:8px;padding:20px;margin-bottom:16px">
+        <h3 style="margin-bottom:16px;font-size:15px" data-i18n="change_pwd">Change Password</h3>
+        <div class="form-group">
+          <label data-i18n="old_pwd">Current Password</label>
+          <input type="password" id="set-old-pw" placeholder="Enter current password" autocomplete="current-password">
+        </div>
+        <div class="form-group">
+          <label data-i18n="new_pwd">New Password</label>
+          <input type="password" id="set-new-pw" placeholder="At least 6 characters" autocomplete="new-password">
+        </div>
+        <div id="set-pwd-error" class="form-error"></div>
+        <button class="btn btn-gold" id="set-change-pwd" data-i18n="change_pwd">Change Password</button>
+      </div>
+
+      <!-- VIP信息 -->
+      <div style="background:var(--bg3);border-radius:8px;padding:20px;margin-bottom:16px">
+        <h3 style="margin-bottom:16px;font-size:15px">VIP <span data-i18n="level">Level</span></h3>
+        <div id="set-vip-info" style="color:var(--text2);font-size:13px">Loading...</div>
+      </div>
     </div>
   </div>
 
