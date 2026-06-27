@@ -209,7 +209,7 @@ const FEE = 0.001;
 
 // ========== API ==========
 const API_BASE = location.hostname === 'any73991-lang.github.io'
-  ? 'https://0d38265c0bea408098ab6351f6752aea.codebuddy.cloudstudio.run'
+  ? 'https://fd5407678928422288ef14634818f337.codebuddy.cloudstudio.run'
   : '';
 const api = {
   async req(url, opts = {}) {
