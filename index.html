@@ -41,6 +41,21 @@
       <span class="nav-market-status">
         <span class="status-dot"></span> <span data-i18n="market_live">Live Market</span>
       </span>
+      <!-- 通知铃铛 -->
+      <div class="notif-bell hidden" id="notif-bell" style="position:relative">
+        <button class="notif-bell-btn" id="notif-bell-btn" title="Notifications">🔔</button>
+        <span class="notif-badge empty" id="notif-badge">0</span>
+        <div class="notif-dropdown hidden" id="notif-dropdown">
+          <div class="notif-dropdown-header">
+            <h4 data-i18n="notifications">Notifications</h4>
+            <button id="notif-mark-all" data-i18n="mark_all_read">Mark All Read</button>
+          </div>
+          <div class="notif-list" id="notif-list">
+            <div class="notif-item"><div class="notif-body" style="text-align:center;color:var(--text3)">No notifications</div></div>
+          </div>
+        </div>
+      </div>
+
       <div class="nav-actions" id="nav-actions">
         <!-- 语言切换 -->
         <div class="lang-switch" id="lang-switch">
@@ -84,6 +99,13 @@
       </div>
     </div>
   </nav>
+
+  <!-- ============================================================
+       行情滚动条 (Binance Ticker)
+  ============================================================ -->
+  <div class="ticker-bar" id="ticker-bar">
+    <div class="ticker-inner" id="ticker-inner"></div>
+  </div>
 
   <!-- ============================================================
        登录页 /login
@@ -252,8 +274,16 @@
         <a href="/trade/BNB_USDT" class="subnav-link" data-sym="BNB">BNB/USDT</a>
         <a href="/trade/SOL_USDT" class="subnav-link" data-sym="SOL">SOL/USDT</a>
         <a href="/trade/XRP_USDT" class="subnav-link" data-sym="XRP">XRP/USDT</a>
-        <a href="/trade/DOGE_USDT" class="subnav-link" data-sym="DOGE">DOGE/USDT</a>
         <a href="/trade/ADA_USDT" class="subnav-link" data-sym="ADA">ADA/USDT</a>
+        <a href="/trade/DOGE_USDT" class="subnav-link" data-sym="DOGE">DOGE/USDT</a>
+        <a href="/trade/AVAX_USDT" class="subnav-link" data-sym="AVAX">AVAX/USDT</a>
+        <a href="/trade/DOT_USDT" class="subnav-link" data-sym="DOT">DOT/USDT</a>
+        <a href="/trade/MATIC_USDT" class="subnav-link" data-sym="MATIC">MATIC/USDT</a>
+        <a href="/trade/LINK_USDT" class="subnav-link" data-sym="LINK">LINK/USDT</a>
+        <a href="/trade/UNI_USDT" class="subnav-link" data-sym="UNI">UNI/USDT</a>
+        <a href="/trade/ATOM_USDT" class="subnav-link" data-sym="ATOM">ATOM/USDT</a>
+        <a href="/trade/LTC_USDT" class="subnav-link" data-sym="LTC">LTC/USDT</a>
+        <a href="/trade/FIL_USDT" class="subnav-link" data-sym="FIL">FIL/USDT</a>
       </div>
     </div>
 
@@ -324,7 +354,14 @@
           </div>
         </div>
         <div class="panel chart-panel">
+          <div class="ma-legend" id="ma-legend">
+            <span class="ma-item active ma-ma5" data-ma="5">MA5</span>
+            <span class="ma-item ma-ma10" data-ma="10">MA10</span>
+            <span class="ma-item ma-ma20" data-ma="20">MA20</span>
+            <span class="ma-item ma-ma60" data-ma="60">MA60</span>
+          </div>
           <canvas id="price-chart"></canvas>
+          <div class="chart-tooltip" id="chart-tooltip"></div>
           <div class="chart-loading hidden" id="chart-loading">加载中...</div>
           <div class="chart-source" id="chart-source"></div>
         </div>
@@ -645,6 +682,21 @@
         </div>
         <div id="set-pwd-error" class="form-error"></div>
         <button class="btn btn-gold" id="set-change-pwd" data-i18n="change_pwd">Change Password</button>
+      </div>
+
+      <!-- 安全设置 / 2FA -->
+      <div style="background:var(--bg3);border-radius:8px;padding:20px;margin-bottom:16px">
+        <h3 style="margin-bottom:16px;font-size:15px">🔐 <span data-i18n="security_settings">Security</span></h3>
+        <div style="display:flex;align-items:center;justify-content:space-between">
+          <div>
+            <div style="font-size:13px;font-weight:600" data-i18n="two_factor_auth">Two-Factor Authentication</div>
+            <div style="font-size:11px;color:var(--text3);margin-top:2px" data-i18n="two_factor_desc">Protect your account with 2FA</div>
+          </div>
+          <label class="toggle-switch" id="set-2fa-toggle">
+            <input type="checkbox" id="set-2fa-check">
+            <span class="toggle-slider"></span>
+          </label>
+        </div>
       </div>
 
       <!-- VIP信息 -->

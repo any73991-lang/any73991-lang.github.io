@@ -164,6 +164,13 @@ d('submit_review', {'zh-CN':'提交评价','en':'Submit Review',ja:'レビュー
 d('your_rating',   {'zh-CN':'您的评分','en':'Your Rating',ja:'評価',ko:'평점'});
 d('review_comment',{'zh-CN':'评价内容(可选)','en':'Comment (optional)',ja:'コメント（任意）',ko:'코멘트 (선택)'});
 d('c2c_submit_review',{'zh-CN':'提交评价','en':'Submit Review',ja:'レビュー提出',ko:'리뷰 제출'});
+d('notifications',{'zh-CN':'通知中心','en':'Notifications',ja:'通知',ko:'알림'});
+d('mark_all_read',{'zh-CN':'全部已读','en':'Mark All Read',ja:'すべて既読',ko:'모두 읽음'});
+d('security_settings',{'zh-CN':'安全设置','en':'Security',ja:'セキュリティ',ko:'보안'});
+d('two_factor_auth',{'zh-CN':'双因素认证(2FA)','en':'Two-Factor Authentication','ja':'二段階認証','ko':'2단계 인증'});
+d('two_factor_desc',{'zh-CN':'开启后登录需验证码','en':'Protect your account with 2FA',ja:'アカウントを保護',ko:'계정 보호'});
+d('2fa_enabled',{'zh-CN':'2FA 已开启','en':'2FA Enabled',ja:'2FA 有効',ko:'2FA 활성화됨'});
+d('2fa_disabled',{'zh-CN':'2FA 已关闭','en':'2FA Disabled',ja:'2FA 無効',ko:'2FA 비활성화됨'});
 
 window.t = function(key) {
   const entry = DICT[key];
@@ -236,7 +243,8 @@ const ST = {
   klines: [],
   orderbook: { bids: [], asks: [] },
   sortKey: 'vol',
-  timers: []
+  timers: [],
+  crosshair: { index: -1, visible: false }
 };
 const FEE = 0.001;
 
@@ -510,6 +518,11 @@ async function loadSettings() {
     $('set-phone').value = s.phone || '';
     $('set-lang').value = s.language_pref || currentLang;
     $('set-vip-info').innerHTML = 'VIP ' + (s.vip_level || 0) + ' | 2FA: ' + (s.two_fa_enabled ? '<span style="color:var(--green)">Enabled</span>' : 'Disabled') + ' | 邀请码: ' + s.invite_code;
+    // 2FA 开关状态
+    if ($('set-2fa-check')) {
+      $('set-2fa-check').checked = s.two_fa_enabled;
+      $('set-2fa-toggle').classList.toggle('active', s.two_fa_enabled);
+    }
   } catch(e){}
 }
 async function saveProfile() {
@@ -912,10 +925,45 @@ async function updateAll() {
     updateTradeInfo();
     updateNavBalance();
   } catch (e) { /* ignore */ }
+  renderTicker();
   loadKline();
   fetchWallet();
   fetchPending();
   fetchOrders();
+  if (ST.token && ST.authVerified) fetchNotifications();
+}
+
+// ========== 行情滚动条 ==========
+function renderTicker() {
+  var ctr = $('ticker-inner');
+  if (!ctr) return;
+  var syms = Object.keys(ST.prices);
+  var items = syms.map(function(s) {
+    var p = ST.prices[s];
+    var cl = (p.change24h || 0) >= 0 ? 'up' : 'down';
+    var sg = (p.change24h || 0) >= 0 ? '+' : '';
+    return '<span class="ticker-item" data-sym="' + s + '" onclick="selectSymbol(\'' + s + '\')">'
+      + '<span class="ticker-sym">' + s + '</span>'
+      + '<span class="ticker-price">' + fmtP(p.price) + '</span>'
+      + '<span class="ticker-change ' + cl + '">' + sg + (p.change24h || 0).toFixed(2) + '%</span>'
+      + '</span>';
+  });
+  // 双份以实现无缝滚动
+  ctr.innerHTML = items.join('') + items.join('');
+}
+
+function selectSymbol(sym) {
+  ST.symbol = sym;
+  ST.klines = [];
+  klineLoading = false;
+  if (!$('page-trade').classList.contains('hidden')) {
+    $$('.subnav-link').forEach(function(l){ l.classList.toggle('active', l.dataset.sym === sym); });
+    $$('.market-row').forEach(function(r){ r.classList.toggle('selected', r.dataset.sym === sym); });
+    updateStat(); updateOrderbook(); updateTradeTotal(); updateTradeInfo();
+    loadKline();
+  } else {
+    navTo('/trade/' + sym + '_USDT');
+  }
 }
 
 // ========== 行情列表 ==========
@@ -991,12 +1039,14 @@ async function loadKline() {
   try {
     const d = await api.get(`/api/market/kline?symbol=${ST.symbol}&interval=${ST.interval}`);
     ST.klines = d.klines;
+    ST.crosshair = { index: -1, visible: false };
     const srcEl = $('chart-source');
     if (srcEl) srcEl.textContent = d.source === 'binance' ? 'Binance' : 'Simulated';
     drawChart();
   } catch (e) {
     console.error('Kline load error:', e);
     ST.klines = _genEmergencyKlines();
+    ST.crosshair = { index: -1, visible: false };
     drawChart();
   } finally {
     if (loading) loading.classList.add('hidden');
@@ -1020,6 +1070,17 @@ function _genEmergencyKlines() {
     pr = c;
   }
   return k;
+}
+
+function calcSMA(period) {
+  var closes = ST.klines.map(function(k) { return k.close; });
+  var result = new Array(closes.length).fill(null);
+  for (var i = period - 1; i < closes.length; i++) {
+    var sum = 0;
+    for (var j = 0; j < period; j++) sum += closes[i - j];
+    result[i] = sum / period;
+  }
+  return result;
 }
 
 function drawChart() {
@@ -1067,6 +1128,33 @@ function drawChart() {
     ctx.fillText(label, x, pad.top + chartH + 14);
   }
 
+  // MA 均线
+  var maColors = { 5: '#F0B90B', 10: '#E0529E', 20: '#4572FF', 60: '#808080' };
+  [5, 10, 20, 60].forEach(function(period) {
+    var maItem = document.querySelector('.ma-item[data-ma="' + period + '"]');
+    if (!maItem || !maItem.classList.contains('active')) return;
+    var ma = calcSMA(period);
+    ctx.strokeStyle = maColors[period];
+    ctx.lineWidth = 1;
+    ctx.beginPath();
+    var started = false;
+    for (var i = 0; i < ma.length; i++) {
+      if (ma[i] === null) continue;
+      var mx = pad.left + (pw / (ST.klines.length - 1)) * i;
+      var my = pad.top + chartH * (1 - (ma[i] - minP) / range);
+      if (!started) { ctx.moveTo(mx, my); started = true; }
+      else ctx.lineTo(mx, my);
+    }
+    ctx.stroke();
+    // 最后一个值标签
+    var last = ma[ma.length - 1];
+    if (last !== null) {
+      var lx = W - pad.right + 2, ly = pad.top + chartH * (1 - (last - minP) / range);
+      ctx.fillStyle = maColors[period]; ctx.font = '9px monospace'; ctx.textAlign = 'left';
+      ctx.fillText('MA' + period, lx, ly);
+    }
+  });
+
   // K线
   const cw = Math.max(1, (pw / ST.klines.length) * 0.7);
   ST.klines.forEach((k, i) => {
@@ -1095,6 +1183,65 @@ function drawChart() {
     ctx.fillStyle = k.close >= k.open ? 'rgba(14,203,129,0.4)' : 'rgba(246,70,93,0.4)';
     ctx.fillRect(x - cw / 2, volTop + volH - vh, cw, vh);
   });
+
+  // ====== Crosshair 十字线 ======
+  if (ST.crosshair && ST.crosshair.visible && ST.crosshair.index >= 0 && ST.crosshair.index < ST.klines.length) {
+    var ci = ST.crosshair.index;
+    var k = ST.klines[ci];
+    var cx = pad.left + (pw / (ST.klines.length - 1)) * ci;
+
+    // 竖线
+    ctx.strokeStyle = 'rgba(132,142,156,0.5)'; ctx.lineWidth = 0.5;
+    ctx.setLineDash([4, 4]);
+    ctx.beginPath(); ctx.moveTo(cx, pad.top); ctx.lineTo(cx, pad.top + chartH); ctx.stroke();
+    ctx.setLineDash([]);
+
+    // 横线（在收盘价位置）
+    var cy = pad.top + chartH * (1 - (k.close - minP) / range);
+    ctx.strokeStyle = 'rgba(132,142,156,0.35)'; ctx.lineWidth = 0.5;
+    ctx.setLineDash([4, 4]);
+    ctx.beginPath(); ctx.moveTo(pad.left, cy); ctx.lineTo(W - pad.right, cy); ctx.stroke();
+    ctx.setLineDash([]);
+
+    // 高亮选中K线
+    ctx.save();
+    var hiAlpha = 0.55;
+    var upH = k.close >= k.open;
+    var btH = Math.min(pad.top + chartH * (1 - (k.open - minP) / range), pad.top + chartH * (1 - (k.close - minP) / range));
+    var bhH = Math.max(1, Math.abs((k.close - k.open) / range * chartH));
+    ctx.fillStyle = upH ? 'rgba(14,203,129,' + hiAlpha + ')' : 'rgba(246,70,93,' + hiAlpha + ')';
+    ctx.fillRect(cx - cw / 2 - 1, btH, cw + 2, bhH);
+    ctx.strokeStyle = '#EAECEF'; ctx.lineWidth = 1;
+    ctx.beginPath(); ctx.moveTo(cx, pad.top + chartH * (1 - (k.high - minP) / range));
+    ctx.lineTo(cx, pad.top + chartH * (1 - (k.low - minP) / range)); ctx.stroke();
+    ctx.restore();
+
+    // 更新 tooltip HTML
+    var tt = $('chart-tooltip');
+    if (tt) {
+      var d = new Date(k.time);
+      var timeStr = ['1d', '1w'].includes(ST.interval)
+        ? (d.getFullYear() + '-' + (d.getMonth() + 1).toString().padStart(2, '0') + '-' + d.getDate().toString().padStart(2, '0'))
+        : (d.getMonth() + 1 + '/' + d.getDate() + ' ' + String(d.getHours()).padStart(2, '0') + ':' + String(d.getMinutes()).padStart(2, '0'));
+      tt.innerHTML = '<div class="chart-tooltip-row"><span class="ct-label">时间</span><span class="ct-val">' + timeStr + '</span></div>'
+        + '<div class="chart-tooltip-row"><span class="ct-label">O</span><span class="ct-val">' + fmtP(k.open) + '</span></div>'
+        + '<div class="chart-tooltip-row"><span class="ct-label">H</span><span class="ct-val">' + fmtP(k.high) + '</span></div>'
+        + '<div class="chart-tooltip-row"><span class="ct-label">L</span><span class="ct-val">' + fmtP(k.low) + '</span></div>'
+        + '<div class="chart-tooltip-row"><span class="ct-label">C</span><span class="ct-val" style="color:' + (k.close >= k.open ? '#0ECB81' : '#F6465D') + '">' + fmtP(k.close) + '</span></div>'
+        + '<div class="chart-tooltip-row"><span class="ct-label">Vol</span><span class="ct-val">' + k.volume.toFixed(2) + '</span></div>';
+      // 定位 tooltip（在画布内部右侧或左侧）
+      var panelRect = canvas.parentElement.getBoundingClientRect();
+      var tooltipX = cx + 15; var tooltipY = pad.top + 5;
+      if (cx > W * 0.65) tooltipX = cx - 155;
+      if (cy < H * 0.3) tooltipY = cy + 15;
+      else tooltipY = Math.max(5, cy - 100);
+      tt.style.left = tooltipX + 'px'; tt.style.top = tooltipY + 'px';
+      tt.classList.add('visible');
+    }
+  } else {
+    var tt2 = $('chart-tooltip');
+    if (tt2) tt2.classList.remove('visible');
+  }
 }
 
 // ========== 订单簿 ==========
@@ -1595,6 +1742,86 @@ async function openMyOrders() {
   } catch(e) { body.innerHTML = '<tr><td colspan="7" class="empty-hint">Error loading orders</td></tr>'; }
 }
 
+// ========== 通知系统 ==========
+var notifPollTimer = null;
+async function fetchNotifications() {
+  try {
+    var d = await api.get('/api/auth/notifications?limit=20&unread=1');
+    var badge = $('notif-badge');
+    var bell = $('notif-bell');
+    if (bell) bell.classList.remove('hidden');
+    var unread = d.unread_count || (d.notifications || []).filter(function(n){ return !n.is_read; }).length;
+    if (badge) {
+      badge.textContent = unread;
+      badge.classList.toggle('empty', unread === 0);
+    }
+  } catch(e) {}
+}
+
+async function loadNotificationsList() {
+  try {
+    var d = await api.get('/api/auth/notifications?limit=30');
+    var list = $('notif-list');
+    var items = d.notifications || [];
+    if (!items.length) {
+      list.innerHTML = '<div class="notif-item"><div class="notif-body" style="text-align:center;color:var(--text3)">No notifications</div></div>';
+      return;
+    }
+    list.innerHTML = items.map(function(n) {
+      var time = new Date(n.created_at);
+      var timeStr = time.toLocaleString();
+      return '<div class="notif-item' + (n.is_read ? '' : ' unread') + '" data-id="' + n.id + '">'
+        + '<div class="notif-title">' + (n.title || 'Notification') + '</div>'
+        + '<div class="notif-body">' + (n.message || n.content || '') + '</div>'
+        + '<div class="notif-time">' + timeStr + '</div>'
+        + '</div>';
+    }).join('');
+    // 点击标记已读
+    list.querySelectorAll('.notif-item.unread').forEach(function(item) {
+      item.addEventListener('click', function() {
+        markNotifRead(parseInt(this.dataset.id));
+        this.classList.remove('unread');
+      });
+    });
+  } catch(e) {
+    $('notif-list').innerHTML = '<div class="notif-item"><div class="notif-body" style="text-align:center;color:var(--text3)">Failed to load</div></div>';
+  }
+}
+
+async function markNotifRead(id) {
+  try { await api.post('/api/auth/notifications/read', { id: id }); fetchNotifications(); } catch(e) {}
+}
+
+async function markAllNotifsRead() {
+  try { await api.post('/api/auth/notifications/read', {}); fetchNotifications(); loadNotificationsList(); } catch(e) {}
+}
+
+function toggleNotifDropdown() {
+  var dd = $('notif-dropdown');
+  var isHidden = dd.classList.contains('hidden');
+  if (isHidden) {
+    dd.classList.remove('hidden');
+    loadNotificationsList();
+  } else {
+    dd.classList.add('hidden');
+  }
+}
+
+// ========== 2FA 开关 ==========
+async function toggle2FA() {
+  var check = $('set-2fa-check');
+  var toggle = $('set-2fa-toggle');
+  var enable = check.checked;
+  try {
+    var d = await api.post('/api/auth/enable-2fa', { enable: enable });
+    toggle.classList.toggle('active', enable);
+    showToast(enable ? t('2fa_enabled') : t('2fa_disabled'));
+  } catch(e) {
+    check.checked = !enable;
+    showToast(e.message);
+  }
+}
+
 // SPA 链接拦截
 document.addEventListener('click', e => {
   const a = e.target.closest('a[href]');
@@ -1843,6 +2070,51 @@ document.addEventListener('DOMContentLoaded', () => {
   // ===== 设置页 =====
   $('set-save-profile')?.addEventListener('click', saveProfile);
   $('set-change-pwd')?.addEventListener('click', changePassword);
+  $('set-2fa-check')?.addEventListener('change', toggle2FA);
+
+  // ===== 通知铃铛 =====
+  $('notif-bell-btn')?.addEventListener('click', function(e) { e.stopPropagation(); toggleNotifDropdown(); });
+  $('notif-mark-all')?.addEventListener('click', function(e) { e.stopPropagation(); markAllNotifsRead(); });
+  document.addEventListener('click', function(e) {
+    if (!e.target.closest('#notif-bell')) {
+      var dd = $('notif-dropdown');
+      if (dd) dd.classList.add('hidden');
+    }
+  });
+
+  // ===== MA 图例 =====
+  $$('.ma-item').forEach(function(item) {
+    item.addEventListener('click', function() {
+      this.classList.toggle('active');
+      drawChart();
+    });
+  });
+
+  // ===== Chart Crosshair =====
+  var chartCanvas = $('price-chart');
+  if (chartCanvas) {
+    chartCanvas.addEventListener('mousemove', function(e) {
+      if (!ST.klines.length) return;
+      var rect = chartCanvas.getBoundingClientRect();
+      var mx = e.clientX - rect.left;
+      var pad = { left: 10, right: 60 };
+      var pw = rect.width - pad.left - pad.right;
+      // 找最近的K线
+      var idx = Math.round((mx - pad.left) / pw * (ST.klines.length - 1));
+      idx = Math.max(0, Math.min(ST.klines.length - 1, idx));
+      if (ST.crosshair.index !== idx || !ST.crosshair.visible) {
+        ST.crosshair.index = idx;
+        ST.crosshair.visible = true;
+        drawChart();
+      }
+    });
+    chartCanvas.addEventListener('mouseleave', function() {
+      if (ST.crosshair.visible) {
+        ST.crosshair.visible = false;
+        drawChart();
+      }
+    });
+  }
 
   // ===== 止损限价输入 =====
   $('trade-stop-price')?.addEventListener('input', updateTradeTotal);
@@ -1851,6 +2123,10 @@ document.addEventListener('DOMContentLoaded', () => {
   if (ST.token) {
     api.get('/api/auth/profile').then(d => {
       ST.user = d.user; ST.authVerified = true; updateNavAuth(true); route();
+      // 启动通知轮询
+      fetchNotifications();
+      if (notifPollTimer) clearInterval(notifPollTimer);
+      notifPollTimer = setInterval(fetchNotifications, 15000);
     }).catch(() => {
       ST.token = null; ST.user = null; ST.authVerified = false;
       localStorage.removeItem('ct_token'); localStorage.removeItem('ct_user'); route();
