@@ -100,11 +100,37 @@ d('deposit_addr',{'zh-CN':'充值地址','zh-TW':'充值地址',en:'Deposit Addr
 d('deposit_amt',{'zh-CN':'充值金额','zh-TW':'充值金額',en:'Deposit Amount',ja:'入金額',ko:'입금액',es:'Monto',ru:'Сумма',fr:'Montant',de:'Betrag',pt:'Valor',vi:'Số tiền',th:'จำนวนเงิน' });
 d('deposit_coin',{'zh-CN':'充值币种','zh-TW':'充值幣種',en:'Deposit Coin',ja:'入金通貨',ko:'입금 코인',es:'Moneda',ru:'Монета',fr:'Pièce',de:'Coin',pt:'Moeda',vi:'Loại coin',th:'เหรียญ' });
 d('deposit_title',{'zh-CN':'充值','zh-TW':'充值',en:'Deposit',ja:'入金',ko:'입금',es:'Depositar',ru:'Пополнить',fr:'Déposer',de:'Einzahlen',pt:'Depositar',vi:'Nạp',th:'ฝาก' });
-d('sim_deposit',{'zh-CN':'模拟充值','zh-TW':'模擬充值',en:'Simulated Deposit',ja:'模擬入金',ko:'모의 입금',es:'Depósito simulado',ru:'Сим.пополнение',fr:'Dépôt simulé',de:'Simulierte Einzahlung',pt:'Depósito simulado',vi:'Nạp mô phỏng',th:'ฝากจำลอง' });
+d('sim_deposit',{'zh-CN':'真实充值','zh-TW':'真實充值',en:'Deposit',ja:'入金',ko:'입금',es:'Depositar',ru:'Пополнение',fr:'Dépôt',de:'Einzahlung',pt:'Depositar',vi:'Nạp tiền',th:'ฝาก' });
 d('deposit_next',{'zh-CN':'下一步','zh-TW':'下一步',en:'Next',ja:'次へ',ko:'다음',es:'Siguiente',ru:'Далее',fr:'Suivant',de:'Weiter',pt:'Próximo',vi:'Tiếp',th:'ถัดไป' });
 d('deposit_request_submitted',{'zh-CN':'充值申请已提交！{amount} USDT 等待后台审核','zh-TW':'充值申請已提交！{amount} USDT 等待後台審核',en:'Deposit request submitted! {amount} USDT pending review',ja:'入金申請を送信しました！{amount} USDT 審査待ち',ko:'입금 신청 완료! {amount} USDT 승인 대기중',es:'¡Solicitud enviada! {amount} USDT pendiente de revisión',ru:'Заявка отправлена! {amount} USDT ожидает проверки',fr:'Demande envoyée ! {amount} USDT en attente',de:'Antrag gesendet! {amount} USDT wartet auf Prüfung',pt:'Pedido enviado! {amount} USDT aguardando revisão',vi:'Đã gửi yêu cầu! {amount} USDT đang chờ duyệt',th:'ส่งคำขอแล้ว! {amount} USDT รอตรวจสอบ' });
 d('order_cancelled',{'zh-CN':'订单已取消','zh-TW':'訂單已取消',en:'Order cancelled',ja:'注文を取消しました',ko:'주문이 취소되었습니다',es:'Orden cancelada',ru:'Ордер отменён',fr:'Ordre annulé',de:'Order storniert',pt:'Ordem cancelada',vi:'Lệnh đã hủy',th:'คำสั่งถูกยกเลิก' });
 d('all_cancelled',{'zh-CN':'已取消所有挂单','zh-TW':'已取消所有掛單',en:'All pending orders cancelled',ja:'全ての待機注文を取消しました',ko:'모든 대기 주문이 취소되었습니다',es:'Todas las órdenes canceladas',ru:'Все ордера отменены',fr:'Tous les ordres annulés',de:'Alle Aufträge storniert',pt:'Todas as ordens canceladas',vi:'Đã hủy tất cả lệnh chờ',th:'ยกเลิกคำสั่งที่รอทั้งหมด' });
+
+// ====== C2C 翻译 ======
+d('c2c',          {'zh-CN':'C2C','en':'C2C',ja:'C2C',ko:'C2C'});
+d('c2c_trade',    {'zh-CN':'P2P交易','en':'P2P Trade',ja:'P2P取引',ko:'P2P 거래'});
+d('c2c_post_ad',  {'zh-CN':'发布广告','en':'Post Ad',ja:'広告掲載',ko:'광고 게시'});
+d('c2c_my_orders',{'zh-CN':'我的订单','en':'My Orders',ja:'注文一覧',ko:'내 주문'});
+d('c2c_buy_usdt', {'zh-CN':'购买 USDT','en':'Buy USDT',ja:'USDT購入',ko:'USDT 구매'});
+d('c2c_sell_usdt',{'zh-CN':'出售 USDT','en':'Sell USDT',ja:'USDT売却',ko:'USDT 판매'});
+d('c2c_all_methods',{'zh-CN':'全部支付方式','en':'All Payment Methods',ja:'全支払方法',ko:'모든 결제 수단'});
+d('c2c_apply',    {'zh-CN':'筛选','en':'Apply',ja:'適用',ko:'적용'});
+d('c2c_ad_type',  {'zh-CN':'交易类型','en':'Type',ja:'種類',ko:'유형'});
+d('c2c_coin',     {'zh-CN':'币种','en':'Coin',ja:'通貨',ko:'코인'});
+d('c2c_price',    {'zh-CN':'单价 (CNY)','en':'Price (CNY)',ja:'単価 (CNY)',ko:'단가 (CNY)'});
+d('c2c_min_amount',{'zh-CN':'最小金额','en':'Min',ja:'最小額',ko:'최소 금액'});
+d('c2c_max_amount',{'zh-CN':'最大金额','en':'Max',ja:'最大額',ko:'최대 금액'});
+d('c2c_payment_methods',{'zh-CN':'支付方式','en':'Payment Methods',ja:'支払方法',ko:'결제 수단'});
+d('c2c_remark',   {'zh-CN':'备注','en':'Remarks',ja:'備考',ko:'비고'});
+d('c2c_take_order',{'zh-CN':'下单交易','en':'Trade',ja:'取引',ko:'거래'});
+d('c2c_confirm_pay',{'zh-CN':'确认付款','en':'Confirm Payment',ja:'支払確認',ko:'결제 확인'});
+d('c2c_release',  {'zh-CN':'释放币','en':'Release',ja:'リリース',ko:'코인 해제'});
+d('c2c_cancel_order',{'zh-CN':'取消订单','en':'Cancel',ja:'注文取消',ko:'주문 취소'});
+d('c2c_dispute',  {'zh-CN':'申诉','en':'Dispute',ja:'紛争',ko:'분쟁'});
+d('c2c_chat_with',{'zh-CN':'与对方聊天','en':'Chat',ja:'チャット',ko:'채팅'});
+d('c2c_no_ads',   {'zh-CN':'暂无C2C广告','en':'No C2C ads available',ja:'広告がありません',ko:'광고가 없습니다'});
+d('c2c_enter_amount',{'zh-CN':'请输入交易数量','en':'Enter trade amount',ja:'数量を入力',ko:'거래 수량 입력'});
+d('c2c_take_confirm',{'zh-CN':'确认购买 {amt} {coin} @ {price} CNY？','en':'Buy {amt} {coin} @ {price} CNY?',ja:'{amt} {coin} @ {price} CNY 購入？',ko:'{amt} {coin} @ {price} CNY 구매？'});
 
 window.t = function(key) {
   const entry = DICT[key];
@@ -124,10 +150,10 @@ window.setLang = function(lang) {
   localStorage.setItem('ct_lang', lang);
   applyLang();
   // 更新 URL 中的语言前缀
-  const path = getHashPath();
+  const path = window.location.pathname;
   const newPath = path.replace(/^\/(en|zh-CN|zh-TW|ja|ko|es|ru|fr|de|pt|vi|th)\//, '/' + lang + '/');
   if (newPath !== path) {
-    history.replaceState(null, '', '#' + newPath);
+    history.replaceState(null, '', newPath);
   }
   // 关闭下拉
   const drop = document.getElementById('lang-drop');
@@ -181,11 +207,15 @@ const ST = {
 const FEE = 0.001;
 
 // ========== API ==========
+const API_BASE = location.hostname === 'any73991-lang.github.io'
+  ? 'https://ffc4ea18b6ab433d9313438a55e6a011.codebuddy.cloudstudio.run'
+  : '';
 const api = {
   async req(url, opts = {}) {
     const h = { 'Content-Type': 'application/json' };
     if (ST.token) h['Authorization'] = 'Bearer ' + ST.token;
-    const r = await fetch(url, { ...opts, headers: h });
+    const fullUrl = url.startsWith('/api') ? API_BASE + url : url;
+    const r = await fetch(fullUrl, { ...opts, headers: h });
     const d = await r.json();
     if (!r.ok) throw new Error(d.error || '请求失败');
     return d;
@@ -214,23 +244,21 @@ function fmtV(v) { return v >= 1e9 ? (v / 1e9).toFixed(2) + 'B' : v >= 1e6 ? (v 
 function fmtT(t) { return new Date(t).toLocaleString('zh-CN', { month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', second: '2-digit' }); }
 function errShow(id, msg) { const e = $(id); if (e) { e.textContent = msg; setTimeout(() => e.textContent = '', 4000); } }
 
-// ========== GitHub Pages Hash 路由 ==========
-function getHashPath() {
-  return window.location.hash.replace(/^#/, '') || '/en/trade/BTC_USDT';
-}
-
+// ========== URL 路径映射 (支持 /{lang}/...) ==========
 function navTo(path) {
+  // 去掉旧格式
   if (path.startsWith('/en/') || path.startsWith('/zh-') || path.match(/^\/[a-z]{2}\//)) {
-    location.hash = '#' + path;
+    history.pushState(null, '', path);
     route(); return;
   }
+  // 自动加上语言前缀
   const lang = currentLang;
-  location.hash = '#' + '/' + lang + path;
+  history.pushState(null, '', '/' + lang + path);
   route();
 }
 
 function route() {
-  const path = getHashPath();
+  const path = window.location.pathname;
 
   // 解析 /{lang}/rest 格式
   const m = path.match(/^\/(en|zh-CN|zh-TW|ja|ko|es|ru|fr|de|pt|vi|th)\/(.+)/);
@@ -244,15 +272,15 @@ function route() {
   }
 
   // 旧格式重定向 → 当前语言路径
-  if (!lang && path.match(/^\/(login|register|trade|wallet|orders)/)) {
-    location.hash = '#' + '/' + currentLang + path; return;
+  if (!lang && path.match(/^\/(login|register|trade|wallet|orders|c2c)/)) {
+    return location.replace('/' + currentLang + path);
   }
   if (!lang && path === '/') {
-    location.hash = '#' + '/' + currentLang + '/trade/BTC_USDT'; return;
+    return location.replace('/' + currentLang + '/trade/BTC_USDT');
   }
 
   // 隐藏所有页面
-  $$('.page-auth, .page-trade').forEach(p => p.classList.add('hidden'));
+  $$('.page-auth, .page-trade, .page-c2c').forEach(p => p.classList.add('hidden'));
 
   // 匹配路由
   if (restPath === '/login') { showAuth('login'); applyLang(); return; }
@@ -266,11 +294,12 @@ function route() {
   if (restPath === '/wallet') { showWallet(); applyLang(); return; }
   if (restPath === '/orders') { showOrders(); applyLang(); return; }
   if (restPath === '/invite') { showInvite(); applyLang(); return; }
+  if (restPath === '/c2c' || restPath.startsWith('/c2c')) { showC2C(); applyLang(); return; }
 
 
   // 默认 → 当前语言交易页
-  if (ST.token) { location.hash = '#' + '/' + currentLang + '/trade/BTC_USDT'; return; }
-  location.hash = '#' + '/' + currentLang + '/login'; return;
+  if (ST.token) return location.replace('/' + currentLang + '/trade/BTC_USDT');
+  return location.replace('/' + currentLang + '/login');
 }
 
 // ========== 展示页面 ==========
@@ -320,7 +349,7 @@ function showTrade() {
   setTimeout(function(){applyLang()}, 200);}
 
 function showWallet() {
-  if (!ST.token) { location.hash = '#' + '/' + currentLang + '/login'; return; }
+  if (!ST.token) { location.replace('/' + currentLang + '/login'); return; }
   $$('.page-auth,.page-trade,.page-generic').forEach(function(p){ p.classList.add('hidden'); });
   $('page-wallet').classList.remove('hidden');
   updateNavAuth(true);
@@ -331,7 +360,7 @@ function showWallet() {
 }
 
 function showOrders() {
-  if (!ST.token) { location.hash = '#' + '/' + currentLang + '/login'; return; }
+  if (!ST.token) { location.replace('/' + currentLang + '/login'); return; }
   $$('.page-auth,.page-trade,.page-generic').forEach(function(p){ p.classList.add('hidden'); });
   $('page-orders').classList.remove('hidden');
   updateNavAuth(true);
@@ -388,8 +417,8 @@ async function loadOrdersPage() {
 }
 
 function showInvite() {
-  if (!ST.token) { location.hash = '#' + '/' + currentLang + '/login'; return; }
-  $$('.page-auth,.page-trade,.page-generic').forEach(function(p){ p.classList.add('hidden'); });
+  if (!ST.token) { location.replace('/' + currentLang + '/login'); return; }
+  $$('.page-auth,.page-trade,.page-generic,.page-c2c').forEach(function(p){ p.classList.add('hidden'); });
   $('page-invite').classList.remove('hidden');
   updateNavAuth(true);
   highlightNav('');
@@ -470,8 +499,8 @@ async function register() {
     var body = { username: u, email: e, password: p };
     if (inv) body.invite_code = inv;
     var d = await api.post('/api/auth/send-code', body);
-    // 显示验证码（模拟邮件/短信发送）
-    showToast(d.message + '\nCode: ' + d.code);
+    // 验证码已发送至邮箱
+    showToast(d.message);
     $('reg-step1').classList.add('hidden');
     $('reg-step2').classList.remove('hidden');
     $('reg-error').textContent = '';
@@ -1008,7 +1037,332 @@ async function cancelAll() {
   } catch (e) { showToast(e.message); }
 }
 
-// ========== SPA 链接拦截 ==========
+// ========== C2C 交易 ==========
+const C2C = {
+  filterSide: 'all',
+  filterCoin: 'USDT',
+  filterPayment: '',
+  currentAd: null,
+  currentOrder: null,
+  chatTimer: null
+};
+
+function showC2C() {
+  $$('.page-auth,.page-trade,.page-generic,.page-c2c').forEach(function(p){ p.classList.add('hidden'); });
+  $('page-c2c').classList.remove('hidden');
+  updateNavAuth(!!ST.token);
+  highlightNav('/c2c');
+  document.title = 'C2C P2P | CoinUSDT C2C';
+  loadC2CAds();
+  setTimeout(function(){ applyLang(); }, 100);
+}
+
+async function loadC2CAds() {
+  var body = $('c2c-ads-body');
+  body.innerHTML = '<div class="empty-hint" style="padding:40px">Loading...</div>';
+  try {
+    var params = '?coin=' + C2C.filterCoin;
+    if (C2C.filterSide !== 'all') params += '&side=' + C2C.filterSide;
+    if (C2C.filterPayment) params += '&payment=' + C2C.filterPayment;
+    var minAmt = parseFloat($('c2c-amount-filter').value) || 0;
+    if (minAmt > 0) params += '&min_amount=' + minAmt;
+    var ads = await api.get('/api/c2c/ads' + params);
+    if (!ads.length) {
+      body.innerHTML = '<div class="empty-hint" style="padding:40px">' + t('c2c_no_ads') + '</div>';
+      return;
+    }
+    body.innerHTML = ads.map(function(a) {
+      var payTags = a.payment_methods.split(',').map(function(m) {
+        var label = m === 'bank' ? 'Bank' : m === 'alipay' ? 'Alipay' : m === 'wechat' ? 'WeChat' : m;
+        return '<span class="c2c-pay-tag">' + label + '</span>';
+      }).join('');
+      var avatarColor = a.side === 'sell' ? 'rgba(246,70,93,0.2)' : 'rgba(14,203,129,0.2)';
+      var avatarText = a.side === 'sell' ? 'S' : 'B';
+      var priceClass = a.side === 'sell' ? 'sell-color' : 'buy-color';
+      var mine = ST.user && a.user_id === ST.user.id;
+      return '<div class="c2c-ad-row" data-ad-id="' + a.id + '">' +
+        '<div class="c2c-ad-merchant">' +
+          '<div class="c2c-ad-merchant-avatar" style="background:' + avatarColor + ';color:' + (a.side==='sell'?'var(--red)':'var(--green)') + '">' + avatarText + '</div>' +
+          '<div class="c2c-ad-merchant-info">' +
+            '<span class="c2c-ad-merchant-name">' + a.username + (mine ? ' (you)' : '') + '</span>' +
+            '<span class="c2c-ad-merchant-sub">' + (a.vip_level > 0 ? 'VIP' + a.vip_level : '') + '</span>' +
+          '</div>' +
+        '</div>' +
+        '<div class="c2c-ad-amount">' + a.min_amount + ' - ' + a.max_amount + '<span class="amt-range">' + a.coin + '</span></div>' +
+        '<div class="c2c-ad-price ' + priceClass + '">¥' + a.price.toFixed(2) + '</div>' +
+        '<div class="c2c-ad-payment">' + payTags + '</div>' +
+        '<div class="c2c-ad-action">' +
+          (mine ? '<button class="btn btn-xs btn-outline c2c-cancel-ad-btn" data-id="' + a.id + '">Cancel</button>' :
+           '<button class="btn btn-xs btn-gold c2c-take-ad-btn" data-id="' + a.id + '">' + t('c2c_take_order') + '</button>') +
+        '</div>' +
+      '</div>';
+    }).join('');
+
+    // 绑定接单事件
+    body.querySelectorAll('.c2c-take-ad-btn').forEach(function(b) {
+      b.addEventListener('click', function() { openTakeAd(parseInt(this.dataset.id)); });
+    });
+    body.querySelectorAll('.c2c-cancel-ad-btn').forEach(function(b) {
+      b.addEventListener('click', function() { cancelMyAd(parseInt(this.dataset.id)); });
+    });
+  } catch(e) { body.innerHTML = '<div class="empty-hint" style="padding:40px">Error loading ads</div>'; }
+}
+
+async function openTakeAd(adId) {
+  if (!ST.token) { location.href = '/' + currentLang + '/login'; return; }
+  var amt = parseFloat(prompt(t('c2c_enter_amount') + ' (USDT):', '100'));
+  if (!amt || amt <= 0) return;
+  try {
+    var d = await api.post('/api/c2c/ads/' + adId + '/take', { amount: amt });
+    showToast(d.message);
+    loadC2CAds();
+  } catch(e) { showToast(e.message); }
+}
+
+async function cancelMyAd(adId) {
+  if (!confirm('确认下架此广告？')) return;
+  try {
+    await api.req('/api/c2c/ads/' + adId, { method: 'DELETE' });
+    showToast('广告已下架');
+    loadC2CAds();
+  } catch(e) { showToast(e.message); }
+}
+
+// ====== 发布广告弹窗 ======
+function openCreateAd() {
+  if (!ST.token) { location.href = '/' + currentLang + '/login'; return; }
+  $('c2c-ad-modal').classList.remove('hidden');
+  $('c2c-ad-error').textContent = '';
+  $('c2c-ad-price').value = '';
+  $('c2c-ad-min').value = '';
+  $('c2c-ad-max').value = '';
+  $('c2c-ad-remark').value = '';
+}
+
+async function submitAd() {
+  var side = document.querySelector('.c2c-ad-type-btn.active').dataset.type;
+  var coin = $('c2c-ad-coin').value;
+  var price = parseFloat($('c2c-ad-price').value);
+  var min = parseFloat($('c2c-ad-min').value);
+  var max = parseFloat($('c2c-ad-max').value);
+  var payments = [];
+  document.querySelectorAll('.c2c-pay-check input:checked').forEach(function(c) { payments.push(c.value); });
+  var remark = $('c2c-ad-remark').value.trim();
+
+  if (!price || price <= 0) return errShow('c2c-ad-error', '请输入有效价格');
+  if (!min || min <= 0 || !max || max <= 0) return errShow('c2c-ad-error', '请输入有效金额范围');
+  if (min > max) return errShow('c2c-ad-error', '最小金额不能大于最大金额');
+  if (!payments.length) return errShow('c2c-ad-error', '请选择支付方式');
+
+  try {
+    await api.post('/api/c2c/ads', {
+      coin: coin, side: side, price: price,
+      min_amount: min, max_amount: max,
+      payment_methods: payments, remark: remark
+    });
+    $('c2c-ad-modal').classList.add('hidden');
+    showToast('广告发布成功！');
+    loadC2CAds();
+  } catch(e) { errShow('c2c-ad-error', e.message); }
+}
+
+// ====== 订单详情/聊天弹窗 ======
+async function openOrderChat(orderId) {
+  if (!ST.token) { location.href = '/' + currentLang + '/login'; return; }
+  $('c2c-order-modal').classList.remove('hidden');
+  $('c2c-chat-input').value = '';
+
+  try {
+    // 获取我的订单列表找到这个订单
+    var orders = await api.get('/api/c2c/orders?limit=50');
+    var order = orders.find(function(o) { return o.order_id === orderId; });
+    if (!order) { showToast('订单未找到'); return; }
+    C2C.currentOrder = order;
+
+    // 渲染订单信息
+    $('c2c-order-title').textContent = 'C2C Order #' + order.order_id.substring(0, 16) + '...';
+    $('c2c-oi-amount').textContent = order.amount + ' ' + order.coin;
+    $('c2c-oi-price').textContent = '¥' + order.price.toFixed(2);
+    $('c2c-oi-total').textContent = order.total + ' USDT';
+    $('c2c-oi-payment').textContent = order.payment_methods;
+
+    // 更新状态进度条
+    updateOrderStatus(order);
+
+    // 更新操作按钮
+    updateOrderActions(order);
+
+    // 加载聊天
+    loadChatMessages(order.order_id);
+  } catch(e) { showToast(e.message); }
+}
+
+function updateOrderStatus(order) {
+  // 重置所有步骤
+  ['c2c-step-pay', 'c2c-step-release', 'c2c-step-done'].forEach(function(s) {
+    $(s).className = 'c2c-status-step';
+  });
+  ['c2c-conn-1', 'c2c-conn-2'].forEach(function(c) {
+    $(c).className = 'c2c-status-conn';
+  });
+
+  if (order.status === 'pending_payment') {
+    $('c2c-step-pay').classList.add('active');
+  } else if (order.status === 'pending_release') {
+    $('c2c-step-pay').classList.add('done');
+    $('c2c-conn-1').classList.add('done');
+    $('c2c-step-release').classList.add('active');
+  } else if (order.status === 'completed') {
+    $('c2c-step-pay').classList.add('done');
+    $('c2c-conn-1').classList.add('done');
+    $('c2c-step-release').classList.add('done');
+    $('c2c-conn-2').classList.add('done');
+    $('c2c-step-done').classList.add('done');
+  } else if (order.status === 'cancelled') {
+    $('c2c-step-pay').style.color = 'var(--red)';
+    $('c2c-step-release').style.color = 'var(--red)';
+    $('c2c-step-done').style.color = 'var(--red)';
+  }
+}
+
+function updateOrderActions(order) {
+  var uid = ST.user ? ST.user.id : 0;
+  var isBuyer = order.buyer_id === uid;
+  var isSeller = order.seller_id === uid;
+  var actions = $('c2c-order-actions');
+  var html = '';
+
+  if (order.status === 'pending_payment' && isBuyer) {
+    html += '<button class="btn btn-buy" onclick="confirmC2CPayment(\'' + order.order_id + '\')">' + t('c2c_confirm_pay') + '</button>';
+  }
+  if (order.status === 'pending_release' && isSeller) {
+    html += '<button class="btn btn-buy" onclick="releaseC2CCrypto(\'' + order.order_id + '\')">' + t('c2c_release') + '</button>';
+  }
+  if (order.status === 'pending_payment' || order.status === 'pending_release') {
+    html += '<button class="btn btn-outline" onclick="cancelC2COrder(\'' + order.order_id + '\')">' + t('c2c_cancel_order') + '</button>';
+    html += '<button class="btn btn-outline" style="color:var(--red);border-color:var(--red)" onclick="disputeC2COrder(\'' + order.order_id + '\')">' + t('c2c_dispute') + '</button>';
+  }
+  if (order.status === 'completed') {
+    html += '<span style="color:var(--green);font-weight:600">Trade Completed ✓</span>';
+  }
+  if (order.status === 'cancelled') {
+    html += '<span style="color:var(--red);font-weight:600">Order Cancelled</span>';
+  }
+  if (order.status === 'disputed') {
+    html += '<span style="color:var(--gold);font-weight:600">Disputed - Pending Review</span>';
+  }
+
+  actions.innerHTML = html;
+}
+
+async function confirmC2CPayment(orderId) {
+  if (!confirm('确认您已向卖家完成法币转账？')) return;
+  try {
+    await api.post('/api/c2c/orders/' + orderId + '/pay');
+    showToast('已确认付款！');
+    openOrderChat(orderId);
+  } catch(e) { showToast(e.message); }
+}
+
+async function releaseC2CCrypto(orderId) {
+  if (!confirm('确认收到买家法币并释放币？')) return;
+  try {
+    await api.post('/api/c2c/orders/' + orderId + '/release');
+    showToast('放币成功！交易完成');
+    openOrderChat(orderId);
+    updateNavBalance();
+  } catch(e) { showToast(e.message); }
+}
+
+async function cancelC2COrder(orderId) {
+  if (!confirm('确认取消此订单？')) return;
+  try {
+    await api.post('/api/c2c/orders/' + orderId + '/cancel');
+    showToast('订单已取消');
+    $('c2c-order-modal').classList.add('hidden');
+    loadC2CAds();
+  } catch(e) { showToast(e.message); }
+}
+
+async function disputeC2COrder(orderId) {
+  var reason = prompt('请输入申诉原因：', '');
+  if (!reason) return;
+  try {
+    await api.post('/api/c2c/orders/' + orderId + '/dispute', { reason: reason });
+    showToast('申诉已提交');
+    openOrderChat(orderId);
+  } catch(e) { showToast(e.message); }
+}
+
+// ====== 聊天 ======
+async function loadChatMessages(orderId) {
+  if (C2C.chatTimer) clearInterval(C2C.chatTimer);
+  var refreshChat = function() {
+    api.get('/api/c2c/orders/' + orderId + '/messages').then(function(msgs) {
+      var ct = $('c2c-chat-msgs');
+      var uid = ST.user ? ST.user.id : 0;
+      if (!msgs.length) {
+        ct.innerHTML = '<div class="c2c-msg-system">—— No messages yet ——</div>';
+      } else {
+        ct.innerHTML = msgs.map(function(m) {
+          if (m.user_id === uid) {
+            return '<div class="c2c-msg mine"><div class="c2c-msg-sender">' + m.username + '</div><div class="c2c-msg-content">' + m.content + '</div></div>';
+          }
+          return '<div class="c2c-msg"><div class="c2c-msg-sender">' + m.username + '</div><div class="c2c-msg-content">' + m.content + '</div></div>';
+        }).join('');
+      }
+      ct.scrollTop = ct.scrollHeight;
+    }).catch(function() {});
+  };
+  refreshChat();
+  C2C.chatTimer = setInterval(refreshChat, 3000);
+}
+
+async function sendChatMsg() {
+  var input = $('c2c-chat-input');
+  var content = input.value.trim();
+  if (!content || !C2C.currentOrder) return;
+  try {
+    await api.post('/api/c2c/orders/' + C2C.currentOrder.order_id + '/messages', { content: content });
+    input.value = '';
+    loadChatMessages(C2C.currentOrder.order_id);
+  } catch(e) { showToast(e.message); }
+}
+
+// ====== 我的订单弹窗 ======
+async function openMyOrders() {
+  if (!ST.token) { location.href = '/' + currentLang + '/login'; return; }
+  $('c2c-my-orders-modal').classList.remove('hidden');
+  var body = $('c2c-my-orders-body');
+  body.innerHTML = '<tr><td colspan="7" class="empty-hint">Loading...</td></tr>';
+  try {
+    var orders = await api.get('/api/c2c/orders?limit=100');
+    if (!orders.length) {
+      body.innerHTML = '<tr><td colspan="7" class="empty-hint">No C2C orders</td></tr>';
+      return;
+    }
+    var uid = ST.user.id;
+    body.innerHTML = orders.map(function(o) {
+      var statusColor = o.status === 'completed' ? 'var(--green)' : o.status === 'cancelled' ? 'var(--red)' : o.status === 'disputed' ? 'var(--gold)' : 'var(--text2)';
+      var statusLabel = o.status === 'pending_payment' ? 'Pending Pay' : o.status === 'pending_release' ? 'Pending Release' : o.status.charAt(0).toUpperCase() + o.status.slice(1);
+      var isBuyer = o.buyer_id === uid;
+      return '<tr style="border-bottom:1px solid rgba(255,255,255,.03)">' +
+        '<td style="padding:6px 8px;font-size:11px;font-family:var(--mono);color:var(--text2)">#' + o.order_id.substring(0, 12) + '</td>' +
+        '<td style="padding:6px 8px">' + o.coin + '</td>' +
+        '<td style="padding:6px 8px;text-align:right;font-family:var(--mono)">' + o.amount + '</td>' +
+        '<td style="padding:6px 8px;text-align:right;font-family:var(--mono)">¥' + o.price.toFixed(2) + '</td>' +
+        '<td style="padding:6px 8px;text-align:right;font-family:var(--mono)">' + o.total + ' USDT</td>' +
+        '<td style="padding:6px 8px;color:' + statusColor + '">' + statusLabel + '</td>' +
+        '<td style="padding:6px 8px;text-align:center">' +
+          ((o.status !== 'completed' && o.status !== 'cancelled') ?
+           '<button class="btn btn-xs btn-gold-outline" onclick="openOrderChat(\'' + o.order_id + '\')">' + t('c2c_chat_with') + '</button>' : '') +
+        '</td>' +
+        '</tr>';
+    }).join('');
+  } catch(e) { body.innerHTML = '<tr><td colspan="7" class="empty-hint">Error loading orders</td></tr>'; }
+}
+
+// SPA 链接拦截
 document.addEventListener('click', e => {
   const a = e.target.closest('a[href]');
   if (!a) return;
@@ -1019,7 +1373,7 @@ document.addEventListener('click', e => {
 
   e.preventDefault();
   if (href.match(/^\/(en|zh-CN|zh-TW|ja|ko|es|ru|fr|de|pt|vi|th)\//)) {
-    location.hash = '#' + href;
+    history.pushState(null, '', href);
     route();
     return;
   }
@@ -1043,7 +1397,7 @@ document.addEventListener('DOMContentLoaded', () => {
   route();
 
   // 浏览器后退/前进
-  window.addEventListener('hashchange', route);
+  window.addEventListener('popstate', route);
 
   // ===== 认证事件 =====
   $('login-btn').addEventListener('click', login);
@@ -1152,6 +1506,74 @@ document.addEventListener('DOMContentLoaded', () => {
   // 窗口缩放重绘
   window.addEventListener('resize', () => {
     if (ST.klines.length && !$('page-trade').classList.contains('hidden')) drawChart();
+  });
+
+  // ===== C2C 事件 =====
+  $('c2c-create-ad-btn')?.addEventListener('click', openCreateAd);
+  $('c2c-my-orders-btn')?.addEventListener('click', openMyOrders);
+
+  // 筛选按钮
+  $$('.c2c-filter-btn').forEach(function(b) {
+    b.addEventListener('click', function() {
+      $$('.c2c-filter-btn').forEach(function(x) { x.classList.remove('active'); });
+      this.classList.add('active');
+      C2C.filterSide = this.dataset.side;
+      loadC2CAds();
+    });
+  });
+
+  $('c2c-coin-filter')?.addEventListener('change', function() {
+    C2C.filterCoin = this.value;
+    loadC2CAds();
+  });
+  $('c2c-payment-filter')?.addEventListener('change', function() {
+    C2C.filterPayment = this.value;
+    loadC2CAds();
+  });
+  $('c2c-filter-btn')?.addEventListener('click', function() {
+    loadC2CAds();
+  });
+  $('c2c-amount-filter')?.addEventListener('keydown', function(e) {
+    if (e.key === 'Enter') loadC2CAds();
+  });
+
+  // 广告弹窗
+  $('c2c-ad-close')?.addEventListener('click', function() {
+    $('c2c-ad-modal').classList.add('hidden');
+  });
+  $('c2c-ad-modal')?.addEventListener('click', function(e) {
+    if (e.target === this) $('c2c-ad-modal').classList.add('hidden');
+  });
+  $('c2c-ad-submit')?.addEventListener('click', submitAd);
+  $$('.c2c-ad-type-btn').forEach(function(b) {
+    b.addEventListener('click', function() {
+      $$('.c2c-ad-type-btn').forEach(function(x) { x.classList.remove('active', 'buy', 'sell'); });
+      this.classList.add('active', this.dataset.type);
+    });
+  });
+
+  // 订单弹窗
+  $('c2c-order-close')?.addEventListener('click', function() {
+    $('c2c-order-modal').classList.add('hidden');
+    if (C2C.chatTimer) { clearInterval(C2C.chatTimer); C2C.chatTimer = null; }
+  });
+  $('c2c-order-modal')?.addEventListener('click', function(e) {
+    if (e.target === this) {
+      $('c2c-order-modal').classList.add('hidden');
+      if (C2C.chatTimer) { clearInterval(C2C.chatTimer); C2C.chatTimer = null; }
+    }
+  });
+  $('c2c-chat-send')?.addEventListener('click', sendChatMsg);
+  $('c2c-chat-input')?.addEventListener('keydown', function(e) {
+    if (e.key === 'Enter') sendChatMsg();
+  });
+
+  // 我的订单弹窗
+  $('c2c-my-orders-close')?.addEventListener('click', function() {
+    $('c2c-my-orders-modal').classList.add('hidden');
+  });
+  $('c2c-my-orders-modal')?.addEventListener('click', function(e) {
+    if (e.target === this) $('c2c-my-orders-modal').classList.add('hidden');
   });
 
   // 自动登录

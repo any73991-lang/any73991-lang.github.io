@@ -7,11 +7,11 @@
   <meta name="description" content="CoinUSDT C2C - Professional cryptocurrency exchange with real-time charts, BTC/ETH trading, market and limit orders. Secure C2C trading platform.">
   <meta name="keywords" content="cryptocurrency exchange,BTC,ETH,Bitcoin,Ethereum,trading,crypto,USDT,market,limit,order">
   <meta name="robots" content="index, follow">
-  <link rel="canonical" href="https://coinustdc2c.com/">
+  <link rel="canonical" href="https://any73991-lang.github.io/">
   <meta property="og:title" content="CoinUSDT C2C | Cryptocurrency Exchange">
-  <meta property="og:description" content="Professional cryptocurrency exchange with real-time charts and secure trading.">
+  <meta property="og:description" content="Professional cryptocurrency exchange with real-time charts and secure C2C trading.">
   <meta property="og:type" content="website">
-  <meta property="og:url" content="https://coinustdc2c.com/">
+  <meta property="og:url" content="https://any73991-lang.github.io/">
   <meta property="og:site_name" content="CoinUSDT C2C">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="CoinUSDT C2C | Cryptocurrency Exchange">
@@ -34,6 +34,7 @@
       </a>
       <div class="nav-links" id="nav-links">
         <a href="/trade/BTC_USDT" class="nav-link" data-path="/trade" data-i18n="trade">Trade</a>
+        <a href="/c2c" class="nav-link" data-path="/c2c" data-i18n="c2c">C2C</a>
         <a href="/wallet" class="nav-link" data-path="/wallet" data-i18n="assets">Assets</a>
         <a href="/orders" class="nav-link" data-path="/orders" data-i18n="orders">Orders</a>
       </div>
@@ -528,6 +529,182 @@
           </tr></thead>
           <tbody id="inv-users-body"><tr><td colspan="2" style="padding:16px;text-align:center;color:var(--text2)" data-i18n="no_data">No invites yet</td></tr></tbody>
         </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       C2C 交易页 /c2c
+  ============================================================ -->
+  <div id="page-c2c" class="page-c2c hidden">
+    <div class="c2c-container">
+      <!-- 顶部操作栏 -->
+      <div class="c2c-header">
+        <h2 class="c2c-title">C2C <span data-i18n="c2c_trade">P2P Trade</span></h2>
+        <div class="c2c-header-right">
+          <button class="btn btn-gold" id="c2c-create-ad-btn"><span data-i18n="c2c_post_ad">Post Ad</span></button>
+          <button class="btn btn-outline" id="c2c-my-orders-btn"><span data-i18n="c2c_my_orders">My Orders</span></button>
+        </div>
+      </div>
+
+      <!-- 筛选栏 -->
+      <div class="c2c-filters">
+        <div class="c2c-filter-group">
+          <button class="c2c-filter-btn active" data-side="all" data-i18n="all_pairs">All</button>
+          <button class="c2c-filter-btn" data-side="buy" data-i18n="c2c_buy_usdt">Buy USDT</button>
+          <button class="c2c-filter-btn" data-side="sell" data-i18n="c2c_sell_usdt">Sell USDT</button>
+        </div>
+        <div class="c2c-filter-group">
+          <select id="c2c-coin-filter" class="c2c-select">
+            <option value="USDT">USDT</option>
+            <option value="BTC">BTC</option>
+            <option value="ETH">ETH</option>
+          </select>
+          <select id="c2c-payment-filter" class="c2c-select">
+            <option value="" data-i18n="c2c_all_methods">All Payment Methods</option>
+            <option value="bank">Bank Transfer</option>
+            <option value="alipay">Alipay</option>
+            <option value="wechat">WeChat Pay</option>
+          </select>
+        </div>
+        <div class="c2c-filter-group">
+          <input type="number" id="c2c-amount-filter" class="c2c-amount-input" placeholder="Min Amount" step="any">
+          <button class="btn btn-xs btn-gold-outline" id="c2c-filter-btn" data-i18n="c2c_apply">Apply</button>
+        </div>
+      </div>
+
+      <!-- 广告列表 -->
+      <div class="c2c-ads-list" id="c2c-ads-list">
+        <div class="c2c-ad-header">
+          <span class="c2c-ad-col-merchant">Merchant</span>
+          <span class="c2c-ad-col-amount">Amount</span>
+          <span class="c2c-ad-col-price">Price</span>
+          <span class="c2c-ad-col-payment">Payment</span>
+          <span class="c2c-ad-col-action">Action</span>
+        </div>
+        <div class="c2c-ads-body" id="c2c-ads-body">
+          <div class="empty-hint" style="padding:40px">Loading C2C ads...</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 弹窗：发布广告 -->
+    <div class="modal-overlay hidden" id="c2c-ad-modal">
+      <div class="modal-card" style="width:480px">
+        <div class="modal-header">
+          <span data-i18n="c2c_post_ad">Post Ad</span>
+          <button class="modal-close" id="c2c-ad-close">&times;</button>
+        </div>
+        <div class="modal-body">
+          <div class="form-group">
+            <label data-i18n="c2c_ad_type">Type</label>
+            <div class="c2c-ad-type-btns">
+              <button class="c2c-ad-type-btn active" data-type="sell" data-i18n="c2c_sell_usdt">Sell USDT</button>
+              <button class="c2c-ad-type-btn" data-type="buy" data-i18n="c2c_buy_usdt">Buy USDT</button>
+            </div>
+          </div>
+          <div class="form-group">
+            <label data-i18n="c2c_coin">Coin</label>
+            <select id="c2c-ad-coin" class="c2c-select" style="width:100%">
+              <option value="USDT">USDT</option>
+              <option value="BTC">BTC</option>
+              <option value="ETH">ETH</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label data-i18n="c2c_price">Price (per unit in CNY)</label>
+            <input type="number" id="c2c-ad-price" placeholder="eg: 7.25" step="any">
+          </div>
+          <div class="form-row-2" style="display:flex;gap:10px">
+            <div class="form-group" style="flex:1">
+              <label data-i18n="c2c_min_amount">Min Amount</label>
+              <input type="number" id="c2c-ad-min" placeholder="100" step="any">
+            </div>
+            <div class="form-group" style="flex:1">
+              <label data-i18n="c2c_max_amount">Max Amount</label>
+              <input type="number" id="c2c-ad-max" placeholder="10000" step="any">
+            </div>
+          </div>
+          <div class="form-group">
+            <label data-i18n="c2c_payment_methods">Payment Methods</label>
+            <div class="c2c-pay-checks">
+              <label class="c2c-pay-check"><input type="checkbox" value="bank" checked> Bank Transfer</label>
+              <label class="c2c-pay-check"><input type="checkbox" value="alipay" checked> Alipay</label>
+              <label class="c2c-pay-check"><input type="checkbox" value="wechat" checked> WeChat Pay</label>
+            </div>
+          </div>
+          <div class="form-group">
+            <label data-i18n="c2c_remark">Remarks</label>
+            <textarea id="c2c-ad-remark" placeholder="Payment within 15 mins..." rows="2" style="width:100%;background:var(--bg3);border:1px solid var(--border);border-radius:4px;color:var(--text);padding:8px;font-size:12px;resize:vertical;font-family:var(--font)"></textarea>
+          </div>
+          <div id="c2c-ad-error" class="form-error"></div>
+          <button class="btn btn-gold btn-full" id="c2c-ad-submit" data-i18n="c2c_post_ad">Post Ad</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- 弹窗：交易详情/聊天 -->
+    <div class="modal-overlay hidden" id="c2c-order-modal">
+      <div class="modal-card" style="width:520px;max-height:85vh">
+        <div class="modal-header">
+          <span id="c2c-order-title">C2C Order #---</span>
+          <button class="modal-close" id="c2c-order-close">&times;</button>
+        </div>
+        <div class="modal-body" style="display:flex;flex-direction:column;height:420px">
+          <!-- 订单状态 -->
+          <div class="c2c-order-status" id="c2c-order-status-bar">
+            <div class="c2c-status-step" id="c2c-step-pay"><span class="c2s-dot"></span> Payment</div>
+            <div class="c2c-status-conn" id="c2c-conn-1"></div>
+            <div class="c2c-status-step" id="c2c-step-release"><span class="c2s-dot"></span> Release</div>
+            <div class="c2c-status-conn" id="c2c-conn-2"></div>
+            <div class="c2c-status-step" id="c2c-step-done"><span class="c2s-dot"></span> Done</div>
+          </div>
+          <!-- 订单信息 -->
+          <div class="c2c-order-info" id="c2c-order-info">
+            <div class="c2c-info-row"><span>Amount:</span><strong id="c2c-oi-amount">--</strong></div>
+            <div class="c2c-info-row"><span>Price:</span><strong id="c2c-oi-price">--</strong></div>
+            <div class="c2c-info-row"><span>Total:</span><strong id="c2c-oi-total">--</strong></div>
+            <div class="c2c-info-row"><span>Payment:</span><strong id="c2c-oi-payment">--</strong></div>
+          </div>
+          <!-- 操作按钮 -->
+          <div class="c2c-order-actions" id="c2c-order-actions"></div>
+          <!-- 聊天区 -->
+          <div class="c2c-chat">
+            <div class="c2c-chat-msgs" id="c2c-chat-msgs">
+              <div class="c2c-msg-system">—— Trade started ——</div>
+            </div>
+            <div class="c2c-chat-input-row">
+              <input type="text" id="c2c-chat-input" placeholder="Type a message..." maxlength="500">
+              <button class="btn btn-xs btn-gold" id="c2c-chat-send">Send</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 弹窗：我的订单列表 -->
+    <div class="modal-overlay hidden" id="c2c-my-orders-modal">
+      <div class="modal-card" style="width:700px;max-height:85vh">
+        <div class="modal-header">
+          <span data-i18n="c2c_my_orders">My C2C Orders</span>
+          <button class="modal-close" id="c2c-my-orders-close">&times;</button>
+        </div>
+        <div class="modal-body" style="max-height:500px;overflow-y:auto">
+          <table style="width:100%;border-collapse:collapse;font-size:12px">
+            <thead><tr style="border-bottom:1px solid var(--border)">
+              <th style="padding:8px;text-align:left;color:var(--text2)">Order ID</th>
+              <th style="padding:8px;text-align:left;color:var(--text2)">Coin</th>
+              <th style="padding:8px;text-align:right;color:var(--text2)">Amount</th>
+              <th style="padding:8px;text-align:right;color:var(--text2)">Price</th>
+              <th style="padding:8px;text-align:right;color:var(--text2)">Total</th>
+              <th style="padding:8px;text-align:left;color:var(--text2)">Status</th>
+              <th style="padding:8px;text-align:center;color:var(--text2)">Action</th>
+            </tr></thead>
+            <tbody id="c2c-my-orders-body">
+              <tr><td colspan="7" class="empty-hint">No orders</td></tr>
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
   </div>
