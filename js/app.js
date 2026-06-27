@@ -194,6 +194,7 @@ function applyLang() {
 const ST = {
   token: localStorage.getItem('ct_token') || null,
   user: JSON.parse(localStorage.getItem('ct_user') || 'null'),
+  authVerified: false, // 只有 API 验证通过后才为 true
   prices: {},
   symbol: 'BTC',
   side: 'buy',
@@ -280,7 +281,7 @@ function route() {
   }
 
   // 隐藏所有页面
-  $$('.page-auth, .page-trade, .page-c2c').forEach(p => p.classList.add('hidden'));
+  $$('.page-auth, .page-trade, .page-c2c, .page-generic').forEach(p => p.classList.add('hidden'));
 
   // 匹配路由
   if (restPath === '/login') { showAuth('login'); applyLang(); return; }
@@ -457,12 +458,13 @@ function copyInviteCode() {
 function updateNavAuth(loggedIn) {
   $('nav-guest').classList.toggle('hidden', loggedIn);
   $('nav-user').classList.toggle('hidden', !loggedIn);
-  // 控制所有需要登录的元素：仅登录且 user 信息就绪后显示
+  // 控制所有需要登录的元素：必须 API 验证通过后才显示
+  var showAuth = loggedIn && ST.authVerified && ST.user;
   $$('.auth-only').forEach(function(el) {
-    if (loggedIn && ST.user) el.classList.add('auth-shown');
+    if (showAuth) el.classList.add('auth-shown');
     else el.classList.remove('auth-shown');
   });
-  if (loggedIn && ST.user) {
+  if (loggedIn && ST.authVerified && ST.user) {
     $('nav-username').textContent = ST.user.username;
     $('nav-user-avatar').textContent = ST.user.username[0].toUpperCase();
     updateNavBalance();
@@ -530,13 +532,14 @@ function backToRegStep1() {
 }
 
 function saveAuth(d) {
-  ST.token = d.token; ST.user = d.user;
+  ST.token = d.token; ST.user = d.user; ST.authVerified = true;
   localStorage.setItem('ct_token', d.token);
   localStorage.setItem('ct_user', JSON.stringify(d.user));
 }
 
 function logout() {
-  ST.token = null; ST.user = null;
+  ST.token = null; ST.user = null; ST.authVerified = false;
+  $$('.auth-only').forEach(function(el) { el.classList.remove('auth-shown'); });
   localStorage.removeItem('ct_token'); localStorage.removeItem('ct_user');
   ST.timers.forEach(clearInterval); ST.timers = [];
   $('nav-dropdown').classList.add('hidden');
@@ -607,9 +610,9 @@ function drawQR(text) {
 let depositCoin = 'USDT', depositNetwork = 'TRC20';
 
 function openDeposit() {
-  // 双重检查：必须有 token 且已通过后端验证
-  if (!ST.token || !ST.user) {
-    ST.token = null; ST.user = null;
+  // 三重检查：token + authVerified + user，防止 localStorage 残留数据
+  if (!ST.token || !ST.authVerified || !ST.user) {
+    ST.token = null; ST.user = null; ST.authVerified = false;
     localStorage.removeItem('ct_token'); localStorage.removeItem('ct_user');
     location.href = '/' + currentLang + '/login?redirect=' + encodeURIComponent(location.pathname);
     return;
@@ -1588,10 +1591,13 @@ document.addEventListener('DOMContentLoaded', () => {
     if (e.target === this) $('c2c-my-orders-modal').classList.add('hidden');
   });
 
-  // 自动登录
+  // 自动登录 — 只有 API 验证通过后才标记 authVerified
   if (ST.token) {
-    api.get('/api/auth/profile').then(d => { ST.user = d.user; route(); }).catch(() => {
-      ST.token = null; localStorage.removeItem('ct_token'); route();
+    api.get('/api/auth/profile').then(d => {
+      ST.user = d.user; ST.authVerified = true; updateNavAuth(true); route();
+    }).catch(() => {
+      ST.token = null; ST.user = null; ST.authVerified = false;
+      localStorage.removeItem('ct_token'); localStorage.removeItem('ct_user'); route();
     });
-  }
+  } else { route(); }
 });
