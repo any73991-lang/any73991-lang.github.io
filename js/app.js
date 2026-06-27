@@ -83,6 +83,10 @@ d('send_code', {'zh-CN':'发送验证码','zh-TW':'發送驗證碼',en:'Send Ver
 d('verify_code',{'zh-CN':'验证码','zh-TW':'驗證碼',en:'Verification Code',ja:'認証コード',ko:'인증코드',es:'Código',ru:'Код',fr:'Code',de:'Code',pt:'Código',vi:'Mã xác nhận',th:'รหัสยืนยัน' });
 d('verify_hint',{'zh-CN':'验证码已发送。输入下方6位数字','zh-TW':'驗證碼已發送。輸入下方6位數字',en:'Verification code sent. Enter the 6-digit code below',ja:'認証コードを送信しました。6桁のコードを入力',ko:'인증코드 발송됨. 아래 6자리 입력',es:'Código enviado. Ingrese el código de 6 dígitos',ru:'Код отправлен. Введите 6 цифр',fr:'Code envoyé. Entrez le code à 6 chiffres',de:'Code gesendet. 6-stelligen Code eingeben',pt:'Código enviado. Digite o código de 6 dígitos',vi:'Đã gửi mã. Nhập mã 6 số',th:'ส่งรหัสแล้ว กรอก 6 หลัก' });
 d('complete_reg',{'zh-CN':'完成注册','zh-TW':'完成註冊',en:'Complete Registration',ja:'登録完了',ko:'가입 완료',es:'Completar registro',ru:'Завершить',fr:'Terminer',de:'Registrierung abschließen',pt:'Concluir cadastro',vi:'Hoàn tất',th:'ลงทะเบียน' });
+d('ohlc_open',  {'zh-CN':'开','zh-TW':'開',en:'O',ja:'始',ko:'시가',es:'A',ru:'O',fr:'O',de:'E',pt:'A',vi:'Mở',th:'เปิด' });
+d('ohlc_high',  {'zh-CN':'高','zh-TW':'高',en:'H',ja:'高',ko:'고가',es:'Max',ru:'H',fr:'H',de:'H',pt:'Max',vi:'Cao',th:'สูง' });
+d('ohlc_low',   {'zh-CN':'低','zh-TW':'低',en:'L',ja:'安',ko:'저가',es:'Min',ru:'L',fr:'L',de:'T',pt:'Min',vi:'Thấp',th:'ต่ำ' });
+d('ohlc_close', {'zh-CN':'收','zh-TW':'收',en:'C',ja:'終',ko:'종가',es:'C',ru:'C',fr:'C',de:'S',pt:'F',vi:'Đóng',th:'ปิด' });
 d('fill_all_fields',{'zh-CN':'请填写所有字段','zh-TW':'請填寫所有欄位',en:'Please fill in all fields',ja:'全ての項目を入力',ko:'모든 항목 입력',es:'Complete todos los campos',ru:'Заполните все поля',fr:'Veuillez tout remplir',de:'Alle Felder ausfüllen',pt:'Preencha todos',vi:'Điền tất cả',th:'กรอกทุกช่อง' });
 d('invalid_email',{'zh-CN':'邮箱格式无效','zh-TW':'郵箱格式無效',en:'Invalid email format',ja:'無効なメール',ko:'잘못된 이메일',es:'Email inválido',ru:'Неверный email',fr:'Email invalide',de:'Ungültige E-Mail',pt:'Email inválido',vi:'Email không hợp lệ',th:'อีเมลไม่ถูกต้อง' });
 d('username_too_short',{'zh-CN':'用户名至少3个字符','zh-TW':'用戶名至少3個字符',en:'Username needs at least 3 characters',ja:'3文字以上必要',ko:'3자 이상 필요',es:'Mínimo 3 caracteres',ru:'Минимум 3 символа',fr:'3 caractères minimum',de:'Mindestens 3 Zeichen',pt:'Mínimo 3 caracteres',vi:'Ít nhất 3 ký tự',th:'อย่างน้อย 3 ตัว' });
@@ -974,7 +978,7 @@ async function confirmDeposit() {
 
 // ========== 进入交易 ==========
 function enterTrade() {
-  ST.timers.push(setInterval(updateAll, 8000));
+  ST.timers.push(setInterval(updateAll, 3000));
   updateAll();
 }
 
@@ -1320,10 +1324,10 @@ function initChartInteraction() {
 
     tip.innerHTML =
       '<div class="tt-time">' + tLabel + '  <span style="color:' + (up ? '#0ECB81' : '#F6465D') + '">' + (up ? '+' : '') + change + '%</span></div>' +
-      '<div class="tt-row"><span class="tt-label">开</span><span class="tt-open">' + k.open.toFixed(dp) + '</span></div>' +
-      '<div class="tt-row"><span class="tt-label">高</span><span class="tt-high">' + k.high.toFixed(dp) + '</span></div>' +
-      '<div class="tt-row"><span class="tt-label">低</span><span class="tt-low">' + k.low.toFixed(dp) + '</span></div>' +
-      '<div class="tt-row"><span class="tt-label">收</span><span class="tt-close">' + k.close.toFixed(dp) + '</span></div>' +
+      '<div class="tt-row"><span class="tt-label">' + t('ohlc_open') + '</span><span class="tt-open">' + k.open.toFixed(dp) + '</span></div>' +
+      '<div class="tt-row"><span class="tt-label">' + t('ohlc_high') + '</span><span class="tt-high">' + k.high.toFixed(dp) + '</span></div>' +
+      '<div class="tt-row"><span class="tt-label">' + t('ohlc_low') + '</span><span class="tt-low">' + k.low.toFixed(dp) + '</span></div>' +
+      '<div class="tt-row"><span class="tt-label">' + t('ohlc_close') + '</span><span class="tt-close">' + k.close.toFixed(dp) + '</span></div>' +
       '<div class="tt-vol">VOL ' + formatVol(k.volume) + '</div>';
 
     tip.classList.remove('hidden');
