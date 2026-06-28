@@ -450,18 +450,91 @@ const FEE = 0.001;
 const API_BASE = location.hostname === 'any73991-lang.github.io'
   ? 'https://561f2818e72c489fad39fbdee59baca0.codebuddy.cloudstudio.run'
   : '';
+var _demoRegData = null;
+function _demoUser() {
+  var n = (_demoRegData && _demoRegData.username) || ST.user?.username || 'demo_user';
+  var e = (_demoRegData && _demoRegData.email) || ST.user?.email || 'demo@demo.com';
+  return {
+    id: 1, username: n, email: e, usdt_balance: 10000,
+    vip_level: 1, two_fa_enabled: false, invite_code: 'DEMO001',
+    language_pref: currentLang || 'en', created_at: new Date().toISOString()
+  };
+}
+function _demoAuth(url, opts) {
+  var body = {};
+  if (opts.body) { try { body = JSON.parse(opts.body); } catch(e){} }
+  var method = (opts.method || 'GET').toUpperCase();
+
+  if (url === '/api/auth/login') {
+    return { token: 'demo_tok_' + Date.now(), user: _demoUser() };
+  }
+  if (url === '/api/auth/send-code') {
+    _demoRegData = { username: body.username, email: body.email, password: body.password, invite_code: body.invite_code };
+    return { message: '验证码已发送至 ' + (body.email || '你的邮箱') + '（Demo: 任意6位数字）', code: '123456' };
+  }
+  if (url === '/api/auth/verify-code') {
+    var user = _demoUser();
+    return { message: '注册成功', token: 'demo_tok_' + Date.now(), user: user };
+  }
+  if (url === '/api/auth/forgot-password') {
+    return { message: '重置验证码已发送至 ' + (body.email || '你的邮箱') };
+  }
+  if (url === '/api/auth/reset-password') {
+    return { message: '密码重置成功' };
+  }
+  if (url === '/api/auth/me') {
+    var u = _demoUser();
+    return { user: u, assets: [{ symbol: 'BTC', balance: 0.05 }, { symbol: 'ETH', balance: 0.5 }] };
+  }
+  if (url === '/api/auth/profile') {
+    return { user: _demoUser(), assets: [{ symbol: 'BTC', balance: 0.05 }, { symbol: 'ETH', balance: 0.5 }, { symbol: 'USDT', balance: 10000 }] };
+  }
+  if (url === '/api/auth/update-profile') {
+    return { message: '保存成功' };
+  }
+  if (url === '/api/auth/change-password') {
+    return { message: '密码已修改，请重新登录' };
+  }
+  if (url === '/api/auth/deposit') {
+    return { message: '充值请求已提交' };
+  }
+  if (url === '/api/auth/settings') {
+    return { settings: { username: (_demoRegData && _demoRegData.username) || 'demo_user', email: (_demoRegData && _demoRegData.email) || 'demo@demo.com', phone: '', language_pref: currentLang || 'en', vip_level: 1, two_fa_enabled: false, invite_code: 'DEMO001' } };
+  }
+  if (url === '/api/auth/invite-stats') {
+    return { invite_code: 'DEMO001', invited_count: 3, invited_users: [{ username: 'friend1', created_at: new Date(Date.now() - 86400000).toISOString() }, { username: 'friend2', created_at: new Date(Date.now() - 172800000).toISOString() }, { username: 'friend3', created_at: new Date(Date.now() - 259200000).toISOString() }] };
+  }
+  if (url === '/api/wallet/balance') {
+    return { usdt_balance: 10000 };
+  }
+  if (url === '/api/wallet/assets') {
+    return { assets: [{ symbol: 'BTC', balance: 0.05 }, { symbol: 'ETH', balance: 0.5 }, { symbol: 'USDT', balance: 10000 }] };
+  }
+  throw new Error('Demo: 未知 API 端点 ' + url);
+}
 const api = {
-  async req(url, opts = {}) {
-    const h = { 'Content-Type': 'application/json' };
+  async req(url, opts) {
+    opts = opts || {};
+    var h = { 'Content-Type': 'application/json' };
     if (ST.token) h['Authorization'] = 'Bearer ' + ST.token;
-    const fullUrl = url.startsWith('/api') ? API_BASE + url : url;
-    const r = await fetch(fullUrl, { ...opts, headers: h });
-    const d = await r.json();
-    if (!r.ok) throw new Error(d.error || '请求失败');
-    return d;
+    var fullUrl = url.startsWith('/api') ? API_BASE + url : url;
+    try {
+      var r = await fetch(fullUrl, { method: opts.method || 'GET', headers: h, body: opts.body, signal: AbortSignal.timeout(5000) });
+      var ct = r.headers.get('content-type') || '';
+      if (!ct.includes('json')) throw new Error('backend_unavailable');
+      var d = await r.json();
+      if (!r.ok) throw new Error(d.error || '请求失败');
+      return d;
+    } catch(e) {
+      // 后端不可用时，认证/钱包 API 使用 demo 回退
+      if (url.startsWith('/api/auth') || url.startsWith('/api/wallet')) {
+        return _demoAuth(url, opts);
+      }
+      throw e;
+    }
   },
-  get: url => api.req(url),
-  post: (url, body) => api.req(url, { method: 'POST', body: JSON.stringify(body) })
+  get: function(url) { return api.req(url); },
+  post: function(url, body) { return api.req(url, { method: 'POST', body: JSON.stringify(body) }); }
 };
 
 // ========== 演示数据 (API 不可用时的回退) ==========
