@@ -1628,8 +1628,13 @@ function updateTradeTotal() {
 
 async function updateTradeInfo() {
   if (demoMode) {
-    $('available-usdt').textContent = '10,000.00 USDT';
-    $('holding-info').textContent = '0.5000 ' + ST.symbol;
+    if (ST.token && ST.authVerified && ST.user) {
+      $('available-usdt').textContent = '10,000.00 USDT';
+      $('holding-info').textContent = '0.5000 ' + ST.symbol;
+      return;
+    }
+    $('available-usdt').textContent = '0.00 USDT';
+    $('holding-info').textContent = '0.0000 ' + ST.symbol;
     return;
   }
   try {
@@ -1642,6 +1647,13 @@ async function updateTradeInfo() {
 }
 
 async function executeTrade() {
+  // 未登录用户跳转到登录页
+  if (!ST.token || !ST.authVerified || !ST.user) {
+    ST.token = null; ST.user = null; ST.authVerified = false;
+    localStorage.removeItem('ct_token'); localStorage.removeItem('ct_user');
+    location.href = '/' + currentLang + '/login?redirect=' + encodeURIComponent(location.pathname);
+    return;
+  }
   const sym = ST.symbol;
   const price = ST.orderType === 'market' ? (ST.prices[sym]?.price || 0) : (parseFloat($('trade-price-input').value) || 0);
   const amt = parseFloat($('trade-amount').value);
@@ -1687,11 +1699,18 @@ async function fillPct(pct) {
 // ========== 钱包 ==========
 async function fetchWallet() {
   if (demoMode) {
-    $('wallet-usdt').textContent = '10,000.00';
-    $('wallet-total').textContent = '12,500.00';
-    var c = $('wallet-assets');
-    c.innerHTML = '<div class="asset-row"><span class="asset-sym">BTC</span><span class="asset-bal">0.0500</span><span class="asset-val">@87,500</span></div>'
-      + '<div class="asset-row"><span class="asset-sym">ETH</span><span class="asset-bal">0.5000</span><span class="asset-val">@3,420</span></div>';
+    if (ST.token && ST.authVerified && ST.user) {
+      $('wallet-usdt').textContent = '10,000.00';
+      $('wallet-total').textContent = '12,500.00';
+      var c = $('wallet-assets');
+      c.innerHTML = '<div class="asset-row"><span class="asset-sym">BTC</span><span class="asset-bal">0.0500</span><span class="asset-val">@87,500</span></div>'
+        + '<div class="asset-row"><span class="asset-sym">ETH</span><span class="asset-bal">0.5000</span><span class="asset-val">@3,420</span></div>';
+      return;
+    }
+    // 未登录用户显示 0 余额
+    $('wallet-usdt').textContent = '0.00';
+    $('wallet-total').textContent = '0.00';
+    $('wallet-assets').innerHTML = '<div class="empty-hint" data-i18n="no_data">None</div>';
     return;
   }
   try {
@@ -2310,6 +2329,14 @@ document.addEventListener('click', e => {
 
 // ========== 初始化 ==========
 document.addEventListener('DOMContentLoaded', () => {
+  // 处理 404 重定向（GitHub Pages SPA fallback）
+  var _redirectPath = sessionStorage.getItem('ct_redirect');
+  if (_redirectPath) {
+    sessionStorage.removeItem('ct_redirect');
+    _redirectPath = _redirectPath.replace(/^\/(en|zh-CN|zh-TW|ja|ko|es|ru|fr|de|pt|vi|th)\//, '/');
+    if (_redirectPath === '/' || _redirectPath === '') _redirectPath = '/trade/BTC_USDT';
+  }
+
   // 恢复语言
   applyLang();
 
@@ -2633,17 +2660,20 @@ document.addEventListener('DOMContentLoaded', () => {
   // ===== 止损限价输入 =====
   $('trade-stop-price')?.addEventListener('input', updateTradeTotal);
 
+  // 初始路由（如果有 404 redirect，跳转到目标路径）
+  var _doRoute = function() { if (_redirectPath) { navTo(_redirectPath); } else { route(); } };
+
   // 自动登录 — 只有 API 验证通过后才标记 authVerified
   if (ST.token) {
     api.get('/api/auth/profile').then(d => {
-      ST.user = d.user; ST.authVerified = true; updateNavAuth(true); route();
+      ST.user = d.user; ST.authVerified = true; updateNavAuth(true); _doRoute();
       // 启动通知轮询
       fetchNotifications();
       if (notifPollTimer) clearInterval(notifPollTimer);
       notifPollTimer = setInterval(fetchNotifications, 15000);
     }).catch(() => {
       ST.token = null; ST.user = null; ST.authVerified = false;
-      localStorage.removeItem('ct_token'); localStorage.removeItem('ct_user'); route();
+      localStorage.removeItem('ct_token'); localStorage.removeItem('ct_user'); _doRoute();
     });
-  } else { route(); }
+  } else { _doRoute(); }
 });
