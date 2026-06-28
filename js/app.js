@@ -571,7 +571,8 @@ function route() {
     return location.replace('/' + currentLang + path);
   }
   if (!lang && path === '/') {
-    return location.replace('/' + currentLang + '/trade/BTC_USDT');
+    history.replaceState(null, '', '/' + currentLang + '/trade/BTC_USDT');
+    return route();
   }
 
   // 隐藏所有页面
@@ -594,9 +595,10 @@ function route() {
   if (restPath === '/forgot') { showForgotPassword(); applyLang(); return; }
 
 
-  // 默认 → 当前语言交易页
-  if (ST.token) return location.replace('/' + currentLang + '/trade/BTC_USDT');
-  return location.replace('/' + currentLang + '/login');
+  // 默认 → 当前语言交易页（SPA 内跳转，避免闪屏）
+  var defaultPath = ST.token ? '/trade/BTC_USDT' : '/login';
+  history.replaceState(null, '', '/' + currentLang + defaultPath);
+  return route();
 }
 
 // ========== 展示页面 ==========
@@ -2348,8 +2350,14 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
-  // 初始路由
-  route();
+  // 初始路由 — 优先处理 404 fallback 重定向
+  if (_redirectPath) {
+    var _rp = _redirectPath;
+    _redirectPath = null;  // 清空，避免后续 _doRoute 重复跳转
+    navTo(_rp);
+  } else {
+    route();
+  }
 
   // 浏览器后退/前进
   window.addEventListener('popstate', route);
