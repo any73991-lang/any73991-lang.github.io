@@ -862,27 +862,51 @@ function _demoAuth(url, opts) {
 
   throw new Error('Demo: 未知 API 端点 ' + url);
 }
+// Demo 回退辅助函数（仅网络不可达时使用）
+function _demoFallback(url, opts) {
+  var noDemo = ['/api/auth/deposit', '/api/auth/withdraw'];
+  if (['/api/auth', '/api/wallet', '/api/c2c', '/api/trade'].some(function(p) { return url.startsWith(p); }) && noDemo.indexOf(url) === -1) {
+    return _demoAuth(url, opts);
+  }
+  throw new Error('服务器连接失败，请稍后重试');
+}
+
 const api = {
   async req(url, opts) {
     opts = opts || {};
     var h = { 'Content-Type': 'application/json' };
     if (ST.token) h['Authorization'] = 'Bearer ' + ST.token;
     var fullUrl = url.startsWith('/api') ? API_BASE + url : url;
+
+    var r;
     try {
-      var r = await fetch(fullUrl, { method: opts.method || 'GET', headers: h, body: opts.body, signal: AbortSignal.timeout(5000) });
-      var ct = r.headers.get('content-type') || '';
-      if (!ct.includes('json')) throw new Error('backend_unavailable');
-      var d = await r.json();
-      if (!r.ok) throw new Error(d.error || '请求失败');
-      return d;
+      r = await fetch(fullUrl, { method: opts.method || 'GET', headers: h, body: opts.body, signal: AbortSignal.timeout(5000) });
     } catch(e) {
-      // 后端不可用时，认证/钱包/C2C/交易 API 使用 demo 回退
-      var noDemo = ['/api/auth/deposit', '/api/auth/withdraw'];
-      if (['/api/auth', '/api/wallet', '/api/c2c', '/api/trade'].some(function(p) { return url.startsWith(p); }) && noDemo.indexOf(url) === -1) {
-        return _demoAuth(url, opts);
-      }
-      throw e;
+      // 真正网络错误（超时/DNS/连接失败）→ 回退 Demo
+      return _demoFallback(url, opts);
     }
+
+    var ct = r.headers.get('content-type') || '';
+    if (!ct.includes('json')) {
+      // 返回的不是 JSON（如 HTML 错误页）→ 回退 Demo
+      return _demoFallback(url, opts);
+    }
+
+    var d;
+    try {
+      d = await r.json();
+    } catch(e) {
+      // JSON 解析失败 → 回退 Demo
+      return _demoFallback(url, opts);
+    }
+
+    if (!r.ok) {
+      // 后端返回业务错误（如用户名已存在/验证码错误/余额不足）
+      // 必须抛出给调用方，不能回退 Demo
+      throw new Error(d.error || '请求失败');
+    }
+
+    return d;
   },
   get: function(url) { return api.req(url); },
   post: function(url, body) { return api.req(url, { method: 'POST', body: JSON.stringify(body) }); }
