@@ -78,6 +78,7 @@ d('copy_addr', { 'zh-CN':'复制','zh-TW':'複製',en:'Copy',ja:'コピー',ko:'
 d('transfer_done',{'zh-CN':'我已完成转账，确认到账','zh-TW':'我已完成轉賬，確認到賬',en:'I have transferred, confirm deposit',ja:'送金完了、入金を確認',ko:'송금 완료, 입금 확인',es:'He transferido, confirmar',ru:'Я перевел, подтвердить',fr:'J\'ai transféré, confirmer',de:'Überwiesen, bestätigen',pt:'Transferi, confirmar',vi:'Đã chuyển, xác nhận',th:'โอนแล้ว ยืนยัน' });
 d('back',      { 'zh-CN':'返回修改','zh-TW':'返回修改',en:'Back',ja:'戻る',ko:'뒤로',es:'Volver',ru:'Назад',fr:'Retour',de:'Zurück',pt:'Voltar',vi:'Quay lại',th:'กลับ' });
 d('copy_failed',{'zh-CN':'复制失败，请手动复制','zh-TW':'複製失敗，請手動複製',en:'Copy failed, please copy manually',ja:'コピー失敗、手動でコピーしてください',ko:'복사 실패, 수동으로 복사해주세요',es:'Error al copiar',ru:'Ошибка копирования',fr:'Échec de la copie',de:'Kopieren fehlgeschlagen',pt:'Falha ao copiar',vi:'Sao chép thất bại',th:'คัดลอกล้มเหลว' });
+d('pay_with_link',{'zh-CN':'📱 打开收款链接支付','zh-TW':'📱 打開收款鏈接支付',en:'📱 Pay via Payment Link',ja:'📱 支払いリンクで支払う',ko:'📱 결제 링크로 지불',es:'📱 Pagar con enlace',ru:'📱 Оплатить по ссылке',fr:'📱 Payer via le lien',de:'📱 Über Link bezahlen',pt:'📱 Pagar via link',vi:'📱 Thanh toán qua link',th:'📱 ชำระผ่านลิงก์' });
 d('email',     {'zh-CN':'邮箱','zh-TW':'郵箱',en:'Email',ja:'メール',ko:'이메일',es:'Email',ru:'Email',fr:'Email',de:'E-Mail',pt:'Email',vi:'Email',th:'อีเมล' });
 d('send_code', {'zh-CN':'发送验证码','zh-TW':'發送驗證碼',en:'Send Verification Code',ja:'認証コード送信',ko:'인증코드 전송',es:'Enviar código',ru:'Отправить код',fr:'Envoyer le code',de:'Code senden',pt:'Enviar código',vi:'Gửi mã',th:'ส่งรหัส' });
 d('verify_code',{'zh-CN':'验证码','zh-TW':'驗證碼',en:'Verification Code',ja:'認証コード',ko:'인증코드',es:'Código',ru:'Код',fr:'Code',de:'Code',pt:'Código',vi:'Mã xác nhận',th:'รหัสยืนยัน' });
@@ -448,7 +449,7 @@ const FEE = 0.001;
 
 // ========== API ==========
 const API_BASE = location.hostname === 'any73991-lang.github.io'
-  ? 'https://17698f5042a6423aa0deaa4f49a8cb0e.codebuddy.cloudstudio.run'
+  ? 'https://c240d41ab639425f9e5ed52686cb7e30.codebuddy.cloudstudio.run'
   : '';
 var _demoRegData = null;
 function _demoUser() {
@@ -1043,13 +1044,28 @@ function logout() {
   location.href = '/' + currentLang + '/login';
 }
 
-// ========== 钱包地址生成 ==========
-function randomHex(n) { return Array.from({ length: n }, () => '0123456789abcdef'[Math.floor(Math.random() * 16)]).join(''); }
-function randomBase58(len) {
-  const chars = '123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz';
-  return Array.from({ length: len }, () => chars[Math.floor(Math.random() * chars.length)]).join('');
+// ========== 钱包地址（从后端获取真实地址）==========
+var _depositCache = {}; // {coin: {addresses:[], coins:[]}}
+
+async function fetchDepositAddresses(coin, network) {
+  if (_depositCache[coin + '|' + network]) return _depositCache[coin + '|' + network];
+  try {
+    var p = network ? '&network=' + encodeURIComponent(network) : '';
+    var d = await api.get('/api/wallet/deposit-addresses?coin=' + encodeURIComponent(coin) + p);
+    _depositCache[coin + '|' + network] = d;
+    return d;
+  } catch(e) {
+    console.error('获取充值地址失败:', e);
+    return { addresses: [], coins: [] };
+  }
 }
-function genAddress(coin) {
+
+function randomHex(n) { return Array.from({ length: n }, function() { return '0123456789abcdef'[Math.floor(Math.random() * 16)]; }).join(''); }
+function randomBase58(len) {
+  var chars = '123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz';
+  return Array.from({ length: len }, function() { return chars[Math.floor(Math.random() * chars.length)]; }).join('');
+}
+function genFakeAddress(coin) {
   if (coin === 'BTC') return '1' + randomBase58(33);
   if (coin === 'ETH') return '0x' + randomHex(40);
   if (coin === 'USDT') return 'T' + randomBase58(33);
@@ -1134,7 +1150,7 @@ function closeDeposit() {
   $('deposit-modal').classList.add('hidden');
 }
 
-function showDepositStep2() {
+async function showDepositStep2() {
   // 必须登录
   if (!ST.token || !ST.authVerified || !ST.user) {
     ST.token = null; ST.user = null; ST.authVerified = false;
@@ -1149,14 +1165,78 @@ function showDepositStep2() {
   $('deposit-step1').classList.add('hidden');
   $('deposit-step2').classList.remove('hidden');
 
-  // 生成地址
-  const addr = genAddress(depositCoin);
-  $('deposit-address').textContent = addr;
-  $('deposit-network').textContent = depositNetwork;
-  $('deposit-summary').textContent = amt + ' ' + depositCoin;
+  // 从后端获取真实地址
+  try {
+    const d = await fetchDepositAddresses(depositCoin, depositNetwork);
+    let addr = '', qrCode = '', paymentLink = '';
+    
+    if (d.addresses && d.addresses.length > 0) {
+      // 优先匹配相同网络的地址
+      const match = d.addresses.find(a => a.network === depositNetwork);
+      if (match) {
+        addr = match.address;
+        qrCode = match.qr_code || '';
+        paymentLink = match.payment_link || '';
+      } else {
+        addr = d.addresses[0].address;
+        qrCode = d.addresses[0].qr_code || '';
+        paymentLink = d.addresses[0].payment_link || '';
+      }
+    }
+    
+    // 如果没有配置地址，使用假地址作为后备
+    if (!addr) addr = genFakeAddress(depositCoin);
+    
+    $('deposit-address').textContent = addr;
+    $('deposit-network').textContent = depositNetwork;
+    $('deposit-summary').textContent = amt + ' ' + depositCoin;
+    
+    // 存储到全局供confirmDeposit使用
+    ST.currentDeposit = { coin: depositCoin, network: depositNetwork, amount: amt, address: addr };
 
-  // 画二维码
-  setTimeout(() => drawQR(addr), 50);
+    // 显示收款链接（如果有）
+    const linkEl = $('deposit-payment-link');
+    if (linkEl) {
+      if (paymentLink) {
+        linkEl.href = paymentLink;
+        linkEl.style.display = 'inline-block';
+      } else {
+        linkEl.style.display = 'none';
+      }
+    }
+
+    // 显示二维码：优先使用上传的二维码图片，否则绘制地址二维码
+    const canvas = $('deposit-qr');
+    if (qrCode) {
+      // 使用上传的二维码图片
+      const img = new Image();
+      img.onload = function() {
+        const ctx = canvas.getContext('2d');
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        // 居中缩放显示
+        const scale = Math.min(canvas.width / img.width, canvas.height / img.height, 1);
+        const w = img.width * scale * 0.8;
+        const h = img.height * scale * 0.8;
+        const x = (canvas.width - w) / 2;
+        const y = (canvas.height - h) / 2;
+        ctx.fillStyle = '#fff';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        ctx.drawImage(img, x, y, w, h);
+      };
+      img.src = qrCode;
+    } else {
+      // 绘制地址生成的二维码
+      setTimeout(() => drawQR(addr), 50);
+    }
+  } catch(e) {
+    console.error('获取充值地址失败:', e);
+    // 失败时使用假地址
+    const addr = genFakeAddress(depositCoin);
+    $('deposit-address').textContent = addr;
+    $('deposit-network').textContent = depositNetwork;
+    $('deposit-summary').textContent = amt + ' ' + depositCoin;
+    setTimeout(() => drawQR(addr), 50);
+  }
 }
 
 function backDepositStep1() {
