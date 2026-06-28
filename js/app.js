@@ -566,9 +566,10 @@ function route() {
     localStorage.setItem('ct_lang', lang);
   }
 
-  // 旧格式重定向 → 当前语言路径
+  // 旧格式重定向 → 当前语言路径（SPA 内跳转，避免闪屏）
   if (!lang && path.match(/^\/(login|register|trade|wallet|orders|c2c)/)) {
-    return location.replace('/' + currentLang + path);
+    history.replaceState(null, '', '/' + currentLang + path);
+    return route();
   }
   if (!lang && path === '/') {
     history.replaceState(null, '', '/' + currentLang + '/trade/BTC_USDT');
@@ -2358,6 +2359,9 @@ document.addEventListener('DOMContentLoaded', () => {
   } else {
     route();
   }
+
+  // 页面就绪，淡入显示（消除初始白屏闪烁）
+  document.body.classList.add('loaded');
 
   // 浏览器后退/前进
   window.addEventListener('popstate', route);
