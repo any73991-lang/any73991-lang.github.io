@@ -772,6 +772,25 @@
         </div>
       </div>
 
+      <!-- 法币选择标签 -->
+      <div class="c2c-token-tabs-row">
+        <button class="c2c-token-tab active" data-fiat="CNY">¥ CNY</button>
+        <button class="c2c-token-tab" data-fiat="HKD">HK$ HKD</button>
+        <button class="c2c-token-tab" data-fiat="TWD">NT$ TWD</button>
+        <button class="c2c-token-tab" data-fiat="USD">$ USD</button>
+        <button class="c2c-token-tab" data-fiat="JPY">¥ JPY</button>
+        <button class="c2c-token-tab" data-fiat="KRW">₩ KRW</button>
+        <button class="c2c-token-tab" data-fiat="RUB">₽ RUB</button>
+        <button class="c2c-token-tab" data-fiat="VND">₫ VND</button>
+      </div>
+      <!-- 币种/网络选择标签 -->
+      <div class="c2c-token-tabs-row">
+        <button class="c2c-coin-tab active" data-coin="USDT" data-network="ALL">USDT <small>All</small></button>
+        <button class="c2c-coin-tab" data-coin="USDT" data-network="TRC20">USDT <small>TRC20</small></button>
+        <button class="c2c-coin-tab" data-coin="USDT" data-network="ERC20">USDT <small>ERC20</small></button>
+        <button class="c2c-coin-tab" data-coin="BTC" data-network="">BTC</button>
+        <button class="c2c-coin-tab" data-coin="ETH" data-network="ERC20">ETH <small>ERC20</small></button>
+      </div>
       <!-- 筛选栏 -->
       <div class="c2c-filters">
         <div class="c2c-filter-group">
@@ -780,20 +799,15 @@
           <button class="c2c-filter-btn" data-side="sell" data-i18n="c2c_sell_usdt">Sell USDT</button>
         </div>
         <div class="c2c-filter-group">
-          <select id="c2c-coin-filter" class="c2c-select">
-            <option value="USDT">USDT</option>
-            <option value="BTC">BTC</option>
-            <option value="ETH">ETH</option>
-          </select>
           <select id="c2c-payment-filter" class="c2c-select">
             <option value="" data-i18n="c2c_all_methods">All Payment Methods</option>
-            <option value="bank">Bank Transfer</option>
-            <option value="alipay">Alipay</option>
-            <option value="wechat">WeChat Pay</option>
+            <option value="bank" data-i18n="c2c_pay_bank">Bank Transfer</option>
+            <option value="alipay" data-i18n="c2c_pay_alipay">Alipay</option>
+            <option value="wechat" data-i18n="c2c_pay_wechat">WeChat Pay</option>
           </select>
         </div>
         <div class="c2c-filter-group">
-          <input type="number" id="c2c-amount-filter" class="c2c-amount-input" placeholder="Min Amount" step="any">
+          <input type="number" id="c2c-amount-filter" class="c2c-amount-input" data-i18n-placeholder="c2c_min_placeholder" placeholder="Min Amount" step="any">
           <button class="btn btn-xs btn-gold-outline" id="c2c-filter-btn" data-i18n="c2c_apply">Apply</button>
         </div>
       </div>
@@ -853,9 +867,9 @@
           <div class="form-group">
             <label data-i18n="c2c_payment_methods">Payment Methods</label>
             <div class="c2c-pay-checks">
-              <label class="c2c-pay-check"><input type="checkbox" value="bank" checked> Bank Transfer</label>
-              <label class="c2c-pay-check"><input type="checkbox" value="alipay" checked> Alipay</label>
-              <label class="c2c-pay-check"><input type="checkbox" value="wechat" checked> WeChat Pay</label>
+              <label class="c2c-pay-check"><input type="checkbox" value="bank" checked> <span data-i18n="c2c_pay_bank">Bank Transfer</span></label>
+              <label class="c2c-pay-check"><input type="checkbox" value="alipay" checked> <span data-i18n="c2c_pay_alipay">Alipay</span></label>
+              <label class="c2c-pay-check"><input type="checkbox" value="wechat" checked> <span data-i18n="c2c_pay_wechat">WeChat Pay</span></label>
             </div>
           </div>
           <div class="form-group">
@@ -995,6 +1009,6 @@
     </div>
   </div>
 
-  <script src="/js/app.js?v=28061234"></script>
+  <script src="/js/app.js?v=28062801"></script>
 </body>
 </html>
