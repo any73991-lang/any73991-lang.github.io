@@ -78,6 +78,16 @@ d('copy_addr', { 'zh-CN':'复制','zh-TW':'複製',en:'Copy',ja:'コピー',ko:'
 d('transfer_done',{'zh-CN':'我已完成转账，确认到账','zh-TW':'我已完成轉賬，確認到賬',en:'I have transferred, confirm deposit',ja:'送金完了、入金を確認',ko:'송금 완료, 입금 확인',es:'He transferido, confirmar',ru:'Я перевел, подтвердить',fr:'J\'ai transféré, confirmer',de:'Überwiesen, bestätigen',pt:'Transferi, confirmar',vi:'Đã chuyển, xác nhận',th:'โอนแล้ว ยืนยัน' });
 d('back',      { 'zh-CN':'返回修改','zh-TW':'返回修改',en:'Back',ja:'戻る',ko:'뒤로',es:'Volver',ru:'Назад',fr:'Retour',de:'Zurück',pt:'Voltar',vi:'Quay lại',th:'กลับ' });
 d('copy_failed',{'zh-CN':'复制失败，请手动复制','zh-TW':'複製失敗，請手動複製',en:'Copy failed, please copy manually',ja:'コピー失敗、手動でコピーしてください',ko:'복사 실패, 수동으로 복사해주세요',es:'Error al copiar',ru:'Ошибка копирования',fr:'Échec de la copie',de:'Kopieren fehlgeschlagen',pt:'Falha ao copiar',vi:'Sao chép thất bại',th:'คัดลอกล้มเหลว' });
+d('copy_hint',  {'zh-CN':'点击地址或按钮可复制','zh-TW':'點擊地址或按鈕可複製',en:'Click address or button to copy',ja:'アドレスかボタンをクリックでコピー',ko:'주소나 버튼을 클릭하여 복사',es:'Haga clic para copiar',ru:'Нажмите на адрес или кнопку',fr:'Cliquez pour copier',de:'Zum Kopieren klicken',pt:'Clique para copiar',vi:'Nhấn để sao chép',th:'คลิกเพื่อคัดลอก'});
+d('wd_min_withdraw',{'zh-CN':'最小提现','zh-TW':'最小提現',en:'Minimum withdrawal',ja:'最低出金額',ko:'최소 출금',es:'Retiro mínimo',ru:'Мин. вывод',fr:'Retrait minimum',de:'Mindestauszahlung',pt:'Saque mínimo',vi:'Rút tối thiểu',th:'ถอนขั้นต่ำ'});
+d('wd_invalid_addr',{'zh-CN':'地址无效','zh-TW':'地址無效',en:'Invalid address',ja:'無効なアドレス',ko:'잘못된 주소',es:'Dirección inválida',ru:'Неверный адрес',fr:'Adresse invalide',de:'Ungültige Adresse',pt:'Endereço inválido',vi:'Địa chỉ không hợp lệ',th:'ที่อยู่ไม่ถูกต้อง'});
+d('review_select_rating',{'zh-CN':'请选择评分','zh-TW':'請選擇評分',en:'Please select a rating',ja:'評価を選択してください',ko:'평점을 선택해주세요',es:'Seleccione una calificación',ru:'Выберите оценку',fr:'Veuillez choisir une note',de:'Bitte Bewertung wählen',pt:'Selecione uma avaliação',vi:'Vui lòng chọn đánh giá',th:'กรุณาเลือกคะแนน'});
+d('c2c_rate_poor',{'zh-CN':'差','zh-TW':'差',en:'Poor',ja:'悪い',ko:'나쁨',es:'Malo',ru:'Плохо',fr:'Mauvais',de:'Schlecht',pt:'Ruim',vi:'Kém',th:'แย่'});
+d('c2c_rate_fair',{'zh-CN':'一般','zh-TW':'一般',en:'Fair',ja:'普通',ko:'보통',es:'Regular',ru:'Нормально',fr:'Moyen',de:'Mittel',pt:'Regular',vi:'Bình thường',th:'พอใช้'});
+d('c2c_rate_good',{'zh-CN':'好','zh-TW':'好',en:'Good',ja:'良い',ko:'좋음',es:'Bueno',ru:'Хорошо',fr:'Bon',de:'Gut',pt:'Bom',vi:'Tốt',th:'ดี'});
+d('c2c_rate_great',{'zh-CN':'很好','zh-TW':'很好',en:'Great',ja:'とても良い',ko:'매우좋음',es:'Muy bueno',ru:'Отлично',fr:'Très bon',de:'Sehr gut',pt:'Ótimo',vi:'Rất tốt',th:'ดีมาก'});
+d('c2c_rate_excellent',{'zh-CN':'非常好','zh-TW':'非常好',en:'Excellent',ja:'最高',ko:'최고',es:'Excelente',ru:'Превосходно',fr:'Excellent',de:'Ausgezeichnet',pt:'Excelente',vi:'Xuất sắc',th:'ยอดเยี่ยม'});
+d('copy_success',{'zh-CN':'已复制','zh-TW':'已複製',en:'Copied',ja:'コピー済',ko:'복사됨',es:'Copiado',ru:'Скопировано',fr:'Copié',de:'Kopiert',pt:'Copiado',vi:'Đã sao chép',th:'คัดลอกแล้ว'});
 d('pay_with_link',{'zh-CN':'📱 打开收款链接支付','zh-TW':'📱 打開收款鏈接支付',en:'📱 Pay via Payment Link',ja:'📱 支払いリンクで支払う',ko:'📱 결제 링크로 지불',es:'📱 Pagar con enlace',ru:'📱 Оплатить по ссылке',fr:'📱 Payer via le lien',de:'📱 Über Link bezahlen',pt:'📱 Pagar via link',vi:'📱 Thanh toán qua link',th:'📱 ชำระผ่านลิงก์' });
 d('email',     {'zh-CN':'邮箱','zh-TW':'郵箱',en:'Email',ja:'メール',ko:'이메일',es:'Email',ru:'Email',fr:'Email',de:'E-Mail',pt:'Email',vi:'Email',th:'อีเมล' });
 d('send_code', {'zh-CN':'发送验证码','zh-TW':'發送驗證碼',en:'Send Verification Code',ja:'認証コード送信',ko:'인증코드 전송',es:'Enviar código',ru:'Отправить код',fr:'Envoyer le code',de:'Code senden',pt:'Enviar código',vi:'Gửi mã',th:'ส่งรหัส' });
@@ -458,33 +468,141 @@ const FEE = 0.001;
 
 // ========== API ==========
 const API_BASE = location.hostname === 'any73991-lang.github.io'
-  ? 'https://d4f5d061dae948bda88e4badbcf857a6.codebuddy.cloudstudio.run'
+  ? 'https://9d3ecdf5c4ff4a44ba37e7e8f35a9d60.codebuddy.cloudstudio.run'
   : '';
 var _demoRegData = null;
+
+// ========== Demo 持久化状态管理 ==========
+var _demoState = (function() {
+  var key = '_cdemo_v1';
+  var s;
+  try { s = JSON.parse(localStorage.getItem(key)); } catch(e) {}
+  if (!s || !s.balance || s.balance < 0) {
+    s = {
+      balance: 100000,           // USDT 余额
+      holdings: {},              // {BTC: 0.05, ETH: 0.5, ...}
+      trades: [],                // [{id, side, symbol, type, price, amount, total, fee, time}]
+      c2cAds: [],               // [{id, coin, side, price, min_amount, max_amount, payment_methods, username, userId}]
+      c2cOrders: [],            // [{order_id, coin, amount, price, total, status, side, ...}]
+      depositRequests: [],       // [{id, amount, status, time}]
+      withdrawRequests: [],      // [{id, coin, amount, fee, address, status, time}]
+    };
+    _save();
+  }
+  function _save() { try { localStorage.setItem(key, JSON.stringify(s)); } catch(e) {} }
+
+  // 初始化种子数据
+  if (!s.c2cAds.length) {
+    var merchants = [
+      {name:'CryptoKing', id:901}, {name:'FastTrade', id:902}, {name:'USDTPro', id:903},
+      {name:'GoldenCoin', id:904}, {name:'BTC_Master', id:905}, {name:'TradeExpert', id:906}
+    ];
+    merchants.forEach(function(m, i) {
+      s.c2cAds.push({
+        id: 1000 + i, coin: i < 4 ? 'USDT' : (i === 4 ? 'BTC' : 'ETH'),
+        side: i < 3 ? 'sell' : 'buy',
+        price: i < 3 ? 7.25 + i * 0.02 : 7.22 - (i - 3) * 0.01,
+        min_amount: 100 + i * 50, max_amount: 5000 + i * 1000,
+        payment_methods: i % 3 === 0 ? 'bank' : i % 3 === 1 ? 'alipay,wechat' : 'bank,alipay,wechat',
+        username: m.name, userId: m.id, fiat: 'CNY', network: ''
+      });
+    });
+    _save();
+  }
+
+  return {
+    get: function() { return s; },
+    save: _save,
+    getBalance: function() { return s.balance; },
+    getHolding: function(sym) { return s.holdings[sym] || 0; },
+    updateBalance: function(amount) { s.balance += amount; _save(); },
+    setHolding: function(sym, amt) {
+      s.holdings[sym] = (s.holdings[sym] || 0) + amt;
+      if (s.holdings[sym] <= 0) delete s.holdings[sym];
+      _save();
+    },
+    addTrade: function(t) { t.id = s.trades.length + 1; t.time = new Date().toISOString(); s.trades.unshift(t); _save(); },
+    getTrades: function() { return s.trades; },
+    addOrder: function(o) { s.pendingOrders = s.pendingOrders || []; o.id = 'po_' + Date.now(); s.pendingOrders.unshift(o); _save(); },
+    getPending: function() { return s.pendingOrders || []; },
+    removeOrder: function(oid) {
+      s.pendingOrders = (s.pendingOrders || []).filter(function(o) { return o.id !== oid; }); _save();
+    },
+    addDeposit: function(amt) {
+      var d = { id: s.depositRequests.length + 1, amount: amt, status: 'pending', time: new Date().toISOString() };
+      s.depositRequests.unshift(d); _save(); return d;
+    },
+    getAds: function(filters) {
+      var ads = (s.c2cAds || []).map(function(a) {
+        return Object.assign({}, a, {
+          user_id: a.userId || a.user_id,
+          vip_level: a.vip_level || (a.userId % 2 === 0 ? 2 : 1)
+        });
+      });
+      if (filters) {
+        if (filters.coin) ads = ads.filter(function(a) { return a.coin === filters.coin; });
+        if (filters.side && filters.side !== 'all') ads = ads.filter(function(a) { return a.side === filters.side; });
+        if (filters.payment) ads = ads.filter(function(a) { return a.payment_methods.indexOf(filters.payment) >= 0; });
+        if (filters.min_amount) ads = ads.filter(function(a) { return a.max_amount >= filters.min_amount; });
+      }
+      // 过滤掉自己的广告
+      if (ST.user) ads = ads.filter(function(a) { return a.user_id !== (ST.user.id || 1); });
+      return ads;
+    },
+    addC2cOrder: function(o) {
+      o.order_id = 'CDEMO_' + Date.now() + '_' + Math.random().toString(36).substr(2, 6);
+      o.status = 'pending_payment';
+      o.created_at = new Date().toISOString();
+      s.c2cOrders.unshift(o); _save();
+      return o;
+    },
+    getC2cOrders: function() { return s.c2cOrders; },
+    updateC2cOrder: function(oid, updates) {
+      var order = s.c2cOrders.find(function(o) { return o.order_id === oid; });
+      if (order) { Object.assign(order, updates); order.updated_at = new Date().toISOString(); _save(); }
+      return order;
+    },
+    addWithdraw: function(req) {
+      req.id = s.withdrawRequests.length + 1;
+      req.status = 'pending';
+      req.time = new Date().toISOString();
+      s.withdrawRequests.unshift(req);
+      // 扣款
+      s.balance -= req.amount;
+      _save();
+      return req;
+    },
+    getWithdraws: function() { return s.withdrawRequests; },
+    reset: function() {
+      s = { balance: 100000, holdings: {}, trades: [], c2cAds: s.c2cAds, c2cOrders: [], depositRequests: [], withdrawRequests: [], pendingOrders: [] };
+      _save();
+    }
+  };
+})();
+
 function _demoUser() {
+  var ds = _demoState.get();
   var n = (_demoRegData && _demoRegData.username) || ST.user?.username || 'demo_user';
   var e = (_demoRegData && _demoRegData.email) || ST.user?.email || 'demo@demo.com';
   return {
-    id: 1, username: n, email: e, usdt_balance: 10000,
+    id: 1, username: n, email: e, usdt_balance: ds.balance,
     vip_level: 1, two_fa_enabled: false, invite_code: 'DEMO001',
     language_pref: currentLang || 'en', created_at: new Date().toISOString()
   };
 }
+
 function _demoAuth(url, opts) {
   var body = {};
   if (opts.body) { try { body = JSON.parse(opts.body); } catch(e){} }
   var method = (opts.method || 'GET').toUpperCase();
+  var ds = _demoState.get();
 
-  if (url === '/api/auth/login') {
+  if (url === '/api/auth/login' || url === '/api/auth/verify-code') {
     return { token: 'demo_tok_' + Date.now(), user: _demoUser() };
   }
   if (url === '/api/auth/send-code') {
     _demoRegData = { username: body.username, email: body.email, password: body.password, invite_code: body.invite_code };
     return { message: '验证码已发送至 ' + (body.email || '你的邮箱') + '（Demo: 任意6位数字）', code: '123456' };
-  }
-  if (url === '/api/auth/verify-code') {
-    var user = _demoUser();
-    return { message: '注册成功', token: 'demo_tok_' + Date.now(), user: user };
   }
   if (url === '/api/auth/forgot-password') {
     return { message: '重置验证码已发送至 ' + (body.email || '你的邮箱') };
@@ -494,10 +612,18 @@ function _demoAuth(url, opts) {
   }
   if (url === '/api/auth/me') {
     var u = _demoUser();
-    return { user: u, assets: [{ symbol: 'BTC', balance: 0.05 }, { symbol: 'ETH', balance: 0.5 }] };
+    var assets = [];
+    Object.keys(ds.holdings).forEach(function(sym) {
+      if (ds.holdings[sym] > 0) assets.push({ symbol: sym, balance: ds.holdings[sym] });
+    });
+    return { user: u, assets: assets };
   }
   if (url === '/api/auth/profile') {
-    return { user: _demoUser(), assets: [{ symbol: 'BTC', balance: 0.05 }, { symbol: 'ETH', balance: 0.5 }, { symbol: 'USDT', balance: 10000 }] };
+    var assets = [];
+    Object.keys(ds.holdings).forEach(function(sym) {
+      if (ds.holdings[sym] > 0) assets.push({ symbol: sym, balance: ds.holdings[sym] });
+    });
+    return { user: _demoUser(), assets: assets };
   }
   if (url === '/api/auth/update-profile') {
     return { message: '保存成功' };
@@ -505,21 +631,235 @@ function _demoAuth(url, opts) {
   if (url === '/api/auth/change-password') {
     return { message: '密码已修改，请重新登录' };
   }
+  // Demo 模式充值 — 直接到账
   if (url === '/api/auth/deposit') {
-    return { message: '充值请求已提交' };
+    var amt = parseFloat(body.amount) || 0;
+    if (!amt || amt <= 0) throw new Error('请输入有效金额');
+    _demoState.updateBalance(amt);
+    _demoState.addDeposit(amt);
+    return { message: '充值成功！已到账 +' + amt + ' USDT（Demo 模式自动审核）' };
   }
   if (url === '/api/auth/settings') {
-    return { settings: { username: (_demoRegData && _demoRegData.username) || 'demo_user', email: (_demoRegData && _demoRegData.email) || 'demo@demo.com', phone: '', language_pref: currentLang || 'en', vip_level: 1, two_fa_enabled: false, invite_code: 'DEMO001' } };
+    return { settings: { username: _demoUser().username, email: _demoUser().email, phone: '', language_pref: currentLang || 'en', vip_level: 1, two_fa_enabled: false, invite_code: 'DEMO001' } };
   }
   if (url === '/api/auth/invite-stats') {
     return { invite_code: 'DEMO001', invited_count: 3, invited_users: [{ username: 'friend1', created_at: new Date(Date.now() - 86400000).toISOString() }, { username: 'friend2', created_at: new Date(Date.now() - 172800000).toISOString() }, { username: 'friend3', created_at: new Date(Date.now() - 259200000).toISOString() }] };
   }
+  if (url === '/api/auth/notifications') {
+    return { notifications: [], unread_count: 0 };
+  }
   if (url === '/api/wallet/balance') {
-    return { usdt_balance: 10000 };
+    return { usdt_balance: _demoState.getBalance() };
   }
   if (url === '/api/wallet/assets') {
-    return { assets: [{ symbol: 'BTC', balance: 0.05 }, { symbol: 'ETH', balance: 0.5 }, { symbol: 'USDT', balance: 10000 }] };
+    var hassets = [];
+    Object.keys(ds.holdings).forEach(function(sym) {
+      if (ds.holdings[sym] > 0) hassets.push({ symbol: sym, balance: ds.holdings[sym] });
+    });
+    return { assets: hassets };
   }
+  if (url === '/api/wallet/withdraw') {
+    var wdAmt = parseFloat(body.amount) || 0;
+    if (!wdAmt || wdAmt <= 0) throw new Error('请输入有效金额');
+    if (wdAmt < 10) throw new Error('最小提现 10 USDT');
+    if (wdAmt > ds.balance) throw new Error('USDT 余额不足');
+    var fee = 1;
+    _demoState.addWithdraw({ coin: body.coin || 'USDT', amount: wdAmt, fee: fee, address: body.address || '', network: body.network || 'TRC20' });
+    return { message: '提现申请已提交！（Demo 模式自动审核）', status: 'pending', actual: wdAmt - fee, fee: fee };
+  }
+  if (url === '/api/wallet/withdraw-history') {
+    return { withdrawals: _demoState.getWithdraws() };
+  }
+  // C2C API
+  if (url === '/api/c2c/ads' && method === 'GET') {
+    var adFilters = {};
+    var qs = url.indexOf('?') >= 0 ? url.split('?')[1] : '';
+    if (qs) {
+      qs.split('&').forEach(function(p) {
+        var kv = p.split('=');
+        if (kv[0] === 'coin') adFilters.coin = decodeURIComponent(kv[1]);
+        if (kv[0] === 'side') adFilters.side = decodeURIComponent(kv[1]);
+        if (kv[0] === 'payment') adFilters.payment = decodeURIComponent(kv[1]);
+        if (kv[0] === 'min_amount') adFilters.min_amount = parseFloat(kv[1]);
+      });
+    }
+    return _demoState.getAds(adFilters);
+  }
+  if (url.match(/^\/api\/c2c\/ads\/\d+\/take$/) && method === 'POST') {
+    var adId = parseInt(url.match(/\/ads\/(\d+)\/take$/)[1]);
+    var ads = ds.c2cAds.filter(function(a) { return a.id === adId; });
+    if (!ads.length) throw new Error('广告不存在');
+    var ad = ads[0];
+    var oAmt = parseFloat(body.amount) || 100;
+    if (oAmt < ad.min_amount || oAmt > ad.max_amount) throw new Error('金额不在广告范围内');
+    if (oAmt > ds.balance) throw new Error('USDT 余额不足');
+    var order = _demoState.addC2cOrder({
+      ad_id: adId, coin: ad.coin, amount: oAmt, price: ad.price,
+      total: +(oAmt * ad.price).toFixed(2),
+      payment_methods: ad.payment_methods,
+      buyer_id: 1, seller_id: ad.userId,
+      side: ad.side
+    });
+    // 冻结余额
+    _demoState.updateBalance(-oAmt);
+    return { message: '接单成功！（Demo）订单号 ' + order.order_id, order_id: order.order_id };
+  }
+  if (url.match(/^\/api\/c2c\/orders\/[^\/]+\/pay$/) && method === 'POST') {
+    var payOid = url.match(/\/orders\/([^\/]+)\/pay$/)[1];
+    _demoState.updateC2cOrder(payOid, { status: 'pending_release' });
+    return { message: '已确认付款！等待卖家放币' };
+  }
+  if (url.match(/^\/api\/c2c\/orders\/[^\/]+\/release$/) && method === 'POST') {
+    var relOid = url.match(/\/orders\/([^\/]+)\/release$/)[1];
+    var relOrder = _demoState.getC2cOrders().find(function(o) { return o.order_id === relOid; });
+    if (relOrder) {
+      _demoState.updateC2cOrder(relOid, { status: 'completed' });
+      // 买家卖家都可以是 demo user，这里给买家归还币
+      _demoState.setHolding(relOrder.coin, relOrder.amount);
+    }
+    return { message: '放币成功！交易完成' };
+  }
+  if (url.match(/^\/api\/c2c\/orders\/[^\/]+\/cancel$/) && method === 'POST') {
+    var canOid = url.match(/\/orders\/([^\/]+)\/cancel$/)[1];
+    var canOrder = _demoState.getC2cOrders().find(function(o) { return o.order_id === canOid; });
+    if (canOrder) {
+      _demoState.updateC2cOrder(canOid, { status: 'cancelled' });
+      _demoState.updateBalance(canOrder.amount); // 退还冻结金额
+    }
+    return { message: '订单已取消' };
+  }
+  if (url.match(/^\/api\/c2c\/orders\/[^\/]+\/dispute$/) && method === 'POST') {
+    var disOid = url.match(/\/orders\/([^\/]+)\/dispute$/)[1];
+    _demoState.updateC2cOrder(disOid, { status: 'disputed' });
+    return { message: '申诉已提交（Demo）' };
+  }
+  if (url.match(/^\/api\/c2c\/orders\/[^\/]+\/review$/) && method === 'POST') {
+    return { message: '评价已提交' };
+  }
+  if (url.match(/^\/api\/c2c\/reviews\/\d+/) && method === 'GET') {
+    return { total_reviews: 12, avg_rating: 4.5, reviews: [] };
+  }
+  if (url === '/api/c2c/orders' && method === 'GET') {
+    return _demoState.getC2cOrders();
+  }
+  if (url.match(/^\/api\/c2c\/orders\/[^\/]+\/messages$/) && method === 'GET') {
+    var msgOid = url.match(/\/orders\/([^\/]+)\/messages$/)[1];
+    return [{ id: 1, user_id: 1, username: _demoUser().username, content: '你好，我已拍下订单，请确认', created_at: new Date().toISOString() }];
+  }
+  if (url.match(/^\/api\/c2c\/orders\/[^\/]+\/messages$/) && method === 'POST') {
+    return { message: 'ok', id: Date.now() };
+  }
+  if ((url.match(/^\/api\/c2c\/ads\/my/) || url.match(/^\/api\/c2c\/ads\/mine/)) && method === 'GET') {
+    // 返回用户的广告（模拟）
+    return ds.c2cAds.filter(function(a) { return a.userId === 1; }).map(function(a) {
+      return Object.assign({}, a, { status: 'active' });
+    });
+  }
+  if (url.match(/^\/api\/c2c\/ads\/\d+$/) && method === 'DELETE') {
+    return { message: '广告已下架' };
+  }
+  if (url === '/api/c2c/ads' && method === 'POST') {
+    var newAd = {
+      id: ds.c2cAds.length + 1000,
+      coin: body.coin, side: body.side, price: body.price,
+      min_amount: body.min_amount, max_amount: body.max_amount,
+      payment_methods: (body.payment_methods || []).join(','),
+      username: _demoUser().username, userId: 1, fiat: body.fiat || 'CNY', network: body.network || ''
+    };
+    ds.c2cAds.unshift(newAd);
+    _demoState.save();
+    return { message: '广告发布成功！' };
+  }
+  // 交易 API — 买入
+  if ((url === '/api/trade/buy' || url === '/api/trade/sell') && method === 'POST') {
+    var sym = body.symbol; var side = url === '/api/trade/buy' ? 'buy' : 'sell';
+    var price = parseFloat(body.price) || 0; var amount = parseFloat(body.amount);
+    var oType = body.type || 'market';
+    if (!amount || amount <= 0) throw new Error('请输入有效数量');
+    if (!price || price <= 0) throw new Error('价格无效');
+    var mktPrice = ST.prices[sym] ? ST.prices[sym].price : (DEMO_PRICES[sym] || 100);
+    var execPrice = oType === 'market' ? mktPrice : price;
+    var total = amount * execPrice;
+    var fee = total * 0.001;
+
+    if (side === 'buy') {
+      if (total + fee > _demoState.getBalance()) throw new Error('USDT 余额不足，当前: ' + _demoState.getBalance().toFixed(2));
+      _demoState.updateBalance(-(total + fee));
+      _demoState.setHolding(sym, amount);
+    } else {
+      var holding = _demoState.getHolding(sym);
+      if (amount > holding) throw new Error(sym + ' 余额不足，当前: ' + holding.toFixed(6));
+      _demoState.setHolding(sym, -amount);
+      _demoState.updateBalance(total - fee);
+    }
+    var trade = { side: side, symbol: sym, type: oType, price: execPrice, amount: amount, total: total, fee: fee, status: 'filled' };
+    _demoState.addTrade(trade);
+    if (oType === 'limit' || oType === 'stop_limit') {
+      trade.status = 'pending';
+      _demoState.addOrder(trade);
+      return { message: (side === 'buy' ? '限价买单' : '限价卖单') + '已挂单！' + amount + ' ' + sym + ' @ ' + execPrice, status: 'pending', order: trade };
+    }
+    return { message: '交易成功！' + (side === 'buy' ? '买入' : '卖出') + ' ' + amount + ' ' + sym + ' @ ' + execPrice, status: 'filled', order: trade };
+  }
+  // 交易 API — execute（保留向后兼容）
+  if (url === '/api/trade/execute' && method === 'POST') {
+    var sym = body.symbol; var side = body.side; var price = parseFloat(body.price) || 0;
+    var amount = parseFloat(body.amount); var oType = body.type || 'market';
+    if (!amount || amount <= 0) throw new Error('请输入有效数量');
+    var mktPrice = ST.prices[sym] ? ST.prices[sym].price : (DEMO_PRICES[sym] || 100);
+    var execPrice = oType === 'market' ? mktPrice : price;
+    var total = amount * execPrice;
+    var fee = total * 0.001;
+
+    if (side === 'buy') {
+      if (total > ds.balance) throw new Error('USDT 余额不足，当前: ' + ds.balance.toFixed(2));
+      _demoState.updateBalance(-(total + fee));
+      _demoState.setHolding(sym, amount);
+    } else {
+      var holding = ds.holdings[sym] || 0;
+      if (amount > holding) throw new Error(sym + ' 余额不足，当前: ' + holding.toFixed(6));
+      _demoState.setHolding(sym, -amount);
+      _demoState.updateBalance(total - fee);
+    }
+    var trade = { side: side, symbol: sym, type: oType, price: execPrice, amount: amount, total: total, fee: fee };
+    _demoState.addTrade(trade);
+    return { message: '交易成功！' + (side === 'buy' ? '买入' : '卖出') + ' ' + amount + ' ' + sym + ' @ ' + execPrice, order: trade };
+  }
+  // 交易历史
+  if (url === '/api/trade/orders' && method === 'GET') {
+    return { orders: _demoState.getTrades().map(function(t) {
+      return Object.assign({}, t, { created_at: t.time || t.created_at });
+    })};
+  }
+  // 挂单列表
+  if (url === '/api/trade/orders/pending' && method === 'GET') {
+    return { orders: _demoState.getPending() };
+  }
+  // 取消挂单
+  if (url.match(/^\/api\/trade\/orders\/[^\/]+\/cancel$/) && method === 'POST') {
+    var oid = url.match(/\/orders\/([^\/]+)\/cancel$/)[1];
+    _demoState.removeOrder(oid);
+    return { message: '订单已取消' };
+  }
+  if (url === '/api/trade/orders' && method === 'GET') {
+    return { orders: _demoState.getTrades() };
+  }
+  if (url === '/api/trade/pending' && method === 'GET') {
+    return { orders: _demoState.getPending() };
+  }
+  if (url.match(/^\/api\/trade\/cancel\/po_/) && method === 'POST') {
+    var oid = url.split('/cancel/')[1];
+    var pOrder = _demoState.getPending().find(function(o) { return o.id === oid; });
+    if (pOrder) {
+      _demoState.updateBalance(pOrder.total);
+      _demoState.removeOrder(oid);
+    }
+    return { message: '订单已取消' };
+  }
+  if (url.match(/^\/api\/c2c\/reviews\//) && method === 'GET') {
+    return { avg_rating: 4.5, total_reviews: 12 };
+  }
+
   throw new Error('Demo: 未知 API 端点 ' + url);
 }
 const api = {
@@ -536,8 +876,9 @@ const api = {
       if (!r.ok) throw new Error(d.error || '请求失败');
       return d;
     } catch(e) {
-      // 后端不可用时，认证/钱包 API 使用 demo 回退
-      if (url.startsWith('/api/auth') || url.startsWith('/api/wallet')) {
+      // 后端不可用时，认证/钱包/C2C/交易 API 使用 demo 回退
+      var noDemo = ['/api/auth/deposit', '/api/auth/withdraw'];
+      if (['/api/auth', '/api/wallet', '/api/c2c', '/api/trade'].some(function(p) { return url.startsWith(p); }) && noDemo.indexOf(url) === -1) {
         return _demoAuth(url, opts);
       }
       throw e;
@@ -1794,8 +2135,8 @@ function updateTradeTotal() {
 async function updateTradeInfo() {
   if (demoMode) {
     if (ST.token && ST.authVerified && ST.user) {
-      $('available-usdt').textContent = '10,000.00 USDT';
-      $('holding-info').textContent = '0.5000 ' + ST.symbol;
+      $('available-usdt').textContent = _demoState.getBalance().toFixed(2) + ' USDT';
+      $('holding-info').textContent = _demoState.getHolding(ST.symbol).toFixed(4) + ' ' + ST.symbol;
       return;
     }
     $('available-usdt').textContent = '0.00 USDT';
@@ -1865,14 +2206,29 @@ async function fillPct(pct) {
 async function fetchWallet() {
   if (demoMode) {
     if (ST.token && ST.authVerified && ST.user) {
-      $('wallet-usdt').textContent = '10,000.00';
-      $('wallet-total').textContent = '12,500.00';
-      var c = $('wallet-assets');
-      c.innerHTML = '<div class="asset-row"><span class="asset-sym">BTC</span><span class="asset-bal">0.0500</span><span class="asset-val">@87,500</span></div>'
-        + '<div class="asset-row"><span class="asset-sym">ETH</span><span class="asset-bal">0.5000</span><span class="asset-val">@3,420</span></div>';
+      var bal = _demoState.getBalance();
+      var holdings = _demoState.get().holdings || {};
+      var assetTotal = 0;
+      var assetRows = [];
+      var assetKeys = Object.keys(holdings);
+      if (assetKeys.length > 0) {
+        assetKeys.forEach(function(sym) {
+          var h = holdings[sym];
+          var price = (ST.prices && ST.prices[sym] && ST.prices[sym].price) || 0;
+          if (h > 0) {
+            assetRows.push('<div class="asset-row"><span class="asset-sym">' + sym + '</span><span class="asset-bal">' + h.toFixed(4) + '</span><span class="asset-val">@' + fmtP(price) + '</span></div>');
+            assetTotal += h * price;
+          }
+        });
+      }
+      if (!assetRows.length) {
+        assetRows.push('<div class="asset-row"><span class="asset-sym">--</span><span class="asset-bal">0</span><span class="asset-val">--</span></div>');
+      }
+      $('wallet-usdt').textContent = bal.toFixed(2);
+      $('wallet-total').textContent = (bal + assetTotal).toFixed(2);
+      $('wallet-assets').innerHTML = assetRows.join('');
       return;
     }
-    // 未登录用户显示 0 余额
     $('wallet-usdt').textContent = '0.00';
     $('wallet-total').textContent = '0.00';
     $('wallet-assets').innerHTML = '<div class="empty-hint" data-i18n="no_data">None</div>';
@@ -2001,57 +2357,6 @@ function showC2C() {
 async function loadC2CAds() {
   var body = $('c2c-ads-body');
   body.innerHTML = '<div class="empty-hint" style="padding:40px">' + t('loading') + '</div>';
-  if (demoMode) {
-    // 演示模式生成假广告
-    var demoAds = [];
-    var merchants = ['CryptoKing', 'FastTrade', 'USDTPro', 'GoldenCoin', 'BTC Master', 'TradeExpert'];
-    var coins = ['USDT', 'USDT', 'USDT', 'USDT', 'BTC', 'ETH'];
-    for (var i = 0; i < 6; i++) {
-      demoAds.push({
-        id: 1000 + i,
-        user_id: 100 + i,
-        username: merchants[i],
-        coin: coins[i],
-        side: i < 3 ? 'sell' : 'buy',
-        price: i < 3 ? 7.25 + i * 0.02 : 7.22 - i * 0.01,
-        min_amount: 100 + i * 50,
-        max_amount: 5000 + i * 1000,
-        payment_methods: i % 3 === 0 ? 'bank' : i % 3 === 1 ? 'alipay,wechat' : 'bank,alipay,wechat',
-        vip_level: i % 2 === 0 ? 2 : 1
-      });
-    }
-    body.innerHTML = demoAds.map(function(a) {
-      var payTags = a.payment_methods.split(',').map(function(m) {
-        var label = m === 'bank' ? t('c2c_pay_bank') : m === 'alipay' ? t('c2c_pay_alipay') : m === 'wechat' ? t('c2c_pay_wechat') : m;
-        return '<span class="c2c-pay-tag">' + label + '</span>';
-      }).join('');
-      var avatarColor = a.side === 'sell' ? 'rgba(246,70,93,0.2)' : 'rgba(14,203,129,0.2)';
-      var avatarText = a.side === 'sell' ? 'S' : 'B';
-      var priceClass = a.side === 'sell' ? 'sell-color' : 'buy-color';
-      return '<div class="c2c-ad-row" data-ad-id="' + a.id + '" data-user-id="' + a.user_id + '">' +
-        '<div class="c2c-ad-merchant">' +
-          '<div class="c2c-ad-merchant-avatar" style="background:' + avatarColor + ';color:' + (a.side==='sell'?'var(--red)':'var(--green)') + '">' + avatarText + '</div>' +
-          '<div class="c2c-ad-merchant-info">' +
-            '<span class="c2c-ad-merchant-name">' + a.username + '</span>' +
-            '<span class="c2c-ad-merchant-sub">' + (a.vip_level > 0 ? 'VIP' + a.vip_level : '') + '</span>' +
-          '</div>' +
-        '</div>' +
-        '<div class="c2c-ad-amount">' + a.min_amount + ' - ' + a.max_amount + '<span class="amt-range">' + a.coin + '</span></div>' +
-        '<div class="c2c-ad-price ' + priceClass + '">' + getFiatSymbol() + a.price.toFixed(2) + '</div>' +
-        '<div class="c2c-ad-payment">' + payTags + '</div>' +
-        '<div class="c2c-ad-action">' +
-          '<button class="btn btn-xs btn-gold c2c-take-ad-btn" data-id="' + a.id + '">' + t('c2c_take_order') + '</button>' +
-        '</div>' +
-      '</div>';
-    }).join('');
-    body.querySelectorAll('.c2c-take-ad-btn').forEach(function(b) {
-      b.addEventListener('click', function() {
-        if (!ST.token) { location.href = '/' + currentLang + '/login'; return; }
-        showToast(t('please_login'));
-      });
-    });
-    return;
-  }
   try {
     var params = '?coin=' + C2C.filterCoin;
     if (C2C.filterNetwork && C2C.filterNetwork !== 'ALL') params += '&network=' + C2C.filterNetwork;
