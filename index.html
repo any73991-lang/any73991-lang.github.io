@@ -25,7 +25,7 @@
   ============================================================ -->
   <nav class="global-nav">
     <div class="nav-inner">
-      <a href="/trade/BTC_USDT" class="nav-brand"
+      <a href="/trade/BTC_USDT" class="nav-brand">
         <svg width="32" height="32" viewBox="0 0 48 48">
           <circle cx="24" cy="24" r="22" fill="#F0B90B"/>
           <text x="24" y="31" text-anchor="middle" font-size="22" font-weight="700" fill="#1E2329">C</text>
@@ -124,9 +124,9 @@
           <h2 data-i18n="welcome">Welcome Back</h2>
           <p class="auth-sub" data-i18n="login_sub">Log in to your CoinUSDT C2C account</p>
           <div class="auth-benefits">
-            <div class="benefit-item">✓ 100+ Crypto Trading Pairs</div>
-            <div class="benefit-item">✓ Real-time Binance Market Data</div>
-            <div class="benefit-item">✓ Professional Charting Tools</div>
+            <div class="benefit-item" data-i18n="benefit_pairs">✓ 100+ Crypto Trading Pairs</div>
+            <div class="benefit-item" data-i18n="benefit_market">✓ Real-time Binance Market Data</div>
+            <div class="benefit-item" data-i18n="benefit_chart">✓ Professional Charting Tools</div>
           </div>
         </div>
         <div class="auth-card-right">
@@ -210,10 +210,10 @@
           <h2 data-i18n="create_acct">Create Account</h2>
           <p class="auth-sub" data-i18n="reg_sub">Start your crypto trading journey</p>
           <div class="auth-benefits">
-            <div class="benefit-item">✓ Zero threshold real trading</div>
-            <div class="benefit-item">✓ Free registration, simulated trading</div>
-            <div class="benefit-item">✓ Real-time market + charts</div>
-            <div class="benefit-item">✓ Market & Limit orders</div>
+            <div class="benefit-item" data-i18n="benefit_zero">✓ Zero threshold real trading</div>
+            <div class="benefit-item" data-i18n="benefit_free">✓ Free registration, simulated trading</div>
+            <div class="benefit-item" data-i18n="benefit_realtime">✓ Real-time market + charts</div>
+            <div class="benefit-item" data-i18n="benefit_orders">✓ Market & Limit orders</div>
           </div>
         </div>
         <div class="auth-card-right">
@@ -343,14 +343,14 @@
             <div class="stat-row"><span data-i18n="24h_vol">24h Vol</span><span id="stat-volume">0.00</span></div>
           </div>
           <div class="stat-interval">
-            <button class="interval-btn" data-interval="1m">1分</button>
-            <button class="interval-btn" data-interval="5m">5分</button>
-            <button class="interval-btn" data-interval="15m">15分</button>
-            <button class="interval-btn" data-interval="30m">30分</button>
-            <button class="interval-btn" data-interval="1h">1时</button>
-            <button class="interval-btn active" data-interval="4h">4时</button>
-            <button class="interval-btn" data-interval="1d">日线</button>
-            <button class="interval-btn" data-interval="1w">周线</button>
+            <button class="interval-btn" data-interval="1m" data-i18n="interval_1m">1m</button>
+            <button class="interval-btn" data-interval="5m" data-i18n="interval_5m">5m</button>
+            <button class="interval-btn" data-interval="15m" data-i18n="interval_15m">15m</button>
+            <button class="interval-btn" data-interval="30m" data-i18n="interval_30m">30m</button>
+            <button class="interval-btn" data-interval="1h" data-i18n="interval_1h">1h</button>
+            <button class="interval-btn active" data-interval="4h" data-i18n="interval_4h">4h</button>
+            <button class="interval-btn" data-interval="1d" data-i18n="interval_1d">1d</button>
+            <button class="interval-btn" data-interval="1w" data-i18n="interval_1w">1w</button>
           </div>
         </div>
         <div class="panel chart-panel">
@@ -362,7 +362,7 @@
           </div>
           <canvas id="price-chart"></canvas>
           <div class="chart-tooltip" id="chart-tooltip"></div>
-          <div class="chart-loading hidden" id="chart-loading">加载中...</div>
+          <div class="chart-loading hidden" id="chart-loading" data-i18n="chart_loading">Loading...</div>
           <div class="chart-source" id="chart-source"></div>
         </div>
       </div>
@@ -400,7 +400,7 @@
           <div class="trade-form" id="trade-form-market">
             <div class="form-row" id="limit-price-row" style="display:none">
               <label data-i18n="limit">Limit (USDT)</label>
-              <input type="number" id="trade-price-input" placeholder="Limit price" step="any">
+              <input type="number" id="trade-price-input" data-i18n-placeholder="trade_limit_ph" placeholder="Limit price" step="any">
             </div>
             <div class="form-row" id="stop-price-row" style="display:none">
               <label data-i18n="stop_price">Trigger Price (USDT)</label>
@@ -455,13 +455,13 @@
         <div class="bottom-content">
           <div class="bottom-table" id="orders-table">
             <table>
-              <thead><tr><th>Time</th><th>Pair</th><th>Side</th><th>Price</th><th>Amount</th><th>Total</th><th>Type</th><th>Status</th></tr></thead>
+              <thead><tr><th data-i18n="time_col">Time</th><th data-i18n="pair_col">Pair</th><th data-i18n="side_col">Side</th><th data-i18n="price">Price</th><th data-i18n="amount">Amount</th><th data-i18n="total">Total</th><th data-i18n="type_col">Type</th><th data-i18n="status_col">Status</th></tr></thead>
               <tbody id="orders-body"><tr><td colspan="8" class="empty-hint">No orders</td></tr></tbody>
             </table>
           </div>
           <div class="bottom-table hidden" id="transactions-table">
             <table>
-              <thead><tr><th>Time</th><th>Pair</th><th>Side</th><th>Price</th><th>Amount</th><th>Total</th><th>Fee</th><th>Note</th></tr></thead>
+              <thead><tr><th data-i18n="time_col">Time</th><th data-i18n="pair_col">Pair</th><th data-i18n="side_col">Side</th><th data-i18n="price">Price</th><th data-i18n="amount">Amount</th><th data-i18n="total">Total</th><th data-i18n="fee">Fee</th><th data-i18n="note_col">Note</th></tr></thead>
               <tbody id="transactions-body"><tr><td colspan="8" class="empty-hint">No records</td></tr></tbody>
             </table>
           </div>
@@ -516,7 +516,7 @@
       <div class="modal-body hidden" id="deposit-step2">
         <div class="deposit-network-info">
           <span>Network: </span><strong id="deposit-network">TRC20</strong>
-          <span class="network-warn">⚠ Use the correct network</span>
+          <span class="network-warn" data-i18n="network_warning">⚠ Use the correct network</span>
         </div>
         <div class="qr-container">
           <canvas id="deposit-qr" width="180" height="180"></canvas>
@@ -573,12 +573,12 @@
         <h4 style="color:var(--text2);margin-bottom:8px;font-size:14px" data-i18n="withdraw_history">Withdraw History</h4>
         <table style="width:100%;border-collapse:collapse;font-size:11px">
           <thead><tr style="border-bottom:1px solid var(--border)">
-            <th style="padding:6px 8px;text-align:left;color:var(--text2)">Time</th>
-            <th style="padding:6px 8px;text-align:left;color:var(--text2)">Coin</th>
-            <th style="padding:6px 8px;text-align:right;color:var(--text2)">Amount</th>
-            <th style="padding:6px 8px;text-align:right;color:var(--text2)">Fee</th>
-            <th style="padding:6px 8px;text-align:left;color:var(--text2)">Address</th>
-            <th style="padding:6px 8px;text-align:left;color:var(--text2)">Status</th>
+            <th style="padding:6px 8px;text-align:left;color:var(--text2)" data-i18n="time_col">Time</th>
+            <th style="padding:6px 8px;text-align:left;color:var(--text2)" data-i18n="deposit_coin_lbl">Coin</th>
+            <th style="padding:6px 8px;text-align:right;color:var(--text2)" data-i18n="amount">Amount</th>
+            <th style="padding:6px 8px;text-align:right;color:var(--text2)" data-i18n="fee">Fee</th>
+            <th style="padding:6px 8px;text-align:left;color:var(--text2)" data-i18n="deposit_addr">Address</th>
+            <th style="padding:6px 8px;text-align:left;color:var(--text2)" data-i18n="status_col">Status</th>
           </tr></thead>
           <tbody id="w-withdraws-body"><tr><td colspan="6" style="padding:16px;text-align:center;color:var(--text2)">--</td></tr></tbody>
         </table>
@@ -653,7 +653,7 @@
         </div>
         <div class="form-group">
           <label data-i18n="phone">Phone</label>
-          <input type="text" id="set-phone" placeholder="+86 13800138000">
+          <input type="text" id="set-phone" data-i18n-placeholder="phone_placeholder" placeholder="+86 13800138000">
         </div>
         <div class="form-group">
           <label data-i18n="lang_pref">Language</label>
@@ -715,14 +715,14 @@
       <h2 style="color:var(--gold);margin-bottom:20px" data-i18n="order_history">Order History</h2>
       <table style="width:100%;border-collapse:collapse">
         <thead><tr style="border-bottom:1px solid var(--border)">
-          <th style="padding:8px;text-align:left;font-size:11px;color:var(--text2)">Time</th>
-          <th style="padding:8px;text-align:left;font-size:11px;color:var(--text2)">Pair</th>
-          <th style="padding:8px;text-align:left;font-size:11px;color:var(--text2)">Side</th>
-          <th style="padding:8px;text-align:right;font-size:11px;color:var(--text2)">Price</th>
-          <th style="padding:8px;text-align:right;font-size:11px;color:var(--text2)">Amount</th>
-          <th style="padding:8px;text-align:right;font-size:11px;color:var(--text2)">Total</th>
-          <th style="padding:8px;text-align:left;font-size:11px;color:var(--text2)">Type</th>
-          <th style="padding:8px;text-align:left;font-size:11px;color:var(--text2)">Status</th>
+          <th style="padding:8px;text-align:left;font-size:11px;color:var(--text2)" data-i18n="time_col">Time</th>
+          <th style="padding:8px;text-align:left;font-size:11px;color:var(--text2)" data-i18n="pair_col">Pair</th>
+          <th style="padding:8px;text-align:left;font-size:11px;color:var(--text2)" data-i18n="side_col">Side</th>
+          <th style="padding:8px;text-align:right;font-size:11px;color:var(--text2)" data-i18n="price">Price</th>
+          <th style="padding:8px;text-align:right;font-size:11px;color:var(--text2)" data-i18n="amount">Amount</th>
+          <th style="padding:8px;text-align:right;font-size:11px;color:var(--text2)" data-i18n="total">Total</th>
+          <th style="padding:8px;text-align:left;font-size:11px;color:var(--text2)" data-i18n="type_col">Type</th>
+          <th style="padding:8px;text-align:left;font-size:11px;color:var(--text2)" data-i18n="status_col">Status</th>
         </tr></thead>
         <tbody id="o-orders-body"><tr><td colspan="8" style="padding:24px;text-align:center;color:var(--text2)" data-i18n="no_data">No orders</td></tr></tbody>
       </table>
@@ -763,8 +763,9 @@
       <div class="c2c-header">
         <h2 class="c2c-title">C2C <span data-i18n="c2c_trade">P2P Trade</span></h2>
         <div class="c2c-header-right">
-          <button class="btn btn-gold" id="c2c-create-ad-btn"><span data-i18n="c2c_post_ad">Post Ad</span></button>
-          <button class="btn btn-outline" id="c2c-my-orders-btn"><span data-i18n="c2c_my_orders">My Orders</span></button>
+          <button class="btn btn-gold auth-only" id="c2c-create-ad-btn"><span data-i18n="c2c_post_ad">Post Ad</span></button>
+          <button class="btn btn-outline auth-only" id="c2c-my-ads-btn"><span data-i18n="c2c_my_ads">My Ads</span></button>
+          <button class="btn btn-outline auth-only" id="c2c-my-orders-btn"><span data-i18n="c2c_my_orders">My Orders</span></button>
         </div>
       </div>
 
@@ -797,14 +798,14 @@
       <!-- 广告列表 -->
       <div class="c2c-ads-list" id="c2c-ads-list">
         <div class="c2c-ad-header">
-          <span class="c2c-ad-col-merchant">Merchant</span>
-          <span class="c2c-ad-col-amount">Amount</span>
-          <span class="c2c-ad-col-price">Price</span>
-          <span class="c2c-ad-col-payment">Payment</span>
-          <span class="c2c-ad-col-action">Action</span>
+          <span class="c2c-ad-col-merchant" data-i18n="c2c_merchant">Merchant</span>
+          <span class="c2c-ad-col-amount" data-i18n="c2c_amount_col">Amount</span>
+          <span class="c2c-ad-col-price" data-i18n="c2c_price_col">Price</span>
+          <span class="c2c-ad-col-payment" data-i18n="c2c_payment_col">Payment</span>
+          <span class="c2c-ad-col-action" data-i18n="c2c_action_col">Action</span>
         </div>
         <div class="c2c-ads-body" id="c2c-ads-body">
-          <div class="empty-hint" style="padding:40px">Loading C2C ads...</div>
+          <div class="empty-hint" style="padding:40px" data-i18n="loading">Loading...</div>
         </div>
       </div>
     </div>
@@ -856,7 +857,7 @@
           </div>
           <div class="form-group">
             <label data-i18n="c2c_remark">Remarks</label>
-            <textarea id="c2c-ad-remark" placeholder="Payment within 15 mins..." rows="2" style="width:100%;background:var(--bg3);border:1px solid var(--border);border-radius:4px;color:var(--text);padding:8px;font-size:12px;resize:vertical;font-family:var(--font)"></textarea>
+            <textarea id="c2c-ad-remark" data-i18n-placeholder="c2c_remark_ph" placeholder="Payment within 15 mins..." rows="2" style="width:100%;background:var(--bg3);border:1px solid var(--border);border-radius:4px;color:var(--text);padding:8px;font-size:12px;resize:vertical;font-family:var(--font)"></textarea>
           </div>
           <div id="c2c-ad-error" class="form-error"></div>
           <button class="btn btn-gold btn-full" id="c2c-ad-submit" data-i18n="c2c_post_ad">Post Ad</button>
@@ -892,11 +893,11 @@
           <!-- 聊天区 -->
           <div class="c2c-chat">
             <div class="c2c-chat-msgs" id="c2c-chat-msgs">
-              <div class="c2c-msg-system">—— Trade started ——</div>
+              <div class="c2c-msg-system" data-i18n="c2c_trade_started">—— Trade started ——</div>
             </div>
             <div class="c2c-chat-input-row">
-              <input type="text" id="c2c-chat-input" placeholder="Type a message..." maxlength="500">
-              <button class="btn btn-xs btn-gold" id="c2c-chat-send">Send</button>
+              <input type="text" id="c2c-chat-input" data-i18n-placeholder="c2c_chat_placeholder" placeholder="Type a message..." maxlength="500">
+              <button class="btn btn-xs btn-gold" id="c2c-chat-send" data-i18n="c2c_chat_send">Send</button>
             </div>
           </div>
         </div>
@@ -913,18 +914,71 @@
         <div class="modal-body" style="max-height:500px;overflow-y:auto">
           <table style="width:100%;border-collapse:collapse;font-size:12px">
             <thead><tr style="border-bottom:1px solid var(--border)">
-              <th style="padding:8px;text-align:left;color:var(--text2)">Order ID</th>
-              <th style="padding:8px;text-align:left;color:var(--text2)">Coin</th>
-              <th style="padding:8px;text-align:right;color:var(--text2)">Amount</th>
-              <th style="padding:8px;text-align:right;color:var(--text2)">Price</th>
-              <th style="padding:8px;text-align:right;color:var(--text2)">Total</th>
-              <th style="padding:8px;text-align:left;color:var(--text2)">Status</th>
-              <th style="padding:8px;text-align:center;color:var(--text2)">Action</th>
+              <th style="padding:8px;text-align:left;color:var(--text2)" data-i18n="orders">Order ID</th>
+              <th style="padding:8px;text-align:left;color:var(--text2)" data-i18n="c2c_coin">Coin</th>
+              <th style="padding:8px;text-align:right;color:var(--text2)" data-i18n="amount">Amount</th>
+              <th style="padding:8px;text-align:right;color:var(--text2)" data-i18n="price">Price</th>
+              <th style="padding:8px;text-align:right;color:var(--text2)" data-i18n="total">Total</th>
+              <th style="padding:8px;text-align:left;color:var(--text2)" data-i18n="status_col">Status</th>
+              <th style="padding:8px;text-align:center;color:var(--text2)" data-i18n="c2c_action_col">Action</th>
             </tr></thead>
             <tbody id="c2c-my-orders-body">
               <tr><td colspan="7" class="empty-hint">No orders</td></tr>
             </tbody>
           </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- 弹窗：我的广告列表 -->
+    <div class="modal-overlay hidden" id="c2c-my-ads-modal">
+      <div class="modal-card" style="width:700px;max-height:85vh">
+        <div class="modal-header">
+          <span data-i18n="c2c_my_ads">My C2C Ads</span>
+          <button class="modal-close" id="c2c-my-ads-close">&times;</button>
+        </div>
+        <div class="modal-body" style="max-height:500px;overflow-y:auto">
+          <table style="width:100%;border-collapse:collapse;font-size:12px">
+            <thead><tr style="border-bottom:1px solid var(--border)">
+              <th style="padding:8px;text-align:left;color:var(--text2)" data-i18n="c2c_ad_type">ID</th>
+              <th style="padding:8px;text-align:left;color:var(--text2)" data-i18n="type_col">Type</th>
+              <th style="padding:8px;text-align:left;color:var(--text2)" data-i18n="c2c_coin">Coin</th>
+              <th style="padding:8px;text-align:right;color:var(--text2)" data-i18n="price">Price</th>
+              <th style="padding:8px;text-align:right;color:var(--text2)" data-i18n="c2c_min_amount">Amount Range</th>
+              <th style="padding:8px;text-align:left;color:var(--text2)" data-i18n="c2c_payment_col">Payment</th>
+              <th style="padding:8px;text-align:left;color:var(--text2)" data-i18n="status_col">Status</th>
+              <th style="padding:8px;text-align:center;color:var(--text2)" data-i18n="c2c_action_col">Action</th>
+            </tr></thead>
+            <tbody id="c2c-my-ads-body">
+              <tr><td colspan="8" class="empty-hint">No ads</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- 弹窗：交易评价（星级评分） -->
+    <div class="modal-overlay hidden" id="c2c-rating-modal">
+      <div class="modal-card" style="width:400px">
+        <div class="modal-header">
+          <span data-i18n="review_rating_prompt">Rate this trade</span>
+          <button class="modal-close" id="c2c-rating-close">&times;</button>
+        </div>
+        <div class="modal-body" style="text-align:center">
+          <p style="color:var(--text2);font-size:13px;margin-bottom:16px" data-i18n="c2c_rate_desc">Please rate your trading experience</p>
+          <div class="c2c-rating-stars-input" id="c2c-rating-stars">
+            <span class="c2c-star" data-rating="1">☆</span>
+            <span class="c2c-star" data-rating="2">☆</span>
+            <span class="c2c-star" data-rating="3">☆</span>
+            <span class="c2c-star" data-rating="4">☆</span>
+            <span class="c2c-star" data-rating="5">☆</span>
+          </div>
+          <p class="c2c-rating-hint" id="c2c-rating-hint" style="color:var(--text3);font-size:11px;margin:6px 0 14px" data-i18n="rating_tap_hint">Tap to rate</p>
+          <div class="form-group">
+            <textarea id="c2c-rating-comment" data-i18n-placeholder="rating_comment_ph" placeholder="Write a comment (optional)" rows="3" style="width:100%;background:var(--bg3);border:1px solid var(--border);border-radius:4px;color:var(--text);padding:8px;font-size:12px;resize:vertical;font-family:var(--font)"></textarea>
+          </div>
+          <div id="c2c-rating-error" class="form-error"></div>
+          <button class="btn btn-gold btn-full" id="c2c-rating-submit" data-i18n="review_submit">Submit Review</button>
         </div>
       </div>
     </div>

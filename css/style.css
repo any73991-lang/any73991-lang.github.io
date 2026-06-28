@@ -439,6 +439,24 @@ a:hover{opacity:.85}
 .c2c-rating-stars { display: inline-flex; gap: 1px; color: var(--gold); font-size: 12px; }
 .c2c-review-item { padding: 8px 12px; border-bottom: 1px solid var(--border); }
 
+/* 星级评价弹窗 */
+.c2c-rating-stars-input { display: flex; justify-content: center; gap: 8px; padding: 12px 0; }
+.c2c-star { font-size: 36px; color: var(--border); cursor: pointer; transition: all .15s; user-select: none; display: inline-block; }
+.c2c-star:hover, .c2c-star.hover { color: var(--gold); transform: scale(1.15); }
+.c2c-star.selected { color: var(--gold); }
+.c2c-rating-hint { min-height: 18px; transition: .15s; }
+
+/* 商家信誉展示（广告行内） */
+.c2c-ad-merchant-rating { display: flex; align-items: center; gap: 3px; font-size: 10px; color: var(--gold); margin-top: 1px; }
+.c2c-ad-merchant-rating .c2c-avg-star { font-size: 11px; }
+.c2c-ad-merchant-rating .c2c-review-count { color: var(--text3); margin-left: 2px; }
+
+/* 我的广告弹窗 */
+#c2c-my-ads-modal .c2c-ad-status-tag { display: inline-block; padding: 2px 8px; border-radius: 3px; font-size: 10px; font-weight: 600; }
+#c2c-my-ads-modal .c2c-ad-status-tag.active { background: rgba(14,203,129,0.15); color: var(--green); }
+#c2c-my-ads-modal .c2c-ad-status-tag.cancelled { background: rgba(246,70,93,0.15); color: var(--red); }
+#c2c-my-ads-modal .c2c-ad-status-tag.completed { background: rgba(240,185,11,0.15); color: var(--gold); }
+
 /* scrollbar */
 ::-webkit-scrollbar{width:4px;height:4px}
 ::-webkit-scrollbar-track{background:transparent}

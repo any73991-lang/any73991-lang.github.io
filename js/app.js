@@ -172,6 +172,186 @@ d('two_factor_desc',{'zh-CN':'开启后登录需验证码','en':'Protect your ac
 d('2fa_enabled',{'zh-CN':'2FA 已开启','en':'2FA Enabled',ja:'2FA 有効',ko:'2FA 활성화됨'});
 d('2fa_disabled',{'zh-CN':'2FA 已关闭','en':'2FA Disabled',ja:'2FA 無効',ko:'2FA 비활성화됨'});
 
+// ====== 订单 & 交易状态 ======
+d('status_pending',   {'zh-CN':'挂单中','zh-TW':'掛單中',en:'Pending',ja:'待機中',ko:'대기중',es:'Pendiente',ru:'В ожидании',fr:'En attente',de:'Ausstehend',pt:'Pendente',vi:'Đang chờ',th:'รอดำเนินการ'});
+d('status_filled',    {'zh-CN':'已成交','zh-TW':'已成交',en:'Filled',ja:'約定済',ko:'체결완료',es:'Ejecutado',ru:'Исполнено',fr:'Exécuté',de:'Ausgeführt',pt:'Executado',vi:'Đã khớp',th:'ดำเนินการสำเร็จ'});
+d('status_cancelled2',{'zh-CN':'已取消','zh-TW':'已取消',en:'Cancelled',ja:'取消済',ko:'취소됨',es:'Cancelado',ru:'Отменено',fr:'Annulé',de:'Storniert',pt:'Cancelado',vi:'Đã hủy',th:'ยกเลิกแล้ว'});
+d('status_completed', {'zh-CN':'已完成','zh-TW':'已完成',en:'Completed',ja:'完了',ko:'완료',es:'Completado',ru:'Завершено',fr:'Terminé',de:'Abgeschlossen',pt:'Concluído',vi:'Hoàn thành',th:'เสร็จสิ้น'});
+d('status_disputed',  {'zh-CN':'争议中','zh-TW':'爭議中',en:'Disputed',ja:'紛争中',ko:'분쟁중',es:'Disputado',ru:'Оспаривается',fr:'Contesté',de:'Beanstandet',pt:'Disputado',vi:'Tranh chấp',th:'มีข้อพิพาท'});
+d('status_pending_pay',  {'zh-CN':'待付款','zh-TW':'待付款',en:'Pending Pay',ja:'支払待ち',ko:'결제대기',es:'Pago pendiente',ru:'Ожидает оплаты',fr:'Paiement en attente',de:'Zahlung ausstehend',pt:'Pagamento pendente',vi:'Chờ thanh toán',th:'รอการชำระ'});
+d('status_pending_release',{'zh-CN':'待放币','zh-TW':'待放幣',en:'Pending Release',ja:'リリース待ち',ko:'출금대기',es:'Liberación pendiente',ru:'Ожидает выпуска',fr:'Libération en attente',de:'Freigabe ausstehend',pt:'Liberação pendente',vi:'Chờ giải phóng',th:'รอการปล่อย'});
+
+// ====== 支付方式 ======
+d('c2c_pay_bank',   {'zh-CN':'银行转账','zh-TW':'銀行轉帳',en:'Bank Transfer',ja:'銀行振込',ko:'은행이체',es:'Transferencia',ru:'Банковский перевод',fr:'Virement bancaire',de:'Banküberweisung',pt:'Transferência',vi:'Chuyển khoản',th:'โอนเงินผ่านธนาคาร'});
+d('c2c_pay_alipay', {'zh-CN':'支付宝','zh-TW':'支付寶',en:'Alipay',ja:'Alipay',ko:'알리페이',es:'Alipay',ru:'Alipay',fr:'Alipay',de:'Alipay',pt:'Alipay',vi:'Alipay',th:'Alipay'});
+d('c2c_pay_wechat', {'zh-CN':'微信支付','zh-TW':'微信支付',en:'WeChat Pay',ja:'WeChat Pay',ko:'위챗페이',es:'WeChat Pay',ru:'WeChat Pay',fr:'WeChat Pay',de:'WeChat Pay',pt:'WeChat Pay',vi:'WeChat Pay',th:'WeChat Pay'});
+
+// ====== 提现状态 ======
+d('wd_approved',{'zh-CN':'已通过','zh-TW':'已通過',en:'Approved',ja:'承認済',ko:'승인됨',es:'Aprobado',ru:'Одобрено',fr:'Approuvé',de:'Genehmigt',pt:'Aprovado',vi:'Đã duyệt',th:'อนุมัติแล้ว'});
+d('wd_rejected',{'zh-CN':'已拒绝','zh-TW':'已拒絕',en:'Rejected',ja:'拒否',ko:'거부됨',es:'Rechazado',ru:'Отклонено',fr:'Rejeté',de:'Abgelehnt',pt:'Rejeitado',vi:'Từ chối',th:'ปฏิเสธ'});
+d('wd_pending', {'zh-CN':'待审核','zh-TW':'待審核',en:'Pending',ja:'審査中',ko:'검토중',es:'Pendiente',ru:'На рассмотрении',fr:'En attente',de:'Ausstehend',pt:'Pendente',vi:'Đang chờ',th:'รอการตรวจสอบ'});
+
+// ====== 钱包/交易记录 ======
+d('no_holdings',  {'zh-CN':'暂无持仓','zh-TW':'暫無持倉',en:'No holdings',ja:'保有なし',ko:'보유없음',es:'Sin tenencias',ru:'Нет позиций',fr:'Aucune position',de:'Keine Bestände',pt:'Sem posições',vi:'Không nắm giữ',th:'ไม่มีการถือครอง'});
+d('no_orders_yet',{'zh-CN':'暂无订单','zh-TW':'暫無訂單',en:'No orders yet',ja:'注文なし',ko:'주문없음',es:'Sin órdenes',ru:'Нет ордеров',fr:'Aucun ordre',de:'Keine Aufträge',pt:'Sem ordens',vi:'Chưa có lệnh',th:'ไม่มีคำสั่ง'});
+d('no_records',   {'zh-CN':'暂无记录','zh-TW':'暫無記錄',en:'No records',ja:'記録なし',ko:'기록없음',es:'Sin registros',ru:'Нет записей',fr:'Aucun enregistrement',de:'Keine Einträge',pt:'Sem registros',vi:'Không có bản ghi',th:'ไม่มีบันทึก'});
+d('no_withdrawals',{'zh-CN':'暂无提现记录','zh-TW':'暫無提現記錄',en:'No withdrawals',ja:'出金履歴なし',ko:'출금기록없음',es:'Sin retiros',ru:'Нет выводов',fr:'Aucun retrait',de:'Keine Auszahlungen',pt:'Sem saques',vi:'Chưa rút tiền',th:'ไม่มีการถอน'});
+d('no_notifications',{'zh-CN':'暂无通知','zh-TW':'暫無通知',en:'No notifications',ja:'通知なし',ko:'알림없음',es:'Sin notificaciones',ru:'Нет уведомлений',fr:'Aucune notification',de:'Keine Benachrichtigungen',pt:'Sem notificações',vi:'Không thông báo',th:'ไม่มีการแจ้งเตือน'});
+d('no_c2c_orders',{'zh-CN':'暂无C2C订单','zh-TW':'暫無C2C訂單',en:'No C2C orders',ja:'C2C注文なし',ko:'C2C 주문없음',es:'Sin órdenes C2C',ru:'Нет C2C ордеров',fr:'Aucun ordre C2C',de:'Keine C2C-Aufträge',pt:'Sem ordens C2C',vi:'Không có lệnh C2C',th:'ไม่มีคำสั่ง C2C'});
+
+// ====== 弹窗 & 确认 ======
+d('deposit_enter_amt',{'zh-CN':'请输入有效金额','zh-TW':'請輸入有效金額',en:'Please enter a valid amount',ja:'有効な金額を入力',ko:'유효한 금액 입력',es:'Ingrese un monto válido',ru:'Введите сумму',fr:'Entrez un montant valide',de:'Gültigen Betrag eingeben',pt:'Digite um valor válido',vi:'Nhập số tiền hợp lệ',th:'กรุณากรอกจำนวนเงินที่ถูกต้อง'});
+d('confirm_cancel_ad',{'zh-CN':'确认下架此广告？','zh-TW':'確認下架此廣告？',en:'Confirm to remove this ad?',ja:'この広告を削除しますか？',ko:'광고를 삭제하시겠습니까？',es:'¿Confirmar eliminar anuncio?',ru:'Подтвердить удаление？',fr:'Confirmer la suppression？',de:'Anzeige entfernen bestätigen？',pt:'Confirmar remoção？',vi:'Xác nhận gỡ quảng cáo？',th:'ยืนยันการลบโฆษณา？'});
+d('ad_cancelled',   {'zh-CN':'广告已下架','zh-TW':'廣告已下架',en:'Ad removed',ja:'広告削除済',ko:'광고 삭제됨',es:'Anuncio eliminado',ru:'Объявление удалено',fr:'Annonce supprimée',de:'Anzeige entfernt',pt:'Anúncio removido',vi:'Đã gỡ quảng cáo',th:'ลบโฆษณาแล้ว'});
+d('ad_published',   {'zh-CN':'广告发布成功！','zh-TW':'廣告發佈成功！',en:'Ad published!',ja:'広告掲載完了！',ko:'광고 게시됨！',es:'¡Anuncio publicado!',ru:'Объявление опубликовано!',fr:'Annonce publiée !',de:'Anzeige veröffentlicht!',pt:'Anúncio publicado!',vi:'Đã đăng quảng cáo!',th:'โฆษณาเผยแพร่แล้ว!'});
+d('please_login',   {'zh-CN':'请先登录','zh-TW':'請先登錄',en:'Please login first',ja:'ログインしてください',ko:'로그인 해주세요',es:'Inicie sesión primero',ru:'Сначала войдите',fr:'Veuillez vous connecter',de:'Bitte zuerst anmelden',pt:'Faça login primeiro',vi:'Vui lòng đăng nhập',th:'กรุณาเข้าสู่ระบบก่อน'});
+d('order_not_found',{'zh-CN':'订单未找到','zh-TW':'訂單未找到',en:'Order not found',ja:'注文が見つかりません',ko:'주문 찾을수없음',es:'Orden no encontrada',ru:'Ордер не найден',fr:'Ordre introuvable',de:'Auftrag nicht gefunden',pt:'Ordem não encontrada',vi:'Không tìm thấy lệnh',th:'ไม่พบคำสั่ง'});
+d('loading',        {'zh-CN':'加载中...','zh-TW':'加載中...',en:'Loading...',ja:'読込中...',ko:'로딩중...',es:'Cargando...',ru:'Загрузка...',fr:'Chargement...',de:'Laden...',pt:'Carregando...',vi:'Đang tải...',th:'กำลังโหลด...'});
+d('error_loading',  {'zh-CN':'加载失败','zh-TW':'加載失敗',en:'Failed to load',ja:'読込失敗',ko:'로딩실패',es:'Error al cargar',ru:'Ошибка загрузки',fr:'Échec du chargement',de:'Laden fehlgeschlagen',pt:'Falha ao carregar',vi:'Tải thất bại',th:'โหลดล้มเหลว'});
+d('trade_completed',{'zh-CN':'交易完成 ✓','zh-TW':'交易完成 ✓',en:'Trade Completed ✓',ja:'取引完了 ✓',ko:'거래완료 ✓',es:'Operación completada ✓',ru:'Сделка завершена ✓',fr:'Transaction terminée ✓',de:'Handel abgeschlossen ✓',pt:'Negociação concluída ✓',vi:'Giao dịch hoàn tất ✓',th:'การซื้อขายเสร็จสมบูรณ์ ✓'});
+d('order_cancelled_text',{'zh-CN':'订单已取消','zh-TW':'訂單已取消',en:'Order Cancelled',ja:'注文取消済',ko:'주문취소됨',es:'Orden cancelada',ru:'Ордер отменен',fr:'Ordre annulé',de:'Auftrag storniert',pt:'Ordem cancelada',vi:'Lệnh đã hủy',th:'คำสั่งถูกยกเลิก'});
+d('disputed_pending',{'zh-CN':'争议中 - 等待处理','zh-TW':'爭議中 - 等待處理',en:'Disputed - Pending Review',ja:'紛争中 - 審査待ち',ko:'분쟁중 - 검토대기',es:'Disputado - Pendiente',ru:'Оспаривается - Ожидание',fr:'Contesté - En attente',de:'Beanstandet - Ausstehend',pt:'Disputado - Pendente',vi:'Tranh chấp - Đang chờ',th:'มีข้อพิพาท - รอการตรวจสอบ'});
+
+// ====== 充值提示 ======
+d('deposit_select_coin',{'zh-CN':'选择充值币种','zh-TW':'選擇充值幣種',en:'Select Deposit Coin',ja:'入金通貨選択',ko:'입금코인선택',es:'Seleccionar moneda',ru:'Выберите монету',fr:'Choisir la pièce',de:'Coin auswählen',pt:'Selecionar moeda',vi:'Chọn coin nạp',th:'เลือกเหรียญ'});
+d('deposit_coin_lbl',{'zh-CN':'币种','zh-TW':'幣種',en:'Coin',ja:'通貨',ko:'코인',es:'Moneda',ru:'Монета',fr:'Pièce',de:'Coin',pt:'Moeda',vi:'Coin',th:'เหรียญ'});
+d('deposit_network_lbl',{'zh-CN':'网络','zh-TW':'網絡',en:'Network',ja:'ネットワーク',ko:'네트워크',es:'Red',ru:'Сеть',fr:'Réseau',de:'Netzwerk',pt:'Rede',vi:'Mạng',th:'เครือข่าย'});
+d('deposit_summary_lbl',{'zh-CN':'充值信息','zh-TW':'充值信息',en:'Deposit Summary',ja:'入金概要',ko:'입금요약',es:'Resumen',ru:'Сводка',fr:'Résumé',de:'Zusammenfassung',pt:'Resumo',vi:'Tóm tắt',th:'สรุป'});
+d('deposit_amt_invalid',{'zh-CN':'金额无效','zh-TW':'金額無效',en:'Invalid amount',ja:'無効な金額',ko:'잘못된금액',es:'Monto inválido',ru:'Неверная сумма',fr:'Montant invalide',de:'Ungültiger Betrag',pt:'Valor inválido',vi:'Số tiền không hợp lệ',th:'จำนวนเงินไม่ถูกต้อง'});
+
+// ====== 交易面板 ======
+d('trade_market',  {'zh-CN':'市价','zh-TW':'市價',en:'Market',ja:'成行',ko:'시장가',es:'Mercado',ru:'Рынок',fr:'Marché',de:'Market',pt:'Mercado',vi:'Thị trường',th:'ตลาด'});
+d('trade_limit',   {'zh-CN':'限价','zh-TW':'限價',en:'Limit',ja:'指値',ko:'지정가',es:'Límite',ru:'Лимит',fr:'Limite',de:'Limit',pt:'Limite',vi:'Giới hạn',th:'จำกัด'});
+d('trade_stop_limit',{'zh-CN':'止损限价','zh-TW':'止損限價',en:'Stop-Limit',ja:'ストップ指値',ko:'스탑지정가',es:'Stop-Límite',ru:'Стоп-лимит',fr:'Stop-Limit',de:'Stop-Limit',pt:'Stop-Limit',vi:'Stop-Limit',th:'Stop-Limit'});
+d('trade_enter_amt',{'zh-CN':'请输入有效数量','zh-TW':'請輸入有效數量',en:'Enter a valid amount',ja:'有効な数量を入力',ko:'유효한수량입력',es:'Ingrese cantidad válida',ru:'Введите количество',fr:'Entrez une quantité valide',de:'Gültige Menge eingeben',pt:'Digite quantidade válida',vi:'Nhập số lượng hợp lệ',th:'กรอกจำนวนที่ถูกต้อง'});
+d('trade_invalid_price',{'zh-CN':'价格无效','zh-TW':'價格無效',en:'Invalid price',ja:'無効な価格',ko:'잘못된가격',es:'Precio inválido',ru:'Неверная цена',fr:'Prix invalide',de:'Ungültiger Preis',pt:'Preço inválido',vi:'Giá không hợp lệ',th:'ราคาไม่ถูกต้อง'});
+d('trade_enter_stop',{'zh-CN':'请输入有效的触发价格','zh-TW':'請輸入有效的觸發價格',en:'Enter a valid trigger price',ja:'有効なトリガー価格を入力',ko:'유효한트리거가격입력',es:'Ingrese precio trigger válido',ru:'Введите триггерную цену',fr:'Entrez un prix déclencheur valide',de:'Gültigen Trigger-Preis eingeben',pt:'Digite preço de gatilho válido',vi:'Nhập giá kích hoạt hợp lệ',th:'กรอกราคาทริกเกอร์ที่ถูกต้อง'});
+d('trade_order_success',{'zh-CN':'下单成功！','zh-TW':'下單成功！',en:'Order placed!',ja:'注文完了！',ko:'주문완료！',es:'¡Orden realizada!',ru:'Ордер размещен!',fr:'Ordre passé !',de:'Order aufgegeben!',pt:'Ordem realizada!',vi:'Đặt lệnh thành công!',th:'คำสั่งสำเร็จ!'});
+d('trade_limit_pending',{'zh-CN':'限价单已挂单','zh-TW':'限價單已掛單',en:'Limit order pending',ja:'指値注文待機中',ko:'지정가주문대기중',es:'Orden límite pendiente',ru:'Лимитный ордер ожидает',fr:'Ordre limite en attente',de:'Limit-Order ausstehend',pt:'Ordem limite pendente',vi:'Lệnh giới hạn đang chờ',th:'คำสั่งจำกัดรอดำเนินการ'});
+
+// ====== 设置 ======
+d('settings_not_bound',{'zh-CN':'未绑定','zh-TW':'未綁定',en:'Not bound',ja:'未設定',ko:'미설정',es:'No vinculado',ru:'Не привязано',fr:'Non lié',de:'Nicht gebunden',pt:'Não vinculado',vi:'Chưa liên kết',th:'ยังไม่ผูก'});
+d('settings_saved',{'zh-CN':'保存成功 ✓','zh-TW':'保存成功 ✓',en:'Saved ✓',ja:'保存完了 ✓',ko:'저장됨 ✓',es:'Guardado ✓',ru:'Сохранено ✓',fr:'Enregistré ✓',de:'Gespeichert ✓',pt:'Salvo ✓',vi:'Đã lưu ✓',th:'บันทึกแล้ว ✓'});
+d('settings_2fa_enabled_label',{'zh-CN':'已启用','zh-TW':'已啟用',en:'Enabled',ja:'有効',ko:'활성화',es:'Activado',ru:'Включено',fr:'Activé',de:'Aktiviert',pt:'Ativado',vi:'Đã bật',th:'เปิดใช้งาน'});
+d('settings_2fa_disabled_label',{'zh-CN':'已禁用','zh-TW':'已禁用',en:'Disabled',ja:'無効',ko:'비활성화',es:'Desactivado',ru:'Отключено',fr:'Désactivé',de:'Deaktiviert',pt:'Desativado',vi:'Đã tắt',th:'ปิดใช้งาน'});
+d('settings_invite_code_label',{'zh-CN':'邀请码:','zh-TW':'邀請碼:',en:'Invite:',ja:'招待コード:',ko:'초대코드:',es:'Invitación:',ru:'Приглашение:',fr:'Invitation:',de:'Einladung:',pt:'Convite:',vi:'Mã mời:',th:'รหัสเชิญ:'});
+d('settings_vip_label',{'zh-CN':'VIP','zh-TW':'VIP',en:'VIP',ja:'VIP',ko:'VIP',es:'VIP',ru:'VIP',fr:'VIP',de:'VIP',pt:'VIP',vi:'VIP',th:'VIP'});
+
+// ====== 评价 ======
+d('review_rating_prompt',{'zh-CN':'为本次交易评分','zh-TW':'為本次交易評分',en:'Rate this trade',ja:'取引を評価',ko:'거래 평가하기',es:'Calificar esta operación',ru:'Оцените сделку',fr:'Noter cette transaction',de:'Diesen Handel bewerten',pt:'Avaliar esta negociação',vi:'Đánh giá giao dịch',th:'ให้คะแนนการเทรด'});
+d('review_submitted',{'zh-CN':'评价已提交 ✓','zh-TW':'評價已提交 ✓',en:'Review submitted ✓',ja:'レビュー提出済 ✓',ko:'리뷰제출됨 ✓',es:'Reseña enviada ✓',ru:'Отзыв отправлен ✓',fr:'Avis soumis ✓',de:'Bewertung gesendet ✓',pt:'Avaliação enviada ✓',vi:'Đã gửi đánh giá ✓',th:'ส่งรีวิวแล้ว ✓'});
+d('review_enter_comment',{'zh-CN':'评价内容(可选)','zh-TW':'評價內容(可選)',en:'Comment (optional)',ja:'コメント（任意）',ko:'코멘트（선택）',es:'Comentario (opcional)',ru:'Комментарий (необяз.)',fr:'Commentaire (optionnel)',de:'Kommentar (optional)',pt:'Comentário (opcional)',vi:'Bình luận (tùy chọn)',th:'ความคิดเห็น (ไม่บังคับ)'});
+
+// ====== C2C 操作 ======
+d('c2c_confirm_pay_prompt',{'zh-CN':'确认您已向卖家完成法币转账？','zh-TW':'確認您已向賣家完成法幣轉賬？',en:'Confirm you have paid the seller in fiat?',ja:'売り手に法定通貨で支払いましたか？',ko:'판매자에게 법정화폐 송금 완료？',es:'¿Confirmar pago fiat al vendedor?',ru:'Подтвердить фиатный перевод？',fr:'Confirmer le paiement fiat？',de:'Fiat-Zahlung bestätigen？',pt:'Confirmar pagamento fiat？',vi:'Xác nhận đã chuyển tiền pháp định cho người bán？',th:'ยืนยันการชำระเงินเฟียตให้ผู้ขาย？'});
+d('c2c_release_confirm',{'zh-CN':'确认收到买家法币并释放币？','zh-TW':'確認收到買家法幣並釋放幣？',en:'Confirm receipt of fiat and release crypto?',ja:'法定通貨の受領確認と暗号資産のリリース？',ko:'법정화폐 수령확인 및 코인해제？',es:'¿Confirmar recibo y liberar crypto?',ru:'Подтвердить получение фиата и выпустить？',fr:'Confirmer la réception et libérer？',de:'Fiat-Eingang bestätigen und freigeben？',pt:'Confirmar recebimento e liberar？',vi:'Xác nhận nhận tiền và giải phóng？',th:'ยืนยันการรับเงินเฟียตและปล่อยคริปโต？'});
+d('c2c_cancel_order_prompt',{'zh-CN':'确认取消此订单？','zh-TW':'確認取消此訂單？',en:'Confirm to cancel this order?',ja:'この注文をキャンセルしますか？',ko:'주문취소 확인？',es:'¿Confirmar cancelación?',ru:'Подтвердить отмену？',fr:'Confirmer l\'annulation？',de:'Auftragsstornierung bestätigen？',pt:'Confirmar cancelamento？',vi:'Xác nhận hủy lệnh？',th:'ยืนยันการยกเลิกคำสั่ง？'});
+d('c2c_dispute_prompt',{'zh-CN':'请输入申诉原因：','zh-TW':'請輸入申訴原因：',en:'Enter dispute reason:',ja:'紛争理由を入力：',ko:'분쟁사유입력：',es:'Ingrese motivo de disputa:',ru:'Введите причину спора:',fr:'Raison du litige :',de:'Streitgrund eingeben:',pt:'Motivo da disputa:',vi:'Nhập lý do tranh chấp:',th:'ระบุเหตุผลข้อพิพาท:'});
+d('c2c_pay_confirmed',{'zh-CN':'已确认付款！','zh-TW':'已確認付款！',en:'Payment confirmed!',ja:'支払確認済！',ko:'결제확인됨！',es:'¡Pago confirmado!',ru:'Платеж подтвержден!',fr:'Paiement confirmé !',de:'Zahlung bestätigt!',pt:'Pagamento confirmado!',vi:'Đã xác nhận thanh toán!',th:'ยืนยันการชำระเงินแล้ว!'});
+d('c2c_release_success',{'zh-CN':'放币成功！交易完成','zh-TW':'放幣成功！交易完成',en:'Released! Trade completed',ja:'リリース成功！取引完了',ko:'코인해제！거래완료',es:'¡Liberado! Operación completada',ru:'Выпущено! Сделка завершена',fr:'Libéré ! Transaction terminée',de:'Freigegeben! Handel abgeschlossen',pt:'Liberado! Negociação concluída',vi:'Đã giải phóng！Giao dịch hoàn tất',th:'ปล่อยแล้ว！การซื้อขายเสร็จสมบูรณ์'});
+d('c2c_order_cancelled',{'zh-CN':'订单已取消','zh-TW':'訂單已取消',en:'Order cancelled',ja:'注文取消済',ko:'주문취소됨',es:'Orden cancelada',ru:'Ордер отменен',fr:'Ordre annulé',de:'Auftrag storniert',pt:'Ordem cancelada',vi:'Lệnh đã hủy',th:'คำสั่งถูกยกเลิก'});
+d('c2c_dispute_submitted',{'zh-CN':'申诉已提交','zh-TW':'申訴已提交',en:'Dispute submitted',ja:'紛争提出済',ko:'분쟁제출됨',es:'Disputa enviada',ru:'Спор подан',fr:'Litige soumis',de:'Streit eingereicht',pt:'Disputa enviada',vi:'Đã gửi tranh chấp',th:'ส่งข้อพิพาทแล้ว'});
+d('c2c_enter_dispute_reason',{'zh-CN':'请输入申诉原因','zh-TW':'請輸入申訴原因',en:'Please enter dispute reason',ja:'紛争理由を入力してください',ko:'분쟁사유입력',es:'Ingrese motivo',ru:'Введите причину',fr:'Entrez le motif',de:'Grund eingeben',pt:'Digite o motivo',vi:'Nhập lý do',th:'กรุณาระบุเหตุผล'});
+
+// ====== 交易错误 ======
+d('trade_insufficient_usdt',{'zh-CN':'USDT余额不足，请先充值','zh-TW':'USDT餘額不足，請先充值',en:'Insufficient USDT balance, please deposit',ja:'USDT残高不足、入金してください',ko:'USDT 잔액부족, 입금해주세요',es:'USDT insuficiente, deposite',ru:'Недостаточно USDT, пополните',fr:'Solde USDT insuffisant',de:'USDT-Guthaben nicht ausreichend',pt:'Saldo USDT insuficiente',vi:'Số dư USDT không đủ',th:'USDT ไม่เพียงพอ'});
+d('trade_insufficient_coin',{'zh-CN':'{coin} 余额不足','zh-TW':'{coin} 餘額不足',en:'{coin} balance insufficient',ja:'{coin} 残高不足',ko:'{coin} 잔액부족',es:'{coin} saldo insuficiente',ru:'{coin} недостаточно',fr:'Solde {coin} insuffisant',de:'{coin}-Guthaben nicht ausreichend',pt:'{coin} saldo insuficiente',vi:'{coin} số dư không đủ',th:'{coin} ยอดไม่เพียงพอ'});
+d('trade_failed',{'zh-CN':'交易失败','zh-TW':'交易失敗',en:'Trade failed',ja:'取引失敗',ko:'거래실패',es:'Operación fallida',ru:'Сделка не удалась',fr:'Échec de la transaction',de:'Handel fehlgeschlagen',pt:'Negociação falhou',vi:'Giao dịch thất bại',th:'การซื้อขายล้มเหลว'});
+
+// ====== C2C 取单 ======
+d('c2c_enter_trade_amount',{'zh-CN':'请输入交易数量 (USDT)','zh-TW':'請輸入交易數量 (USDT)',en:'Enter trade amount (USDT)',ja:'取引数量を入力 (USDT)',ko:'거래수량입력 (USDT)',es:'Ingrese cantidad (USDT)',ru:'Введите сумму (USDT)',fr:'Entrez le montant (USDT)',de:'Betrag eingeben (USDT)',pt:'Digite o valor (USDT)',vi:'Nhập số lượng (USDT)',th:'กรอกจำนวน (USDT)'});
+d('c2c_take_success',{'zh-CN':'接单成功！订单已创建','zh-TW':'接單成功！訂單已創建',en:'Order taken! Trade created',ja:'注文受付！取引作成済',ko:'주문접수！거래생성됨',es:'¡Orden tomada!',ru:'Ордер принят!',fr:'Ordre accepté !',de:'Order angenommen!',pt:'Ordem aceita!',vi:'Đã nhận lệnh!',th:'รับคำสั่งแล้ว!'});
+
+// ====== 子导航 ======
+d('limit_order', {'zh-CN':'限价','zh-TW':'限價',en:'Limit',ja:'指値',ko:'지정가',es:'Límite',ru:'Лимит',fr:'Limite',de:'Limit',pt:'Limite',vi:'Giới hạn',th:'จำกัด'});
+d('market_order',{'zh-CN':'市价','zh-TW':'市價',en:'Market',ja:'成行',ko:'시장가',es:'Mercado',ru:'Рынок',fr:'Marché',de:'Market',pt:'Mercado',vi:'Thị trường',th:'ตลาด'});
+
+// ====== 现货钱包 ======
+d('spot_wallet',{'zh-CN':'现货钱包','zh-TW':'現貨錢包',en:'Spot Wallet',ja:'現物ウォレット',ko:'현물지갑',es:'Billetera Spot',ru:'Спотовый кошелек',fr:'Portefeuille Spot',de:'Spot-Wallet',pt:'Carteira Spot',vi:'Ví Spot',th:'กระเป๋า Spot'});
+d('deposit_instruction',{'zh-CN':'请向以下地址转入 {coin}','zh-TW':'請向以下地址轉入 {coin}',en:'Send {coin} to the address below',ja:'以下のアドレスに{coin}を送金',ko:'아래 주소로 {coin} 전송',es:'Envíe {coin} a la dirección',ru:'Отправьте {coin} на адрес',fr:'Envoyez {coin} à l\'adresse',de:'Senden Sie {coin} an die Adresse',pt:'Envie {coin} para o endereço',vi:'Gửi {coin} đến địa chỉ',th:'ส่ง {coin} ไปยังที่อยู่ด้านล่าง'});
+d('deposit_warning',{'zh-CN':'请务必使用 {network} 网络转账，否则将导致资产丢失','zh-TW':'請務必使用 {network} 網絡轉賬，否則將導致資產丟失',en:'Please use {network} network only, otherwise assets may be lost',ja:'{network}ネットワークのみ使用、さもないと資産喪失',ko:'{network} 네트워크만 사용, 아니면 자산손실',es:'Use solo red {network}',ru:'Используйте только сеть {network}',fr:'Utilisez uniquement le réseau {network}',de:'Nur {network}-Netzwerk verwenden',pt:'Use apenas rede {network}',vi:'Chỉ sử dụng mạng {network}',th:'ใช้เครือข่าย {network} เท่านั้น'});
+
+// ====== 取消操作通用 ======
+d('cancel',{'zh-CN':'取消','zh-TW':'取消',en:'Cancel',ja:'取消',ko:'취소',es:'Cancelar',ru:'Отмена',fr:'Annuler',de:'Abbrechen',pt:'Cancelar',vi:'Hủy',th:'ยกเลิก'});
+d('confirm',{'zh-CN':'确认','zh-TW':'確認',en:'Confirm',ja:'確認',ko:'확인',es:'Confirmar',ru:'Подтвердить',fr:'Confirmer',de:'Bestätigen',pt:'Confirmar',vi:'Xác nhận',th:'ยืนยัน'});
+
+// ====== 法币 ======
+d('c2c_cny_unit',{'zh-CN':'¥{price} CNY','zh-TW':'¥{price} CNY',en:'¥{price} CNY',ja:'¥{price} CNY',ko:'¥{price} CNY',es:'¥{price} CNY',ru:'¥{price} CNY',fr:'¥{price} CNY',de:'¥{price} CNY',pt:'¥{price} CNY',vi:'¥{price} CNY',th:'¥{price} CNY'});
+
+// ====== 买卖方向简称 ======
+d('buy_short', {'zh-CN':'买','zh-TW':'買',en:'B',ja:'買',ko:'매',es:'C',ru:'К',fr:'A',de:'K',pt:'C',vi:'M',th:'ซ'});
+d('sell_short',{'zh-CN':'卖','zh-TW':'賣',en:'S',ja:'売',ko:'매',es:'V',ru:'П',fr:'V',de:'V',pt:'V',vi:'B',th:'ข'});
+
+// ====== 行情状态标签 ======
+d('status_cached', {'zh-CN':'缓存','zh-TW':'緩存',en:'Cached',ja:'キャッシュ',ko:'캐시',es:'Caché',ru:'Кэш',fr:'Cache',de:'Cache',pt:'Cache',vi:'Cache',th:'แคช'});
+d('status_simulated',{'zh-CN':'模拟','zh-TW':'模擬',en:'Simulated',ja:'シミュレーション',ko:'시뮬레이션',es:'Simulado',ru:'Симуляция',fr:'Simulé',de:'Simuliert',pt:'Simulado',vi:'Mô phỏng',th:'จำลอง'});
+d('status_live',  {'zh-CN':'实时','zh-TW':'實時',en:'Live',ja:'リアルタイム',ko:'실시간',es:'En vivo',ru:'Онлайн',fr:'En direct',de:'Live',pt:'Ao vivo',vi:'Trực tiếp',th:'สด'});
+d('spread',       {'zh-CN':'价差','zh-TW':'價差',en:'Spread',ja:'スプレッド',ko:'스프레드',es:'Diferencial',ru:'Спред',fr:'Spread',de:'Spread',pt:'Spread',vi:'Chênh lệch',th:'ส่วนต่าง'});
+d('enter_valid_amount',{'zh-CN':'请输入有效数量','zh-TW':'請輸入有效數量',en:'Enter valid amount',ja:'有効な数量を入力',ko:'유효한 수량 입력',es:'Ingrese cantidad válida',ru:'Введите кол-во',fr:'Entrez un montant valide',de:'Gültige Menge eingeben',pt:'Digite valor válido',vi:'Nhập số lượng hợp lệ',th:'กรอกจำนวนที่ถูกต้อง'});
+d('invalid_price',{'zh-CN':'价格无效','zh-TW':'價格無效',en:'Invalid price',ja:'無効な価格',ko:'유효하지 않은 가격',es:'Precio inválido',ru:'Неверная цена',fr:'Prix invalide',de:'Ungültiger Preis',pt:'Preço inválido',vi:'Giá không hợp lệ',th:'ราคาไม่ถูกต้อง'});
+d('enter_valid_trigger_price',{'zh-CN':'请输入有效的触发价格','zh-TW':'請輸入有效的觸發價格',en:'Enter valid trigger price',ja:'有効なトリガー価格を入力',ko:'유효한 트리거 가격 입력',es:'Ingrese precio de activación',ru:'Введите триггерную цену',fr:'Entrez un prix de déclenchement',de:'Gültigen Trigger-Preis eingeben',pt:'Digite preço de gatilho',vi:'Nhập giá kích hoạt',th:'กรอกราคาทริกเกอร์ที่ถูกต้อง'});
+d('no_holdings',  {'zh-CN':'暂无持仓','zh-TW':'暫無持倉',en:'No holdings',ja:'保有なし',ko:'보유없음',es:'Sin tenencias',ru:'Нет позиций',fr:'Aucune position',de:'Keine Bestände',pt:'Sem posições',vi:'Không nắm giữ',th:'ไม่มีการถือครอง'});
+d('c2c_enter_valid_price',{'zh-CN':'请输入有效价格','zh-TW':'請輸入有效價格',en:'Enter valid price',ja:'有効な価格を入力',ko:'유효한 가격 입력',es:'Ingrese precio válido',ru:'Введите цену',fr:'Entrez un prix valide',de:'Gültigen Preis eingeben',pt:'Digite preço válido',vi:'Nhập giá hợp lệ',th:'กรอกราคาที่ถูกต้อง'});
+d('c2c_enter_valid_amount_range',{'zh-CN':'请输入有效金额范围','zh-TW':'請輸入有效金額範圍',en:'Enter valid amount range',ja:'有効な金額範囲を入力',ko:'유효한 금액 범위 입력',es:'Ingrese rango de monto',ru:'Введите диапазон сумм',fr:'Entrez une fourchette valide',de:'Gültigen Betragsbereich eingeben',pt:'Digite faixa de valor',vi:'Nhập khoảng số tiền',th:'กรอกช่วงจำนวนเงินที่ถูกต้อง'});
+d('c2c_min_gt_max',{'zh-CN':'最小金额不能大于最大金额','zh-TW':'最小金額不能大於最大金額',en:'Min amount cannot exceed max',ja:'最小額は最大額を超えられません',ko:'최소 금액이 최대를 초과',es:'Mín no puede exceder máx',ru:'Мин не может быть больше макс',fr:'Le min ne peut dépasser le max',de:'Min darf Max nicht überschreiten',pt:'Mín não pode exceder máx',vi:'Tối thiểu không thể vượt tối đa',th:'ขั้นต่ำต้องไม่เกินสูงสุด'});
+d('c2c_select_payment',{'zh-CN':'请选择支付方式','zh-TW':'請選擇支付方式',en:'Select payment method',ja:'支払方法を選択',ko:'결제 수단 선택',es:'Seleccione método de pago',ru:'Выберите способ оплаты',fr:'Choisissez un moyen de paiement',de:'Zahlungsmethode wählen',pt:'Selecione pagamento',vi:'Chọn phương thức',th:'เลือกวิธีการชำระเงิน'});
+d('c2c_trade_started',{'zh-CN':'—— 交易已开始 ——','zh-TW':'—— 交易已開始 ——',en:'—— Trade started ——',ja:'—— 取引開始 ——',ko:'—— 거래 시작 ——',es:'—— Operación iniciada ——',ru:'—— Сделка начата ——',fr:'—— Transaction démarrée ——',de:'—— Handel gestartet ——',pt:'—— Negociação iniciada ——',vi:'—— Giao dịch bắt đầu ——',th:'—— การซื้อขายเริ่มต้น ——'});
+d('unbound',      {'zh-CN':'未绑定','zh-TW':'未綁定',en:'Not bound',ja:'未绑定',ko:'미연동',es:'No vinculado',ru:'Не привязано',fr:'Non lié',de:'Nicht gebunden',pt:'Não vinculado',vi:'Chưa liên kết',th:'ไม่ได้ผูก'});
+d('no_messages_yet',{'zh-CN':'暂无消息','zh-TW':'暫無消息',en:'No messages yet',ja:'メッセージなし',ko:'메시지 없음',es:'Sin mensajes',ru:'Нет сообщений',fr:'Aucun message',de:'Keine Nachrichten',pt:'Sem mensagens',vi:'Chưa có tin nhắn',th:'ยังไม่มีข้อความ'});
+
+// ====== 图表/界面控件 ======
+d('chart_loading', {'zh-CN':'加载中...','zh-TW':'載入中...',en:'Loading...',ja:'読み込み中...',ko:'로딩 중...',es:'Cargando...',ru:'Загрузка...',fr:'Chargement...',de:'Laden...',pt:'Carregando...',vi:'Đang tải...',th:'กำลังโหลด...'});
+d('interval_1m',  {'zh-CN':'1分','zh-TW':'1分',en:'1m',ja:'1分',ko:'1분',es:'1m',ru:'1м',fr:'1m',de:'1m',pt:'1m',vi:'1p',th:'1น'});
+d('interval_5m',  {'zh-CN':'5分','zh-TW':'5分',en:'5m',ja:'5分',ko:'5분',es:'5m',ru:'5м',fr:'5m',de:'5m',pt:'5m',vi:'5p',th:'5น'});
+d('interval_15m', {'zh-CN':'15分','zh-TW':'15分',en:'15m',ja:'15分',ko:'15분',es:'15m',ru:'15м',fr:'15m',de:'15m',pt:'15m',vi:'15p',th:'15น'});
+d('interval_30m', {'zh-CN':'30分','zh-TW':'30分',en:'30m',ja:'30分',ko:'30분',es:'30m',ru:'30м',fr:'30m',de:'30m',pt:'30m',vi:'30p',th:'30น'});
+d('interval_1h',  {'zh-CN':'1时','zh-TW':'1時',en:'1h',ja:'1時',ko:'1시',es:'1h',ru:'1ч',fr:'1h',de:'1h',pt:'1h',vi:'1g',th:'1ชม'});
+d('interval_4h',  {'zh-CN':'4时','zh-TW':'4時',en:'4h',ja:'4時',ko:'4시',es:'4h',ru:'4ч',fr:'4h',de:'4h',pt:'4h',vi:'4g',th:'4ชม'});
+d('interval_1d',  {'zh-CN':'日线','zh-TW':'日線',en:'1d',ja:'日足',ko:'일봉',es:'1d',ru:'1д',fr:'1j',de:'1T',pt:'1d',vi:'1n',th:'1วัน'});
+d('interval_1w',  {'zh-CN':'周线','zh-TW':'週線',en:'1w',ja:'週足',ko:'주봉',es:'1s',ru:'1н',fr:'1sem',de:'1W',pt:'1s',vi:'1t',th:'1ส'});
+d('time_col',     {'zh-CN':'时间','zh-TW':'時間',en:'Time',ja:'時間',ko:'시간',es:'Hora',ru:'Время',fr:'Heure',de:'Zeit',pt:'Hora',vi:'Thời gian',th:'เวลา'});
+d('pair_col',     {'zh-CN':'交易对','zh-TW':'交易對',en:'Pair',ja:'ペア',ko:'페어',es:'Par',ru:'Пара',fr:'Paire',de:'Paar',pt:'Par',vi:'Cặp',th:'คู่'});
+d('side_col',     {'zh-CN':'方向','zh-TW':'方向',en:'Side',ja:'方向',ko:'방향',es:'Lado',ru:'Сторона',fr:'Côté',de:'Seite',pt:'Lado',vi:'Hướng',th:'ด้าน'});
+d('type_col',     {'zh-CN':'类型','zh-TW':'類型',en:'Type',ja:'種類',ko:'유형',es:'Tipo',ru:'Тип',fr:'Type',de:'Typ',pt:'Tipo',vi:'Loại',th:'ประเภท'});
+d('status_col',   {'zh-CN':'状态','zh-TW':'狀態',en:'Status',ja:'状態',ko:'상태',es:'Estado',ru:'Статус',fr:'Statut',de:'Status',pt:'Status',vi:'Trạng thái',th:'สถานะ'});
+d('note_col',     {'zh-CN':'备注','zh-TW':'備註',en:'Note',ja:'備考',ko:'비고',es:'Nota',ru:'Прим.',fr:'Note',de:'Notiz',pt:'Nota',vi:'Ghi chú',th:'หมายเหตุ'});
+d('c2c_merchant', {'zh-CN':'商家','zh-TW':'商家',en:'Merchant',ja:'販売者',ko:'판매자',es:'Vendedor',ru:'Продавец',fr:'Marchand',de:'Händler',pt:'Comerciante',vi:'Người bán',th:'ผู้ค้า'});
+d('c2c_amount_col',{'zh-CN':'数量','zh-TW':'數量',en:'Amount',ja:'数量',ko:'수량',es:'Cantidad',ru:'Кол-во',fr:'Montant',de:'Menge',pt:'Quantidade',vi:'Số lượng',th:'จำนวน'});
+d('c2c_price_col', {'zh-CN':'价格','zh-TW':'價格',en:'Price',ja:'価格',ko:'가격',es:'Precio',ru:'Цена',fr:'Prix',de:'Preis',pt:'Preço',vi:'Giá',th:'ราคา'});
+d('c2c_payment_col',{'zh-CN':'支付方式','zh-TW':'支付方式',en:'Payment',ja:'支払方法',ko:'결제',es:'Pago',ru:'Оплата',fr:'Paiement',de:'Zahlung',pt:'Pagamento',vi:'Thanh toán',th:'การชำระ'});
+d('c2c_action_col',{'zh-CN':'操作','zh-TW':'操作',en:'Action',ja:'操作',ko:'작업',es:'Acción',ru:'Действие',fr:'Action',de:'Aktion',pt:'Ação',vi:'Hành động',th:'การดำเนินการ'});
+d('simulated_data',{'zh-CN':'演示数据','zh-TW':'演示數據',en:'Demo Data',ja:'デモデータ',ko:'데모데이터',es:'Datos demo',ru:'Демо',fr:'Données démo',de:'Demodaten',pt:'Dados demo',vi:'Dữ liệu demo',th:'ข้อมูลตัวอย่าง'});
+d('benefit_pairs',{'zh-CN':'✓ 100+ 加密货币交易对','zh-TW':'✓ 100+ 加密貨幣交易對',en:'✓ 100+ Crypto Trading Pairs',ja:'✓ 100以上の暗号資産ペア',ko:'✓ 100개 이상의 암호화폐 페어',es:'✓ Más de 100 pares cripto',ru:'✓ 100+ крипто-пар',fr:'✓ Plus de 100 paires crypto',de:'✓ Über 100 Krypto-Paare',pt:'✓ Mais de 100 pares cripto',vi:'✓ Hơn 100 cặp giao dịch',th:'✓ 100+ คู่เทรดคริปโต'});
+d('benefit_market',{'zh-CN':'✓ 实时币安行情数据','zh-TW':'✓ 實時幣安行情數據',en:'✓ Real-time Binance Market Data',ja:'✓ リアルタイム Binance データ',ko:'✓ 실시간 바이낸스 시세',es:'✓ Datos de mercado Binance',ru:'✓ Рыночные данные Binance',fr:'✓ Données de marché Binance',de:'✓ Echtzeit-Binance-Daten',pt:'✓ Dados de mercado Binance',vi:'✓ Dữ liệu Binance thời gian thực',th:'✓ ข้อมูลตลาด Binance แบบเรียลไทม์'});
+d('benefit_chart',{'zh-CN':'✓ 专业图表工具','zh-TW':'✓ 專業圖表工具',en:'✓ Professional Charting Tools',ja:'✓ プロ仕様のチャート',ko:'✓ 전문 차트 도구',es:'✓ Gráficos profesionales',ru:'✓ Профессиональные графики',fr:'✓ Outils graphiques pro',de:'✓ Profi-Chart-Tools',pt:'✓ Gráficos profissionais',vi:'✓ Công cụ biểu đồ chuyên nghiệp',th:'✓ เครื่องมือกราฟมืออาชีพ'});
+d('benefit_zero',{'zh-CN':'✓ 零门槛真实交易','zh-TW':'✓ 零門檻真實交易',en:'✓ Zero threshold real trading',ja:'✓ ゼロ閾値のリアル取引',ko:'✓ 무장벽 실제 거래',es:'✓ Trading real sin umbral',ru:'✓ Реальная торговля без порога',fr:'✓ Trading réel sans seuil',de:'✓ Echter Handel ohne Hürden',pt:'✓ Trading real sem barreiras',vi:'✓ Giao dịch thực không rào cản',th:'✓ เทรดจริงไร้ขีดจำกัด'});
+d('benefit_free',{'zh-CN':'✓ 免费注册，模拟交易','zh-TW':'✓ 免費註冊，模擬交易',en:'✓ Free registration, simulated trading',ja:'✓ 無料登録、模擬取引',ko:'✓ 무료가입, 모의거래',es:'✓ Registro gratis, trading simulado',ru:'✓ Бесплатная регистрация',fr:'✓ Inscription gratuite',de:'✓ Kostenlose Registrierung',pt:'✓ Cadastro grátis',vi:'✓ Đăng ký miễn phí',th:'✓ ลงทะเบียนฟรี'});
+d('benefit_realtime',{'zh-CN':'✓ 实时行情 + K线图表','zh-TW':'✓ 實時行情 + K線圖表',en:'✓ Real-time market + charts',ja:'✓ リアルタイム相場 + チャート',ko:'✓ 실시간 시세 + 차트',es:'✓ Mercado en tiempo real',ru:'✓ Рынок в реальном времени',fr:'✓ Marché en temps réel',de:'✓ Echtzeit-Markt',pt:'✓ Mercado em tempo real',vi:'✓ Thị trường thời gian thực',th:'✓ ตลาดเรียลไทม์'});
+d('benefit_orders',{'zh-CN':'✓ 市价单 & 限价单','zh-TW':'✓ 市價單 & 限價單',en:'✓ Market & Limit orders',ja:'✓ 成行注文 & 指値注文',ko:'✓ 시장가 & 지정가 주문',es:'✓ Órdenes mercado y límite',ru:'✓ Рыночные и лимитные',fr:'✓ Ordres marché et limite',de:'✓ Market- & Limit-Orders',pt:'✓ Ordens mercado e limite',vi:'✓ Lệnh thị trường & giới hạn',th:'✓ คำสั่งตลาด & จำกัด'});
+
+// ====== C2C 状态 & 界面 ======
+d('status_pending_pay',   {'zh-CN':'待付款','zh-TW':'待付款',en:'Pending Pay',ja:'支払待ち',ko:'결제대기',es:'Pendiente pago',ru:'Ожидает оплаты',fr:'Paiement en attente',de:'Zahlung ausstehend',pt:'Pagamento pendente',vi:'Chờ thanh toán',th:'รอการชำระเงิน'});
+d('status_pending_release',{'zh-CN':'待放币','zh-TW':'待放幣',en:'Pending Release',ja:'リリース待ち',ko:'출금대기',es:'Pendiente liberar',ru:'Ожидает выпуска',fr:'Libération en attente',de:'Freigabe ausstehend',pt:'Liberação pendente',vi:'Chờ giải phóng',th:'รอการปล่อย'});
+d('status_disputed',       {'zh-CN':'争议中','zh-TW':'爭議中',en:'Disputed',ja:'紛争中',ko:'분쟁중',es:'Disputado',ru:'Оспаривается',fr:'Litigieux',de:'Bestritten',pt:'Disputado',vi:'Tranh chấp',th:'มีข้อพิพาท'});
+d('c2c_status_completed',  {'zh-CN':'已完成','zh-TW':'已完成',en:'Completed',ja:'完了',ko:'완료',es:'Completado',ru:'Завершено',fr:'Terminé',de:'Abgeschlossen',pt:'Concluído',vi:'Hoàn tất',th:'เสร็จสิ้น'});
+d('network_warning',       {'zh-CN':'⚠ 请使用正确的网络','zh-TW':'⚠ 請使用正確的網絡',en:'⚠ Use the correct network',ja:'⚠ 正しいネットワークを使用',ko:'⚠ 올바른 네트워크 사용',es:'⚠ Use la red correcta',ru:'⚠ Используйте правильную сеть',fr:'⚠ Utilisez le bon réseau',de:'⚠ Richtiges Netzwerk verwenden',pt:'⚠ Use a rede correta',vi:'⚠ Dùng đúng mạng',th:'⚠ ใช้เครือข่ายที่ถูกต้อง'});
+d('deposit_network_label', {'zh-CN':'网络：','zh-TW':'網絡：',en:'Network: ',ja:'ネットワーク: ',ko:'네트워크: ',es:'Red: ',ru:'Сеть: ',fr:'Réseau : ',de:'Netzwerk: ',pt:'Rede: ',vi:'Mạng: ',th:'เครือข่าย: '});
+d('deposit_amount_label',  {'zh-CN':'金额：','zh-TW':'金額：',en:'Amount: ',ja:'金額：',ko:'금액：',es:'Monto: ',ru:'Сумма: ',fr:'Montant : ',de:'Betrag: ',pt:'Valor: ',vi:'Số tiền: ',th:'จำนวน: '});
+d('c2c_chat_placeholder',  {'zh-CN':'输入消息...','zh-TW':'輸入消息...',en:'Type a message...',ja:'メッセージ入力...',ko:'메시지 입력...',es:'Escriba un mensaje...',ru:'Введите сообщение...',fr:'Tapez un message...',de:'Nachricht eingeben...',pt:'Digite uma mensagem...',vi:'Nhập tin nhắn...',th:'พิมพ์ข้อความ...'});
+d('c2c_chat_send',         {'zh-CN':'发送','zh-TW':'發送',en:'Send',ja:'送信',ko:'보내기',es:'Enviar',ru:'Отправить',fr:'Envoyer',de:'Senden',pt:'Enviar',vi:'Gửi',th:'ส่ง'});
+d('c2c_remark_ph',         {'zh-CN':'15分钟内付款...','zh-TW':'15分鐘內付款...',en:'Payment within 15 mins...',ja:'15分以内に支払...',ko:'15분 내 결제...',es:'Pago en 15 min...',ru:'Оплата в течение 15 мин...',fr:'Paiement sous 15 min...',de:'Zahlung innerhalb 15 Min...',pt:'Pagamento em 15 min...',vi:'Thanh toán trong 15 phút...',th:'ชำระเงินภายใน 15 นาที...'});
+d('rating_tap_hint',       {'zh-CN':'点击评分','zh-TW':'點擊評分',en:'Tap to rate',ja:'タップして評価',ko:'눌러서 평가',es:'Toque para calificar',ru:'Нажмите для оценки',fr:'Appuyez pour noter',de:'Zum Bewerten tippen',pt:'Toque para avaliar',vi:'Chạm để đánh giá',th:'แตะเพื่อให้คะแนน'});
+d('rating_comment_ph',     {'zh-CN':'写评论（可选）','zh-TW':'寫評論（可選）',en:'Write a comment (optional)',ja:'コメントを書く（任意）',ko:'댓글 작성 (선택)',es:'Escriba un comentario (opcional)',ru:'Напишите комментарий',fr:'Écrivez un commentaire',de:'Kommentar schreiben (optional)',pt:'Escreva um comentário',vi:'Viết bình luận (tùy chọn)',th:'เขียนความคิดเห็น (ไม่บังคับ)'});
+d('phone_placeholder',     {'zh-CN':'+86 13800138000','zh-TW':'+886 912345678',en:'+1 5550123456',ja:'090-1234-5678',ko:'010-1234-5678',es:'+34 612345678',ru:'+7 9991234567',fr:'+33 612345678',de:'+49 1701234567',pt:'+55 11912345678',vi:'+84 912345678',th:'+66 812345678'});
+d('trade_amount_ph',       {'zh-CN':'数量','zh-TW':'數量',en:'Amount',ja:'数量',ko:'수량',es:'Cantidad',ru:'Кол-во',fr:'Montant',de:'Menge',pt:'Quantidade',vi:'Số lượng',th:'จำนวน'});
+d('deposit_enter_ph',      {'zh-CN':'输入金额','zh-TW':'輸入金額',en:'Enter amount',ja:'金額を入力',ko:'금액 입력',es:'Ingrese monto',ru:'Введите сумму',fr:'Entrez le montant',de:'Betrag eingeben',pt:'Digite o valor',vi:'Nhập số tiền',th:'กรอกจำนวน'});
+d('withdraw_addr_ph',      {'zh-CN':'输入收款地址','zh-TW':'輸入收款地址',en:'Enter receiving address',ja:'受取アドレスを入力',ko:'수신 주소 입력',es:'Ingrese dirección',ru:'Введите адрес',fr:'Entrez l\'adresse',de:'Empfängeradresse eingeben',pt:'Digite o endereço',vi:'Nhập địa chỉ nhận',th:'กรอกที่อยู่รับ'});
+d('withdraw_memo_ph',      {'zh-CN':'可选','zh-TW':'可選',en:'Optional',ja:'任意',ko:'선택',es:'Opcional',ru:'Опционально',fr:'Optionnel',de:'Optional',pt:'Opcional',vi:'Tùy chọn',th:'ไม่บังคับ'});
+d('withdraw_min_ph',       {'zh-CN':'最低 10 USDT','zh-TW':'最低 10 USDT',en:'Minimum 10 USDT',ja:'最低 10 USDT',ko:'최소 10 USDT',es:'Mínimo 10 USDT',ru:'Мин. 10 USDT',fr:'Minimum 10 USDT',de:'Mindestens 10 USDT',pt:'Mínimo 10 USDT',vi:'Tối thiểu 10 USDT',th:'ขั้นต่ำ 10 USDT'});
+d('trade_limit_ph',        {'zh-CN':'限价','zh-TW':'限價',en:'Limit price',ja:'指値価格',ko:'지정가',es:'Precio límite',ru:'Лимитная цена',fr:'Prix limite',de:'Limit-Preis',pt:'Preço limite',vi:'Giá giới hạn',th:'ราคาจำกัด'});
+d('trade_trigger_ph',      {'zh-CN':'触发价','zh-TW':'觸發價',en:'Trigger price',ja:'トリガー価格',ko:'트리거 가격',es:'Precio trigger',ru:'Триггерная цена',fr:'Prix déclencheur',de:'Trigger-Preis',pt:'Preço de gatilho',vi:'Giá kích hoạt',th:'ราคาทริกเกอร์'});
+d('market_search_ph',      {'zh-CN':'搜索币种...','zh-TW':'搜尋幣種...',en:'Search coins...',ja:'通貨検索...',ko:'코인 검색...',es:'Buscar monedas...',ru:'Поиск монет...',fr:'Rechercher...',de:'Münzen suchen...',pt:'Buscar moedas...',vi:'Tìm kiếm...',th:'ค้นหาเหรียญ...'});
+
 window.t = function(key) {
   const entry = DICT[key];
   if (!entry) return key;
@@ -198,9 +378,27 @@ window.setLang = function(lang) {
   // 关闭下拉
   const drop = document.getElementById('lang-drop');
   if (drop) drop.classList.add('hidden');
-  // 重绘
-  if (!document.getElementById('page-trade').classList.contains('hidden')) {
+
+  // 根据当前显示的页面，重新渲染动态内容（JS innerHTML 生成的翻译）
+  function reApplyLater() { setTimeout(applyLang, 200); }
+  var pg = function(id) { var e = document.getElementById(id); return e && !e.classList.contains('hidden'); };
+
+  if (pg('page-trade')) {
     updateAll();
+    reApplyLater();
+  } else if (pg('page-wallet')) {
+    loadWalletPage().then(reApplyLater).catch(reApplyLater);
+  } else if (pg('page-orders')) {
+    loadOrdersPage().then(reApplyLater).catch(reApplyLater);
+  } else if (pg('page-c2c')) {
+    loadC2CAds().then(reApplyLater).catch(reApplyLater);
+  } else if (pg('page-invite')) {
+    if (typeof loadInvitePage === 'function') loadInvitePage().then(reApplyLater).catch(reApplyLater);
+  } else if (pg('page-settings')) {
+    if (typeof loadSettings === 'function') loadSettings().then(reApplyLater).catch(reApplyLater);
+  } else if (pg('page-login') || pg('page-register') || pg('page-forgot')) {
+    // 登录/注册/忘记密码页主要使用 data-i18n，applyLang() 已处理
+    reApplyLater();
   }
 };
 
@@ -266,6 +464,61 @@ const api = {
   post: (url, body) => api.req(url, { method: 'POST', body: JSON.stringify(body) })
 };
 
+// ========== 演示数据 (API 不可用时的回退) ==========
+const DEMO_PRICES = {
+  BTC: 87500, ETH: 3420, BNB: 625, SOL: 148, XRP: 2.35,
+  ADA: 0.72, DOGE: 0.175, AVAX: 38.5, DOT: 7.2, MATIC: 0.58,
+  LINK: 15.2, UNI: 8.8, ATOM: 7.5, LTC: 82, FIL: 5.4,
+  NEAR: 5.2, OP: 1.85, ARB: 0.92, APT: 8.5, SUI: 1.15,
+  TON: 5.8, INJ: 22.5, SEI: 0.42, TIA: 6.8
+};
+var demoJitter = {};
+function _genDemoPrices() {
+  var prices = {};
+  Object.keys(DEMO_PRICES).forEach(function(sym) {
+    var base = DEMO_PRICES[sym];
+    if (!demoJitter[sym]) demoJitter[sym] = (Math.random() - 0.5) * 0.02;
+    demoJitter[sym] += (Math.random() - 0.5) * 0.003;
+    demoJitter[sym] = Math.max(-0.08, Math.min(0.08, demoJitter[sym]));
+    var price = base * (1 + demoJitter[sym]);
+    var chg = +(demoJitter[sym] * 100).toFixed(2);
+    prices[sym] = {
+      price: +price.toFixed(4),
+      change24h: chg,
+      high24h: +(price * (1 + Math.abs(demoJitter[sym]) * 1.5)).toFixed(4),
+      low24h: +(price * (1 - Math.abs(demoJitter[sym]) * 1.5)).toFixed(4),
+      volume24h: +(base * (800 + Math.random() * 1200)).toFixed(2)
+    };
+  });
+  return prices;
+}
+function _genDemoKlines(symbol, interval) {
+  var base = DEMO_PRICES[symbol] || 10;
+  var intervals = { '1m':60000, '5m':300000, '15m':900000, '30m':1800000, '1h':3600000, '4h':14400000, '1d':86400000, '1w':604800000 };
+  var ms = intervals[interval] || 14400000;
+  var klines = [], now = Date.now(), pr = base * (0.9 + Math.random() * 0.1);
+  for (var i = 80; i >= 0; i--) {
+    var vol = base * (0.5 + Math.random() * 2);
+    var change = (Math.random() - 0.5) * 0.04;
+    var o = pr, c = o * (1 + change);
+    var h = Math.max(o, c) * (1 + Math.random() * 0.01);
+    var l = Math.min(o, c) * (1 - Math.random() * 0.01);
+    klines.push({ time: now - i * ms, open: +o.toFixed(4), high: +h.toFixed(4), low: +l.toFixed(4), close: +c.toFixed(4), volume: +vol.toFixed(2) });
+    pr = c;
+  }
+  return klines;
+}
+function _genDemoOrderbook(symbol) {
+  var base = DEMO_PRICES[symbol] || 10;
+  var bids = [], asks = [];
+  for (var i = 0; i < 15; i++) {
+    bids.push([+(base * (1 - (i + 1) * 0.001)).toFixed(4), +(Math.random() * 5 + 0.1).toFixed(4)]);
+    asks.push([+(base * (1 + (i + 1) * 0.001)).toFixed(4), +(Math.random() * 5 + 0.1).toFixed(4)]);
+  }
+  return { bids: bids, asks: asks };
+}
+var demoMode = false;
+
 // ========== Toast ==========
 function showToast(msg) {
   var el = document.getElementById('global-toast');
@@ -281,9 +534,9 @@ function hideToast() {
 const $ = id => document.getElementById(id);
 const $$ = sel => document.querySelectorAll(sel);
 
-function fmtP(p) { return p >= 1 ? p.toFixed(2) : p >= 0.01 ? p.toFixed(4) : p.toFixed(6); }
+function fmtP(p) { if(p>=1e4)return p.toLocaleString('en-US',{maximumFractionDigits:0});if(p>=1000)return p.toLocaleString('en-US',{maximumFractionDigits:2});if(p>=1)return p.toFixed(2);if(p>=0.01)return p.toFixed(4);if(p>=0.0001)return p.toFixed(6);if(p>=0.000001)return p.toFixed(8);return p.toFixed(10); }
 function fmtV(v) { return v >= 1e9 ? (v / 1e9).toFixed(2) + 'B' : v >= 1e6 ? (v / 1e6).toFixed(2) + 'M' : v >= 1e3 ? (v / 1e3).toFixed(1) + 'K' : v.toFixed(0); }
-function fmtT(t) { return new Date(t).toLocaleString('zh-CN', { month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', second: '2-digit' }); }
+function fmtT(t) { return new Date(t).toLocaleString(currentLang || 'en', { month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', second: '2-digit' }); }
 function errShow(id, msg) { const e = $(id); if (e) { e.textContent = msg; setTimeout(() => e.textContent = '', 4000); } }
 
 // ========== URL 路径映射 (支持 /{lang}/...) ==========
@@ -453,8 +706,8 @@ async function loadOrdersPage() {
         + '<td style="padding:6px 8px;text-align:right;font-family:var(--mono)">$' + fmtP(o.price) + '</td>'
         + '<td style="padding:6px 8px;text-align:right;font-family:var(--mono)">' + o.amount.toFixed(6) + '</td>'
         + '<td style="padding:6px 8px;text-align:right;font-family:var(--mono)">$' + o.total.toFixed(2) + '</td>'
-        + '<td style="padding:6px 8px;color:var(--text2)">' + t(o.type || o.order_type || 'market') + '</td>'
-        + '<td style="padding:6px 8px;color:' + (o.status==='filled'?'#0ECB81':o.status==='cancelled'?'#F6465D':'#F0B90B') + '">' + t(o.status) + '</td>'
+        + '<td style="padding:6px 8px;color:var(--text2)">' + t(o.type === 'market' ? 'trade_market' : o.type === 'limit' ? 'trade_limit' : 'trade_stop_limit') + '</td>'
+        + '<td style="padding:6px 8px;color:' + (o.status==='filled'?'#0ECB81':o.status==='cancelled'?'#F6465D':'#F0B90B') + '">' + (o.status==='filled'?t('status_filled'):o.status==='cancelled'?t('status_cancelled2'):t('status_pending')) + '</td>'
         + '</tr>';
     });
     if (!rows) rows = '<tr><td colspan="8" style="padding:24px;text-align:center;color:var(--text2)" data-i18n="no_data">' + t('no_data') + '</td></tr>';
@@ -514,10 +767,10 @@ async function loadSettings() {
     var d = await api.get('/api/auth/settings');
     var s = d.settings;
     $('set-username').value = s.username;
-    $('set-email').value = s.email || '未绑定';
+    $('set-email').value = s.email || t('unbound');
     $('set-phone').value = s.phone || '';
     $('set-lang').value = s.language_pref || currentLang;
-    $('set-vip-info').innerHTML = 'VIP ' + (s.vip_level || 0) + ' | 2FA: ' + (s.two_fa_enabled ? '<span style="color:var(--green)">Enabled</span>' : 'Disabled') + ' | 邀请码: ' + s.invite_code;
+    $('set-vip-info').innerHTML = 'VIP ' + (s.vip_level || 0) + ' | 2FA: ' + (s.two_fa_enabled ? '<span style="color:var(--green)">' + t('settings_2fa_enabled_label') + '</span>' : t('settings_2fa_disabled_label')) + ' | ' + t('settings_invite_code_label') + ' ' + s.invite_code;
     // 2FA 开关状态
     if ($('set-2fa-check')) {
       $('set-2fa-check').checked = s.two_fa_enabled;
@@ -542,15 +795,37 @@ async function changePassword() {
 }
 
 // ========== C2C 评价 ==========
-async function submitReviewModal(orderId) {
-  var rating = parseInt(prompt(t('your_rating') + ' (1-5):', '5'));
-  if (!rating || rating < 1 || rating > 5) return;
-  var comment = prompt(t('review_comment'), '');
-  if (comment === null) return;
+var ratingState = { orderId: '', rating: 0 };
+
+function openRatingModal(orderId) {
+  ratingState.orderId = orderId;
+  ratingState.rating = 0;
+  $('c2c-rating-modal').classList.remove('hidden');
+  $('c2c-rating-comment').value = '';
+  $('c2c-rating-error').textContent = '';
+  $('c2c-rating-hint').textContent = t('review_rating_prompt');
+  // 重置所有星星
+  $$('#c2c-rating-stars .c2c-star').forEach(function(s) {
+    s.classList.remove('selected', 'hover');
+    s.textContent = '☆';
+  });
+}
+
+async function submitRating() {
+  if (ratingState.rating < 1 || ratingState.rating > 5) {
+    return errShow('c2c-rating-error', t('review_select_rating'));
+  }
+  var comment = $('c2c-rating-comment').value.trim();
   try {
-    await api.post('/api/c2c/orders/' + orderId + '/review', { rating: rating, comment: comment || '' });
-    showToast(t('c2c_submit_review') + ' ✓');
-  } catch(e) { showToast(e.message); }
+    await api.post('/api/c2c/orders/' + ratingState.orderId + '/review', {
+      rating: ratingState.rating,
+      comment: comment
+    });
+    $('c2c-rating-modal').classList.add('hidden');
+    showToast(t('review_submitted'));
+    // 刷新 C2C 订单
+    if (C2C.currentOrder) openOrderChat(C2C.currentOrder.order_id);
+  } catch(e) { errShow('c2c-rating-error', e.message); }
 }
 
 function updateNavAuth(loggedIn) {
@@ -586,7 +861,7 @@ async function updateNavBalance() {
 // ========== 认证 ==========
 async function login() {
   const u = $('login-username').value.trim(), p = $('login-password').value;
-  if (!u || !p) return errShow('login-error', '请输入用户名和密码');
+  if (!u || !p) return errShow('login-error', t('fill_all_fields'));
   try {
     const d = await api.post('/api/auth/login', { username: u, password: p });
     saveAuth(d);
@@ -887,8 +1162,8 @@ async function submitWithdraw() {
   if (!addr) return errShow('withdraw-error', '请输入提现地址');
   if (!amt || amt <= 0) return errShow('withdraw-error', '请输入有效金额');
   var minW = MIN_WITHDRAW[withdrawCoin] || 10;
-  if (amt < minW) return errShow('withdraw-error', withdrawCoin + ' 最小提现 ' + minW);
-  if (addr.length < 20) return errShow('withdraw-error', '提现地址格式无效');
+  if (amt < minW) return errShow('withdraw-error', withdrawCoin + ' ' + t('wd_min_withdraw') + ' ' + minW);
+  if (addr.length < 20) return errShow('withdraw-error', t('wd_invalid_addr'));
 
   try {
     var d = await api.post('/api/wallet/withdraw', {
@@ -913,10 +1188,10 @@ async function loadWithdrawHistory() {
         + '<td style="padding:6px 8px;text-align:right;font-family:var(--mono)">' + w.amount + '</td>'
         + '<td style="padding:6px 8px;text-align:right;font-family:var(--mono);color:var(--text2)">' + w.fee + '</td>'
         + '<td style="padding:6px 8px;font-family:var(--mono);font-size:10px;color:var(--text2)">' + (w.address || '').substring(0, 14) + '...</td>'
-        + '<td style="padding:6px 8px;color:' + sc + '">' + (w.status === 'approved' ? 'Done' : w.status === 'rejected' ? 'Rejected' : 'Pending') + '</td>'
+        + '<td style="padding:6px 8px;color:' + sc + '">' + (w.status === 'approved' ? t('wd_approved') : w.status === 'rejected' ? t('wd_rejected') : t('wd_pending')) + '</td>'
         + '</tr>';
     });
-    if (!rows) rows = '<tr><td colspan="6" style="padding:16px;text-align:center;color:var(--text2)">No withdrawals</td></tr>';
+    if (!rows) rows = '<tr><td colspan="6" style="padding:16px;text-align:center;color:var(--text2)">' + t('no_withdrawals') + '</td></tr>';
     $('w-withdraws-body').innerHTML = rows;
   } catch(e){}
 }
@@ -931,14 +1206,20 @@ async function updateAll() {
   try {
     const d = await api.get('/api/market/prices');
     ST.prices = d.prices;
-    $('price-status').textContent = d.cached ? '缓存' : d.warning ? '模拟' : '实时';
-    renderMarket();
-    updateStat();
-    updateOrderbook();
-    updateTradeTotal();
-    updateTradeInfo();
-    updateNavBalance();
-  } catch (e) { /* ignore */ }
+    $('price-status').textContent = d.cached ? t('status_cached') : d.warning ? t('status_simulated') : t('status_live');
+    demoMode = false;
+  } catch (e) {
+    // API 不可用时使用演示数据
+    ST.prices = _genDemoPrices();
+    $('price-status').textContent = t('simulated_data');
+    demoMode = true;
+  }
+  renderMarket();
+  updateStat();
+  updateOrderbook();
+  updateTradeTotal();
+  updateTradeInfo();
+  updateNavBalance();
   renderTicker();
   loadKline();
   fetchWallet();
@@ -1049,7 +1330,18 @@ async function loadKline() {
   clearTimeout(klineTimeout);
   klineTimeout = setTimeout(function(){ klineLoading = false; }, 5000);
   const loading = $('chart-loading');
-  if (loading) loading.classList.remove('hidden');
+  if (loading) { loading.textContent = t('chart_loading'); loading.classList.remove('hidden'); }
+  if (demoMode) {
+    // 演示模式直接使用模拟数据
+    ST.klines = _genDemoKlines(ST.symbol, ST.interval);
+    ST.crosshair = { index: -1, visible: false };
+    var srcEl = $('chart-source');
+    if (srcEl) srcEl.textContent = t('simulated_data');
+    drawChart();
+    if (loading) loading.classList.add('hidden');
+    klineLoading = false;
+    return;
+  }
   try {
     const d = await api.get(`/api/market/kline?symbol=${ST.symbol}&interval=${ST.interval}`);
     ST.klines = d.klines;
@@ -1058,9 +1350,10 @@ async function loadKline() {
     if (srcEl) srcEl.textContent = d.source === 'binance' ? 'Binance' : 'Simulated';
     drawChart();
   } catch (e) {
-    console.error('Kline load error:', e);
-    ST.klines = _genEmergencyKlines();
+    ST.klines = _genDemoKlines(ST.symbol, ST.interval);
     ST.crosshair = { index: -1, visible: false };
+    var srcEl2 = $('chart-source');
+    if (srcEl2) srcEl2.textContent = t('simulated_data');
     drawChart();
   } finally {
     if (loading) loading.classList.add('hidden');
@@ -1237,7 +1530,7 @@ function drawChart() {
       var timeStr = ['1d', '1w'].includes(ST.interval)
         ? (d.getFullYear() + '-' + (d.getMonth() + 1).toString().padStart(2, '0') + '-' + d.getDate().toString().padStart(2, '0'))
         : (d.getMonth() + 1 + '/' + d.getDate() + ' ' + String(d.getHours()).padStart(2, '0') + ':' + String(d.getMinutes()).padStart(2, '0'));
-      tt.innerHTML = '<div class="chart-tooltip-row"><span class="ct-label">时间</span><span class="ct-val">' + timeStr + '</span></div>'
+      tt.innerHTML = '<div class="chart-tooltip-row"><span class="ct-label">' + t('time_col') + '</span><span class="ct-val">' + timeStr + '</span></div>'
         + '<div class="chart-tooltip-row"><span class="ct-label">O</span><span class="ct-val">' + fmtP(k.open) + '</span></div>'
         + '<div class="chart-tooltip-row"><span class="ct-label">H</span><span class="ct-val">' + fmtP(k.high) + '</span></div>'
         + '<div class="chart-tooltip-row"><span class="ct-label">L</span><span class="ct-val">' + fmtP(k.low) + '</span></div>'
@@ -1260,6 +1553,27 @@ function drawChart() {
 
 // ========== 订单簿 ==========
 async function updateOrderbook() {
+  if (demoMode) {
+    ST.orderbook = _genDemoOrderbook(ST.symbol);
+    var d = ST.orderbook;
+    var ms = Math.max(...d.asks.map(a => a[1]), ...d.bids.map(b => b[1]), 1);
+    $('ob-asks').innerHTML = d.asks.slice(0, 10).reverse().map(a =>
+      `<div class="ob-row ask"><div class="bar" style="width:${(a[1] / ms * 100).toFixed(1)}%"></div>
+      <span>${fmtP(a[0])}</span><span>${a[1].toFixed(4)}</span><span>${a[1].toFixed(4)}</span></div>`
+    ).join('');
+    $('ob-bids').innerHTML = d.bids.slice(0, 10).map(b =>
+      `<div class="ob-row bid"><div class="bar" style="width:${(b[1] / ms * 100).toFixed(1)}%"></div>
+      <span>${fmtP(b[0])}</span><span>${b[1].toFixed(4)}</span><span>${b[1].toFixed(4)}</span></div>`
+    ).join('');
+    var mid = $('ob-mid');
+    var price = ST.prices[ST.symbol]?.price || 0;
+    mid.textContent = fmtP(price);
+    mid.className = 'ob-mid ' + ((ST.prices[ST.symbol]?.change24h || 0) >= 0 ? 'up' : 'down');
+    if (d.asks.length && d.bids.length) {
+      $('ob-spread').textContent = t('spread') + ' ' + fmtP(d.asks[0][0] - d.bids[0][0]);
+    }
+    return;
+  }
   try {
     const d = await api.get(`/api/market/orderbook?symbol=${ST.symbol}`);
     ST.orderbook = d;
@@ -1279,9 +1593,29 @@ async function updateOrderbook() {
     mid.textContent = fmtP(d.lastPrice);
     mid.className = 'ob-mid ' + ((ST.prices[ST.symbol]?.change24h || 0) >= 0 ? 'up' : 'down');
     if (d.asks.length && d.bids.length) {
-      $('ob-spread').textContent = '价差 ' + fmtP(d.asks[0][0] - d.bids[0][0]);
+      $('ob-spread').textContent = t('spread') + ' ' + fmtP(d.asks[0][0] - d.bids[0][0]);
     }
-  } catch (e) { /* ignore */ }
+  } catch (e) {
+    // 降级到演示数据
+    ST.orderbook = _genDemoOrderbook(ST.symbol);
+    var d2 = ST.orderbook;
+    var ms2 = Math.max(...d2.asks.map(a => a[1]), ...d2.bids.map(b => b[1]), 1);
+    $('ob-asks').innerHTML = d2.asks.slice(0, 10).reverse().map(a =>
+      `<div class="ob-row ask"><div class="bar" style="width:${(a[1] / ms2 * 100).toFixed(1)}%"></div>
+      <span>${fmtP(a[0])}</span><span>${a[1].toFixed(4)}</span><span>${a[1].toFixed(4)}</span></div>`
+    ).join('');
+    $('ob-bids').innerHTML = d2.bids.slice(0, 10).map(b =>
+      `<div class="ob-row bid"><div class="bar" style="width:${(b[1] / ms2 * 100).toFixed(1)}%"></div>
+      <span>${fmtP(b[0])}</span><span>${b[1].toFixed(4)}</span><span>${b[1].toFixed(4)}</span></div>`
+    ).join('');
+    var mid2 = $('ob-mid');
+    var price2 = ST.prices[ST.symbol]?.price || 0;
+    mid2.textContent = fmtP(price2);
+    mid2.className = 'ob-mid ' + ((ST.prices[ST.symbol]?.change24h || 0) >= 0 ? 'up' : 'down');
+    if (d2.asks.length && d2.bids.length) {
+      $('ob-spread').textContent = t('spread') + ' ' + fmtP(d2.asks[0][0] - d2.bids[0][0]);
+    }
+  }
 }
 
 // ========== 交易 ==========
@@ -1293,6 +1627,11 @@ function updateTradeTotal() {
 }
 
 async function updateTradeInfo() {
+  if (demoMode) {
+    $('available-usdt').textContent = '10,000.00 USDT';
+    $('holding-info').textContent = '0.5000 ' + ST.symbol;
+    return;
+  }
   try {
     const d = await api.get('/api/auth/profile');
     const a = d.assets.find(x => x.symbol === ST.symbol);
@@ -1310,7 +1649,7 @@ async function executeTrade() {
   if (!price || price <= 0) return errShow('trade-error', '价格无效');
 
   if (ST.side === 'buy' && ((ST.user?.usdt_balance || 0) <= 0)) {
-    return errShow('trade-error', t('USDT 余额不足，请先充值'));
+    return errShow('trade-error', t('insufficient'));
   }
 
   try {
@@ -1347,12 +1686,20 @@ async function fillPct(pct) {
 
 // ========== 钱包 ==========
 async function fetchWallet() {
+  if (demoMode) {
+    $('wallet-usdt').textContent = '10,000.00';
+    $('wallet-total').textContent = '12,500.00';
+    var c = $('wallet-assets');
+    c.innerHTML = '<div class="asset-row"><span class="asset-sym">BTC</span><span class="asset-bal">0.0500</span><span class="asset-val">@87,500</span></div>'
+      + '<div class="asset-row"><span class="asset-sym">ETH</span><span class="asset-bal">0.5000</span><span class="asset-val">@3,420</span></div>';
+    return;
+  }
   try {
     const d = await api.get('/api/wallet/balance');
     $('wallet-usdt').textContent = d.usdt_balance.toFixed(2);
     $('wallet-total').textContent = d.total_value.toFixed(2);
     const c = $('wallet-assets');
-    if (!d.assets.length) { c.innerHTML = '<div class="empty-hint">暂无持仓</div>'; return; }
+    if (!d.assets.length) { c.innerHTML = '<div class="empty-hint">' + t('no_holdings') + '</div>'; return; }
     c.innerHTML = d.assets.map(a =>
       `<div class="asset-row"><span class="asset-sym">${a.symbol}</span><span class="asset-bal">${a.balance.toFixed(4)}</span><span class="asset-val">@${fmtP(a.avg_price)}</span></div>`
     ).join('');
@@ -1364,23 +1711,23 @@ async function fetchOrders() {
   try {
     const d = await api.get('/api/trade/orders?limit=30&status=filled');
     const b = $('orders-body');
-    if (!d.orders.length) { b.innerHTML = '<tr><td colspan="8" class="empty-hint">暂无订单</td></tr>'; }
+    if (!d.orders.length) { b.innerHTML = '<tr><td colspan="8" class="empty-hint">' + t('no_orders_yet') + '</td></tr>'; }
     else b.innerHTML = d.orders.map(o =>
       `<tr><td>${fmtT(o.created_at)}</td><td>${o.symbol}/USDT</td>
-      <td class="side-${o.side}">${o.side === 'buy' ? '买入' : '卖出'}</td>
+      <td class="side-${o.side}">${t(o.side)}</td>
       <td>${fmtP(o.price)}</td><td>${o.amount.toFixed(4)}</td><td>${o.total.toFixed(2)}</td>
-      <td>${o.type === 'market' ? '市价' : '限价'}</td>
-      <td class="status-${o.status}">${o.status === 'filled' ? '已成交' : o.status === 'pending' ? '挂单中' : '已取消'}</td></tr>`
+      <td>${t(o.type === 'market' ? 'trade_market' : 'trade_limit')}</td>
+      <td class="status-${o.status}">${o.status === 'filled' ? t('status_filled') : o.status === 'pending' ? t('status_pending') : t('status_cancelled2')}</td></tr>`
     ).join('');
   } catch (e) { /* ignore */ }
 
   try {
     const tx = await api.get('/api/wallet/transactions?limit=30');
     const b = $('transactions-body');
-    if (!tx.transactions.length) { b.innerHTML = '<tr><td colspan="8" class="empty-hint">暂无记录</td></tr>'; }
+    if (!tx.transactions.length) { b.innerHTML = '<tr><td colspan="8" class="empty-hint">' + t('no_records') + '</td></tr>'; }
     else b.innerHTML = tx.transactions.map(t =>
       `<tr><td>${fmtT(t.created_at)}</td><td>${t.symbol}</td>
-      <td class="${t.type === 'deposit' ? 'side-buy' : t.type === 'buy' ? 'side-buy' : t.type === 'sell' ? 'side-sell' : ''}">${t.type === 'deposit' ? '充值' : t.type === 'buy' ? '买入' : '卖出'}</td>
+      <td class="${t.type === 'deposit' ? 'side-buy' : t.type === 'buy' ? 'side-buy' : t.type === 'sell' ? 'side-sell' : ''}">${t.type === 'deposit' ? t('deposit') : t.type === 'buy' ? t('buy') : t('sell')}</td>
       <td>${fmtP(t.price)}</td><td>${t.amount.toFixed(4)}</td><td>${t.total.toFixed(2)}</td>
       <td>${t.fee.toFixed(4)}</td><td style="font-size:10px">${t.description}</td></tr>`
     ).join('');
@@ -1395,15 +1742,15 @@ async function fetchPending() {
     $('pending-count').textContent = cnt;
     $('pending-count').classList.toggle('hidden', cnt === 0);
     $('pending-badge').classList.toggle('hidden', cnt === 0);
-    $('pending-badge').textContent = cnt + ' 挂单';
+    $('pending-badge').textContent = cnt + ' ' + t('pending');
 
     const list = $('pending-list');
-    if (!cnt) { list.innerHTML = '<div class="empty-hint">暂无挂单</div>'; return; }
+    if (!cnt) { list.innerHTML = '<div class="empty-hint">' + t('no_orders_yet') + '</div>'; return; }
     list.innerHTML = d.orders.map(o =>
-      `<div class="pending-item"><span class="p-side ${o.side}">${o.side === 'buy' ? '买' : '卖'}</span>
+      `<div class="pending-item"><span class="p-side ${o.side}">${t(o.side === 'buy' ? 'buy_short' : 'sell_short')}</span>
       <span class="p-info">${o.symbol} ${o.amount} @${fmtP(o.price)}</span>
       <span class="p-time">${fmtT(o.created_at)}</span>
-      <button class="btn-cancel" data-id="${o.id}">取消</button></div>`
+      <button class="btn-cancel" data-id="${o.id}">${t('cancel')}</button></div>`
     ).join('');
     list.querySelectorAll('.btn-cancel').forEach(b => {
       b.addEventListener('click', () => cancelOrder(parseInt(b.dataset.id)));
@@ -1450,7 +1797,58 @@ function showC2C() {
 
 async function loadC2CAds() {
   var body = $('c2c-ads-body');
-  body.innerHTML = '<div class="empty-hint" style="padding:40px">Loading...</div>';
+  body.innerHTML = '<div class="empty-hint" style="padding:40px">' + t('loading') + '</div>';
+  if (demoMode) {
+    // 演示模式生成假广告
+    var demoAds = [];
+    var merchants = ['CryptoKing', 'FastTrade', 'USDTPro', 'GoldenCoin', 'BTC Master', 'TradeExpert'];
+    var coins = ['USDT', 'USDT', 'USDT', 'USDT', 'BTC', 'ETH'];
+    for (var i = 0; i < 6; i++) {
+      demoAds.push({
+        id: 1000 + i,
+        user_id: 100 + i,
+        username: merchants[i],
+        coin: coins[i],
+        side: i < 3 ? 'sell' : 'buy',
+        price: i < 3 ? 7.25 + i * 0.02 : 7.22 - i * 0.01,
+        min_amount: 100 + i * 50,
+        max_amount: 5000 + i * 1000,
+        payment_methods: i % 3 === 0 ? 'bank' : i % 3 === 1 ? 'alipay,wechat' : 'bank,alipay,wechat',
+        vip_level: i % 2 === 0 ? 2 : 1
+      });
+    }
+    body.innerHTML = demoAds.map(function(a) {
+      var payTags = a.payment_methods.split(',').map(function(m) {
+        var label = m === 'bank' ? t('c2c_pay_bank') : m === 'alipay' ? t('c2c_pay_alipay') : m === 'wechat' ? t('c2c_pay_wechat') : m;
+        return '<span class="c2c-pay-tag">' + label + '</span>';
+      }).join('');
+      var avatarColor = a.side === 'sell' ? 'rgba(246,70,93,0.2)' : 'rgba(14,203,129,0.2)';
+      var avatarText = a.side === 'sell' ? 'S' : 'B';
+      var priceClass = a.side === 'sell' ? 'sell-color' : 'buy-color';
+      return '<div class="c2c-ad-row" data-ad-id="' + a.id + '" data-user-id="' + a.user_id + '">' +
+        '<div class="c2c-ad-merchant">' +
+          '<div class="c2c-ad-merchant-avatar" style="background:' + avatarColor + ';color:' + (a.side==='sell'?'var(--red)':'var(--green)') + '">' + avatarText + '</div>' +
+          '<div class="c2c-ad-merchant-info">' +
+            '<span class="c2c-ad-merchant-name">' + a.username + '</span>' +
+            '<span class="c2c-ad-merchant-sub">' + (a.vip_level > 0 ? 'VIP' + a.vip_level : '') + '</span>' +
+          '</div>' +
+        '</div>' +
+        '<div class="c2c-ad-amount">' + a.min_amount + ' - ' + a.max_amount + '<span class="amt-range">' + a.coin + '</span></div>' +
+        '<div class="c2c-ad-price ' + priceClass + '">¥' + a.price.toFixed(2) + '</div>' +
+        '<div class="c2c-ad-payment">' + payTags + '</div>' +
+        '<div class="c2c-ad-action">' +
+          '<button class="btn btn-xs btn-gold c2c-take-ad-btn" data-id="' + a.id + '">' + t('c2c_take_order') + '</button>' +
+        '</div>' +
+      '</div>';
+    }).join('');
+    body.querySelectorAll('.c2c-take-ad-btn').forEach(function(b) {
+      b.addEventListener('click', function() {
+        if (!ST.token) { location.href = '/' + currentLang + '/login'; return; }
+        showToast(t('please_login'));
+      });
+    });
+    return;
+  }
   try {
     var params = '?coin=' + C2C.filterCoin;
     if (C2C.filterSide !== 'all') params += '&side=' + C2C.filterSide;
@@ -1464,19 +1862,20 @@ async function loadC2CAds() {
     }
     body.innerHTML = ads.map(function(a) {
       var payTags = a.payment_methods.split(',').map(function(m) {
-        var label = m === 'bank' ? 'Bank' : m === 'alipay' ? 'Alipay' : m === 'wechat' ? 'WeChat' : m;
+        var label = m === 'bank' ? t('c2c_pay_bank') : m === 'alipay' ? t('c2c_pay_alipay') : m === 'wechat' ? t('c2c_pay_wechat') : m;
         return '<span class="c2c-pay-tag">' + label + '</span>';
       }).join('');
       var avatarColor = a.side === 'sell' ? 'rgba(246,70,93,0.2)' : 'rgba(14,203,129,0.2)';
       var avatarText = a.side === 'sell' ? 'S' : 'B';
       var priceClass = a.side === 'sell' ? 'sell-color' : 'buy-color';
       var mine = ST.user && a.user_id === ST.user.id;
-      return '<div class="c2c-ad-row" data-ad-id="' + a.id + '">' +
+      return '<div class="c2c-ad-row" data-ad-id="' + a.id + '" data-user-id="' + a.user_id + '">' +
         '<div class="c2c-ad-merchant">' +
           '<div class="c2c-ad-merchant-avatar" style="background:' + avatarColor + ';color:' + (a.side==='sell'?'var(--red)':'var(--green)') + '">' + avatarText + '</div>' +
           '<div class="c2c-ad-merchant-info">' +
             '<span class="c2c-ad-merchant-name">' + a.username + (mine ? ' (you)' : '') + '</span>' +
             '<span class="c2c-ad-merchant-sub">' + (a.vip_level > 0 ? 'VIP' + a.vip_level : '') + '</span>' +
+            '<span class="c2c-ad-merchant-rating" id="ad-rating-' + a.user_id + '" style="display:none"></span>' +
           '</div>' +
         '</div>' +
         '<div class="c2c-ad-amount">' + a.min_amount + ' - ' + a.max_amount + '<span class="amt-range">' + a.coin + '</span></div>' +
@@ -1489,6 +1888,25 @@ async function loadC2CAds() {
       '</div>';
     }).join('');
 
+    // 批量加载商家信誉评价
+    (function() {
+      var userIds = ads.map(function(a) { return a.user_id; }).filter(function(id) { return id !== (ST.user || {}).id; });
+      var uniqueIds = userIds.filter(function(id, i, arr) { return arr.indexOf(id) === i; });
+      uniqueIds.forEach(function(uid) {
+        api.get('/api/c2c/reviews/' + uid + '?limit=1').then(function(r) {
+          var el = $('ad-rating-' + uid);
+          if (!el || !r || !r.total_reviews) return;
+          el.style.display = 'flex';
+          var starsText = '';
+          var avgR = Math.round(r.avg_rating);
+          for (var si = 1; si <= 5; si++) { starsText += si <= avgR ? '★' : '☆'; }
+          el.innerHTML = '<span class="c2c-avg-star">' + starsText + '</span>'
+            + '<span style="color:var(--text);">' + r.avg_rating + '</span>'
+            + '<span class="c2c-review-count">(' + r.total_reviews + ')</span>';
+        }).catch(function() {});
+      });
+    })();
+
     // 绑定接单事件
     body.querySelectorAll('.c2c-take-ad-btn').forEach(function(b) {
       b.addEventListener('click', function() { openTakeAd(parseInt(this.dataset.id)); });
@@ -1496,7 +1914,7 @@ async function loadC2CAds() {
     body.querySelectorAll('.c2c-cancel-ad-btn').forEach(function(b) {
       b.addEventListener('click', function() { cancelMyAd(parseInt(this.dataset.id)); });
     });
-  } catch(e) { body.innerHTML = '<div class="empty-hint" style="padding:40px">Error loading ads</div>'; }
+  } catch(e) { body.innerHTML = '<div class="empty-hint" style="padding:40px">' + t('error_loading') + '</div>'; }
 }
 
 async function openTakeAd(adId) {
@@ -1511,10 +1929,10 @@ async function openTakeAd(adId) {
 }
 
 async function cancelMyAd(adId) {
-  if (!confirm('确认下架此广告？')) return;
+  if (!confirm(t('confirm_cancel_ad'))) return;
   try {
     await api.req('/api/c2c/ads/' + adId, { method: 'DELETE' });
-    showToast('广告已下架');
+    showToast(t('ad_cancelled'));
     loadC2CAds();
   } catch(e) { showToast(e.message); }
 }
@@ -1552,7 +1970,7 @@ async function submitAd() {
       payment_methods: payments, remark: remark
     });
     $('c2c-ad-modal').classList.add('hidden');
-    showToast('广告发布成功！');
+    showToast(t('ad_published'));
     loadC2CAds();
   } catch(e) { errShow('c2c-ad-error', e.message); }
 }
@@ -1567,11 +1985,11 @@ async function openOrderChat(orderId) {
     // 获取我的订单列表找到这个订单
     var orders = await api.get('/api/c2c/orders?limit=50');
     var order = orders.find(function(o) { return o.order_id === orderId; });
-    if (!order) { showToast('订单未找到'); return; }
+    if (!order) { showToast(t('order_not_found')); return; }
     C2C.currentOrder = order;
 
     // 渲染订单信息
-    $('c2c-order-title').textContent = 'C2C Order #' + order.order_id.substring(0, 16) + '...';
+    $('c2c-order-title').textContent = 'C2C #' + order.order_id.substring(0, 16) + '...';
     $('c2c-oi-amount').textContent = order.amount + ' ' + order.coin;
     $('c2c-oi-price').textContent = '¥' + order.price.toFixed(2);
     $('c2c-oi-total').textContent = order.total + ' USDT';
@@ -1634,56 +2052,56 @@ function updateOrderActions(order) {
     html += '<button class="btn btn-outline" style="color:var(--red);border-color:var(--red)" onclick="disputeC2COrder(\'' + order.order_id + '\')">' + t('c2c_dispute') + '</button>';
   }
   if (order.status === 'completed') {
-    html += '<span style="color:var(--green);font-weight:600">Trade Completed ✓</span>';
+    html += '<span style="color:var(--green);font-weight:600">' + t('trade_completed') + '</span>';
     if (!order.reviewed) {
-      html += '<button class="btn btn-xs btn-gold-outline" style="margin-left:8px" onclick="submitReviewModal(\'' + order.order_id + '\')">' + t('review') + '</button>';
+      html += '<button class="btn btn-xs btn-gold-outline" style="margin-left:8px" onclick="openRatingModal(\'' + order.order_id + '\')">' + t('review') + '</button>';
     }
   }
   if (order.status === 'cancelled') {
-    html += '<span style="color:var(--red);font-weight:600">Order Cancelled</span>';
+    html += '<span style="color:var(--red);font-weight:600">' + t('order_cancelled_text') + '</span>';
   }
   if (order.status === 'disputed') {
-    html += '<span style="color:var(--gold);font-weight:600">Disputed - Pending Review</span>';
+    html += '<span style="color:var(--gold);font-weight:600">' + t('disputed_pending') + '</span>';
   }
 
   actions.innerHTML = html;
 }
 
 async function confirmC2CPayment(orderId) {
-  if (!confirm('确认您已向卖家完成法币转账？')) return;
+  if (!confirm(t('c2c_confirm_pay_prompt'))) return;
   try {
     await api.post('/api/c2c/orders/' + orderId + '/pay');
-    showToast('已确认付款！');
+    showToast(t('c2c_pay_confirmed'));
     openOrderChat(orderId);
   } catch(e) { showToast(e.message); }
 }
 
 async function releaseC2CCrypto(orderId) {
-  if (!confirm('确认收到买家法币并释放币？')) return;
+  if (!confirm(t('c2c_release_confirm'))) return;
   try {
     await api.post('/api/c2c/orders/' + orderId + '/release');
-    showToast('放币成功！交易完成');
+    showToast(t('c2c_release_success'));
     openOrderChat(orderId);
     updateNavBalance();
   } catch(e) { showToast(e.message); }
 }
 
 async function cancelC2COrder(orderId) {
-  if (!confirm('确认取消此订单？')) return;
+  if (!confirm(t('c2c_cancel_order_prompt'))) return;
   try {
     await api.post('/api/c2c/orders/' + orderId + '/cancel');
-    showToast('订单已取消');
+    showToast(t('c2c_order_cancelled'));
     $('c2c-order-modal').classList.add('hidden');
     loadC2CAds();
   } catch(e) { showToast(e.message); }
 }
 
 async function disputeC2COrder(orderId) {
-  var reason = prompt('请输入申诉原因：', '');
-  if (!reason) return;
+  var reason = prompt(t('c2c_dispute_prompt'), '');
+  if (!reason || !reason.trim()) return;
   try {
     await api.post('/api/c2c/orders/' + orderId + '/dispute', { reason: reason });
-    showToast('申诉已提交');
+    showToast(t('c2c_dispute_submitted'));
     openOrderChat(orderId);
   } catch(e) { showToast(e.message); }
 }
@@ -1696,7 +2114,7 @@ async function loadChatMessages(orderId) {
       var ct = $('c2c-chat-msgs');
       var uid = ST.user ? ST.user.id : 0;
       if (!msgs.length) {
-        ct.innerHTML = '<div class="c2c-msg-system">—— No messages yet ——</div>';
+        ct.innerHTML = '<div class="c2c-msg-system">—— ' + t('no_messages_yet') + ' ——</div>';
       } else {
         ct.innerHTML = msgs.map(function(m) {
           if (m.user_id === uid) {
@@ -1728,17 +2146,17 @@ async function openMyOrders() {
   if (!ST.token) { location.href = '/' + currentLang + '/login'; return; }
   $('c2c-my-orders-modal').classList.remove('hidden');
   var body = $('c2c-my-orders-body');
-  body.innerHTML = '<tr><td colspan="7" class="empty-hint">Loading...</td></tr>';
+  body.innerHTML = '<tr><td colspan="7" class="empty-hint">' + t('loading') + '</td></tr>';
   try {
     var orders = await api.get('/api/c2c/orders?limit=100');
     if (!orders.length) {
-      body.innerHTML = '<tr><td colspan="7" class="empty-hint">No C2C orders</td></tr>';
+      body.innerHTML = '<tr><td colspan="7" class="empty-hint">' + t('no_c2c_orders') + '</td></tr>';
       return;
     }
     var uid = ST.user.id;
     body.innerHTML = orders.map(function(o) {
       var statusColor = o.status === 'completed' ? 'var(--green)' : o.status === 'cancelled' ? 'var(--red)' : o.status === 'disputed' ? 'var(--gold)' : 'var(--text2)';
-      var statusLabel = o.status === 'pending_payment' ? 'Pending Pay' : o.status === 'pending_release' ? 'Pending Release' : o.status.charAt(0).toUpperCase() + o.status.slice(1);
+      var statusLabel = o.status === 'pending_payment' ? t('status_pending_pay') : o.status === 'pending_release' ? t('status_pending_release') : o.status === 'disputed' ? t('status_disputed') : o.status === 'completed' ? t('c2c_status_completed') : o.status === 'cancelled' ? t('cancelled') : o.status;
       var isBuyer = o.buyer_id === uid;
       return '<tr style="border-bottom:1px solid rgba(255,255,255,.03)">' +
         '<td style="padding:6px 8px;font-size:11px;font-family:var(--mono);color:var(--text2)">#' + o.order_id.substring(0, 12) + '</td>' +
@@ -1753,7 +2171,43 @@ async function openMyOrders() {
         '</td>' +
         '</tr>';
     }).join('');
-  } catch(e) { body.innerHTML = '<tr><td colspan="7" class="empty-hint">Error loading orders</td></tr>'; }
+  } catch(e) { body.innerHTML = '<tr><td colspan="7" class="empty-hint">' + t('error_loading') + '</td></tr>'; }
+}
+
+// ====== 我的广告弹窗 ======
+async function openMyAds() {
+  if (!ST.token) { location.href = '/' + currentLang + '/login'; return; }
+  $('c2c-my-ads-modal').classList.remove('hidden');
+  var body = $('c2c-my-ads-body');
+  body.innerHTML = '<tr><td colspan="8" class="empty-hint">' + t('loading') + '</td></tr>';
+  try {
+    var ads = await api.get('/api/c2c/ads/mine?limit=50');
+    if (!ads.length) {
+      body.innerHTML = '<tr><td colspan="8" class="empty-hint">' + t('c2c_no_ads') + '</td></tr>';
+      return;
+    }
+    body.innerHTML = ads.map(function(a) {
+      var statusTag = a.status === 'active' ? '<span class="c2c-ad-status-tag active">' + a.status + '</span>'
+        : a.status === 'cancelled' ? '<span class="c2c-ad-status-tag cancelled">' + a.status + '</span>'
+        : '<span class="c2c-ad-status-tag completed">' + a.status + '</span>';
+      var payMethods = (a.payment_methods || '').split(',').map(function(m) {
+        var label = m === 'bank' ? t('c2c_pay_bank') : m === 'alipay' ? t('c2c_pay_alipay') : m === 'wechat' ? t('c2c_pay_wechat') : m;
+        return '<span class="c2c-pay-tag">' + label + '</span>';
+      }).join(' ');
+      var typeStyle = a.side === 'buy' ? 'color:var(--green)' : 'color:var(--red)';
+      return '<tr style="border-bottom:1px solid rgba(255,255,255,.03)">'
+        + '<td style="padding:6px 8px;font-size:10px;color:var(--text3)">#' + a.id + '</td>'
+        + '<td style="padding:6px 8px;font-weight:600;' + typeStyle + '">' + (a.side === 'buy' ? t('buy') : t('sell')) + '</td>'
+        + '<td style="padding:6px 8px;font-family:var(--mono)">' + a.coin + '</td>'
+        + '<td style="padding:6px 8px;text-align:right;font-family:var(--mono)">¥' + a.price.toFixed(2) + '</td>'
+        + '<td style="padding:6px 8px;text-align:right;font-family:var(--mono)">' + a.min_amount + ' - ' + a.max_amount + '</td>'
+        + '<td style="padding:6px 8px;font-size:10px">' + payMethods + '</td>'
+        + '<td style="padding:6px 8px">' + statusTag + '</td>'
+        + '<td style="padding:6px 8px;text-align:center">'
+        + (a.status === 'active' ? '<button class="btn btn-xs btn-outline" style="color:var(--red);border-color:var(--red)" onclick="cancelMyAd(' + a.id + ');openMyAds()">' + t('cancel') + '</button>' : '')
+        + '</td></tr>';
+    }).join('');
+  } catch(e) { body.innerHTML = '<tr><td colspan="8" class="empty-hint">' + t('error_loading') + '</td></tr>'; }
 }
 
 // ========== 通知系统 ==========
@@ -1785,7 +2239,7 @@ async function loadNotificationsList() {
       var time = new Date(n.created_at);
       var timeStr = time.toLocaleString();
       return '<div class="notif-item' + (n.is_read ? '' : ' unread') + '" data-id="' + n.id + '">'
-        + '<div class="notif-title">' + (n.title || 'Notification') + '</div>'
+        + '<div class="notif-title">' + (n.title || t('notifications')) + '</div>'
         + '<div class="notif-body">' + (n.message || n.content || '') + '</div>'
         + '<div class="notif-time">' + timeStr + '</div>'
         + '</div>';
@@ -1798,7 +2252,7 @@ async function loadNotificationsList() {
       });
     });
   } catch(e) {
-    $('notif-list').innerHTML = '<div class="notif-item"><div class="notif-body" style="text-align:center;color:var(--text3)">Failed to load</div></div>';
+    $('notif-list').innerHTML = '<div class="notif-item"><div class="notif-body" style="text-align:center;color:var(--text3)">' + t('error_loading') + '</div></div>';
   }
 }
 
@@ -1986,6 +2440,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // ===== C2C 事件 =====
   $('c2c-create-ad-btn')?.addEventListener('click', openCreateAd);
   $('c2c-my-orders-btn')?.addEventListener('click', openMyOrders);
+  $('c2c-my-ads-btn')?.addEventListener('click', openMyAds);
 
   // 筛选按钮
   $$('.c2c-filter-btn').forEach(function(b) {
@@ -2049,6 +2504,51 @@ document.addEventListener('DOMContentLoaded', () => {
   });
   $('c2c-my-orders-modal')?.addEventListener('click', function(e) {
     if (e.target === this) $('c2c-my-orders-modal').classList.add('hidden');
+  });
+
+  // 我的广告弹窗
+  $('c2c-my-ads-close')?.addEventListener('click', function() {
+    $('c2c-my-ads-modal').classList.add('hidden');
+  });
+  $('c2c-my-ads-modal')?.addEventListener('click', function(e) {
+    if (e.target === this) $('c2c-my-ads-modal').classList.add('hidden');
+  });
+
+  // 评价弹窗
+  $('c2c-rating-close')?.addEventListener('click', function() {
+    $('c2c-rating-modal').classList.add('hidden');
+  });
+  $('c2c-rating-modal')?.addEventListener('click', function(e) {
+    if (e.target === this) $('c2c-rating-modal').classList.add('hidden');
+  });
+  $('c2c-rating-submit')?.addEventListener('click', submitRating);
+  // 星级点击事件
+  $$('#c2c-rating-stars .c2c-star').forEach(function(star) {
+    star.addEventListener('click', function() {
+      var r = parseInt(this.dataset.rating);
+      ratingState.rating = r;
+      $$('#c2c-rating-stars .c2c-star').forEach(function(s, i) {
+        s.classList.toggle('selected', i < r);
+        s.textContent = i < r ? '★' : '☆';
+      });
+      var hints = ['', t('c2c_rate_poor'), t('c2c_rate_fair'), t('c2c_rate_good'), t('c2c_rate_great'), t('c2c_rate_excellent')];
+      $('c2c-rating-hint').textContent = hints[r] || '';
+    });
+    star.addEventListener('mouseenter', function() {
+      var r = parseInt(this.dataset.rating);
+      $$('#c2c-rating-stars .c2c-star').forEach(function(s, i) {
+        s.classList.toggle('hover', i < r);
+        s.textContent = i < r ? '★' : '☆';
+      });
+    });
+    star.addEventListener('mouseleave', function() {
+      var cur = ratingState.rating;
+      $$('#c2c-rating-stars .c2c-star').forEach(function(s, i) {
+        s.classList.remove('hover');
+        s.classList.toggle('selected', i < cur);
+        s.textContent = i < cur ? '★' : '☆';
+      });
+    });
   });
 
   // ===== 忘记密码 =====
