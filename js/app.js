@@ -1334,6 +1334,11 @@ async function register() {
     showToast(d.message);
     $('reg-step1').classList.add('hidden');
     $('reg-step2').classList.remove('hidden');
+    // DEV 模式：后端 SMTP 未配置时，直接返回验证码
+    if (d.dev_code) {
+      $('reg-code').value = d.dev_code;
+      showToast('开发模式：验证码已自动填充 ' + d.dev_code);
+    }
     $('reg-error').textContent = '';
   } catch (err) { errShow('reg-error', err.message); }
 }
