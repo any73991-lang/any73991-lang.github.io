@@ -791,20 +791,18 @@
         <button class="c2c-coin-tab" data-coin="BTC" data-network="">BTC</button>
         <button class="c2c-coin-tab" data-coin="ETH" data-network="ERC20">ETH <small>ERC20</small></button>
       </div>
-      <!-- 筛选栏 -->
+      <!-- 支付方式标签 -->      <div class="c2c-token-tabs-row">
+        <button class="c2c-pay-tab active" data-pay="">All</button>
+        <button class="c2c-pay-tab" data-pay="bank"><span data-i18n="c2c_pay_bank">Bank Transfer</span></button>
+        <button class="c2c-pay-tab" data-pay="alipay"><span data-i18n="c2c_pay_alipay">Alipay</span></button>
+        <button class="c2c-pay-tab" data-pay="wechat"><span data-i18n="c2c_pay_wechat">WeChat Pay</span></button>
+      </div>
+      <!-- 买卖方向 + 金额筛选 -->
       <div class="c2c-filters">
         <div class="c2c-filter-group">
           <button class="c2c-filter-btn active" data-side="all" data-i18n="all_pairs">All</button>
           <button class="c2c-filter-btn" data-side="buy" data-i18n="c2c_buy_usdt">Buy USDT</button>
           <button class="c2c-filter-btn" data-side="sell" data-i18n="c2c_sell_usdt">Sell USDT</button>
-        </div>
-        <div class="c2c-filter-group">
-          <select id="c2c-payment-filter" class="c2c-select">
-            <option value="" data-i18n="c2c_all_methods">All Payment Methods</option>
-            <option value="bank" data-i18n="c2c_pay_bank">Bank Transfer</option>
-            <option value="alipay" data-i18n="c2c_pay_alipay">Alipay</option>
-            <option value="wechat" data-i18n="c2c_pay_wechat">WeChat Pay</option>
-          </select>
         </div>
         <div class="c2c-filter-group">
           <input type="number" id="c2c-amount-filter" class="c2c-amount-input" data-i18n-placeholder="c2c_min_placeholder" placeholder="Min Amount" step="any">

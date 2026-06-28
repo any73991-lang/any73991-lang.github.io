@@ -342,6 +342,24 @@ a:hover{opacity:.85}
 .c2c-title span { color: var(--text2); font-size: 14px; font-weight: 400; margin-left: 8px; }
 .c2c-header-right { display: flex; gap: 10px; }
 
+/* 币种/法币标签行 (Binance风格) */
+.c2c-token-tabs-row { display: flex; gap: 4px; margin-bottom: 8px; flex-wrap: wrap; }
+.c2c-token-tab { padding: 8px 16px; background: var(--bg2); border: 1px solid var(--border); color: var(--text2); font-size: 13px; font-weight: 600; border-radius: 4px; cursor: pointer; transition: all .15s; font-family: var(--font); white-space: nowrap; }
+.c2c-token-tab:hover { color: var(--text); border-color: var(--text2); }
+.c2c-token-tab.active { background: var(--gold); color: #1E2329; border-color: var(--gold); }
+.c2c-token-tab small { font-size: 10px; font-weight: 400; opacity: 0.8; }
+.c2c-token-tab.active small { opacity: 0.7; }
+
+.c2c-coin-tab { padding: 8px 16px; background: var(--bg2); border: 1px solid var(--border); color: var(--text2); font-size: 13px; font-weight: 600; border-radius: 4px; cursor: pointer; transition: all .15s; font-family: var(--font); white-space: nowrap; }
+.c2c-coin-tab:hover { color: var(--text); border-color: var(--text2); }
+.c2c-coin-tab.active { background: var(--gold); color: #1E2329; border-color: var(--gold); }
+.c2c-coin-tab small { font-size: 10px; font-weight: 400; opacity: 0.8; }
+.c2c-coin-tab.active small { opacity: 0.7; }
+
+/* 支付方式标签 */ .c2c-pay-tab { padding: 6px 14px; background: var(--bg2); border: 1px solid var(--border); color: var(--text2); font-size: 12px; font-weight: 600; border-radius: 4px; cursor: pointer; transition: all .15s; font-family: var(--font); white-space: nowrap; }
+.c2c-pay-tab:hover { color: var(--text); border-color: var(--text2); }
+.c2c-pay-tab.active { background: var(--gold); color: #1E2329; border-color: var(--gold); }
+
 .c2c-filters { display: flex; align-items: center; gap: 12px; margin-bottom: 16px; flex-wrap: wrap; padding: 12px; background: var(--bg2); border-radius: 8px; border: 1px solid var(--border); }
 .c2c-filter-group { display: flex; gap: 6px; align-items: center; }
 .c2c-filter-btn { padding: 6px 14px; background: var(--bg3); border: 1px solid var(--border); color: var(--text2); font-size: 12px; font-weight: 600; border-radius: 4px; cursor: pointer; transition: all .15s; font-family: var(--font); }

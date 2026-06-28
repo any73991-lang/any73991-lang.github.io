@@ -458,7 +458,7 @@ const FEE = 0.001;
 
 // ========== API ==========
 const API_BASE = location.hostname === 'any73991-lang.github.io'
-  ? 'https://da2f053dad1b466cb74d49713b8ce1f7.codebuddy.cloudstudio.run'
+  ? 'https://17698f5042a6423aa0deaa4f49a8cb0e.codebuddy.cloudstudio.run'
   : '';
 var _demoRegData = null;
 function _demoUser() {
@@ -1993,6 +1993,7 @@ function showC2C() {
   $$('.c2c-token-tab').forEach(function(t, i) { t.classList.toggle('active', i === 0); });
   $$('.c2c-coin-tab').forEach(function(t, i) { t.classList.toggle('active', i === 0); });
   $$('.c2c-filter-btn').forEach(function(t, i) { t.classList.toggle('active', i === 0); });
+  $$('.c2c-pay-tab').forEach(function(t, i) { t.classList.toggle('active', i === 0); });
   loadC2CAds();
   setTimeout(function(){ applyLang(); }, 100);
 }
@@ -2697,9 +2698,14 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  $('c2c-payment-filter')?.addEventListener('change', function() {
-    C2C.filterPayment = this.value;
-    loadC2CAds();
+  // 支付方式标签点击
+  $$('.c2c-pay-tab').forEach(function(b) {
+    b.addEventListener('click', function() {
+      $$('.c2c-pay-tab').forEach(function(x) { x.classList.remove('active'); });
+      this.classList.add('active');
+      C2C.filterPayment = this.dataset.pay;
+      loadC2CAds();
+    });
   });
   $('c2c-filter-btn')?.addEventListener('click', function() {
     loadC2CAds();
