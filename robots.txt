@@ -1,11 +1,4 @@
-<<<<<<< HEAD
 User-agent: *
 Allow: /
 Disallow: /admin
 Sitemap: /sitemap.xml
-=======
-User-agent: *
-Allow: /
-Disallow: /admin
-Sitemap: /sitemap.xml
->>>>>>> master
