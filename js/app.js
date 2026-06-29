@@ -521,6 +521,7 @@ var _demoState = (function() {
     get: function() { return s; },
     save: _save,
     getBalance: function() { return s.balance; },
+    setBalance: function(val) { s.balance = val; _save(); },
     getHolding: function(sym) { return s.holdings[sym] || 0; },
     updateBalance: function(amount) { s.balance += amount; _save(); },
     setHolding: function(sym, amt) {
@@ -604,12 +605,22 @@ function _demoAuth(url, opts) {
   var method = (opts.method || 'GET').toUpperCase();
   var ds = _demoState.get();
 
-  if (url === '/api/auth/login' || url === '/api/auth/verify-code') {
+  if (url === '/api/auth/login') {
     return { token: 'demo_tok_' + Date.now(), user: _demoUser() };
   }
+  if (url === '/api/auth/verify-code') {
+    if (!_demoRegData) throw new Error('请先获取验证码');
+    if (body.code !== _demoRegData.code) throw new Error('验证码错误，请重新输入');
+    // 注册成功后余额归零
+    _demoState.setBalance(0);
+    var user = _demoUser();
+    _demoRegData = null;
+    return { token: 'demo_tok_' + Date.now(), user: user };
+  }
   if (url === '/api/auth/send-code') {
-    _demoRegData = { username: body.username, email: body.email, password: body.password, invite_code: body.invite_code };
-    return { message: '验证码已发送至 ' + (body.email || '你的邮箱') + '（Demo: 任意6位数字）', code: '123456' };
+    var genCode = String(Math.floor(100000 + Math.random() * 900000));
+    _demoRegData = { username: body.username, email: body.email, password: body.password, invite_code: body.invite_code, code: genCode };
+    return { message: '验证码已发送至 ' + (body.email || '你的邮箱'), code: genCode };
   }
   if (url === '/api/auth/forgot-password') {
     return { message: '重置验证码已发送至 ' + (body.email || '你的邮箱') };
