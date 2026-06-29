@@ -361,6 +361,13 @@ d('c2c_chat_placeholder',  {'zh-CN':'输入消息...','zh-TW':'輸入消息...',
 d('c2c_chat_send',         {'zh-CN':'发送','zh-TW':'發送',en:'Send',ja:'送信',ko:'보내기',es:'Enviar',ru:'Отправить',fr:'Envoyer',de:'Senden',pt:'Enviar',vi:'Gửi',th:'ส่ง'});
 d('c2c_remark_ph',         {'zh-CN':'15分钟内付款...','zh-TW':'15分鐘內付款...',en:'Payment within 15 mins...',ja:'15分以内に支払...',ko:'15분 내 결제...',es:'Pago en 15 min...',ru:'Оплата в течение 15 мин...',fr:'Paiement sous 15 min...',de:'Zahlung innerhalb 15 Min...',pt:'Pagamento em 15 min...',vi:'Thanh toán trong 15 phút...',th:'ชำระเงินภายใน 15 นาที...'});
 d('rating_tap_hint',       {'zh-CN':'点击评分','zh-TW':'點擊評分',en:'Tap to rate',ja:'タップして評価',ko:'눌러서 평가',es:'Toque para calificar',ru:'Нажмите для оценки',fr:'Appuyez pour noter',de:'Zum Bewerten tippen',pt:'Toque para avaliar',vi:'Chạm để đánh giá',th:'แตะเพื่อให้คะแนน'});
+
+// ====== 客服 ======
+d('cs_title',          {'zh-CN':'联系客服','zh-TW':'聯絡客服',en:'Contact Customer Service',ja:'カスタマーサポート',ko:'고객센터',es:'Atención al cliente',ru:'Служба поддержки',fr:'Service client',de:'Kundenservice',pt:'Atendimento',vi:'Hỗ trợ khách hàng',th:'บริการลูกค้า'});
+d('cs_desc',           {'zh-CN':'如有任何问题，请通过以下方式联系我们：','zh-TW':'如有任何問題，請通過以下方式聯繫我們：',en:'If you have any questions, please contact us through the following channels:',ja:'ご不明な点がございましたら、以下の方法でお問い合わせください：',ko:'문의사항이 있으시면 아래 방법으로 연락해 주세요：',es:'Si tiene alguna pregunta, contáctenos a través de los siguientes canales:',ru:'Если у вас есть вопросы, свяжитесь с нами по следующим каналам:',fr:'Si vous avez des questions, contactez-nous via les canaux suivants :',de:'Bei Fragen kontaktieren Sie uns über folgende Kanäle:',pt:'Se tiver dúvidas, entre em contato pelos canais abaixo:',vi:'Nếu có thắc mắc, vui lòng liên hệ qua các kênh sau:',th:'หากมีข้อสงสัย กรุณาติดต่อเราผ่านช่องทางต่อไปนี้:'});
+d('cs_copy_tg',        {'zh-CN':'复制 Telegram 账号','zh-TW':'複製 Telegram 賬號',en:'Copy Telegram ID',ja:'Telegram IDをコピー',ko:'Telegram ID 복사',es:'Copiar ID de Telegram',ru:'Скопировать Telegram ID',fr:'Copier l\'ID Telegram',de:'Telegram-ID kopieren',pt:'Copiar ID do Telegram',vi:'Sao chép ID Telegram',th:'คัดลอก Telegram ID'});
+d('cs_copy_tg_desc',   {'zh-CN':'点击复制用户名','zh-TW':'點擊複製用戶名',en:'Tap to copy username',ja:'タップしてユーザー名をコピー',ko:'눌러서 사용자명 복사',es:'Toque para copiar',ru:'Нажмите чтобы скопировать',fr:'Appuyez pour copier',de:'Zum Kopieren tippen',pt:'Toque para copiar',vi:'Chạm để sao chép',th:'แตะเพื่อคัดลอก'});
+d('cs_response_time',  {'zh-CN':'我们通常在 10 分钟内回复','zh-TW':'我們通常在 10 分鐘內回覆',en:'We usually reply within 10 minutes',ja:'通常10分以内に返信します',ko:'보통 10분 이내에 답변드립니다',es:'Generalmente respondemos en 10 minutos',ru:'Обычно отвечаем в течение 10 минут',fr:'Nous répondons généralement sous 10 minutes',de:'Wir antworten normalerweise innerhalb von 10 Minuten',pt:'Geralmente respondemos em 10 minutos',vi:'Chúng tôi thường trả lời trong 10 phút',th:'เรามักจะตอบกลับภายใน 10 นาที'});
 d('rating_comment_ph',     {'zh-CN':'写评论（可选）','zh-TW':'寫評論（可選）',en:'Write a comment (optional)',ja:'コメントを書く（任意）',ko:'댓글 작성 (선택)',es:'Escriba un comentario (opcional)',ru:'Напишите комментарий',fr:'Écrivez un commentaire',de:'Kommentar schreiben (optional)',pt:'Escreva um comentário',vi:'Viết bình luận (tùy chọn)',th:'เขียนความคิดเห็น (ไม่บังคับ)'});
 d('phone_placeholder',     {'zh-CN':'+86 13800138000','zh-TW':'+886 912345678',en:'+1 5550123456',ja:'090-1234-5678',ko:'010-1234-5678',es:'+34 612345678',ru:'+7 9991234567',fr:'+33 612345678',de:'+49 1701234567',pt:'+55 11912345678',vi:'+84 912345678',th:'+66 812345678'});
 d('trade_amount_ph',       {'zh-CN':'数量','zh-TW':'數量',en:'Amount',ja:'数量',ko:'수량',es:'Cantidad',ru:'Кол-во',fr:'Montant',de:'Menge',pt:'Quantidade',vi:'Số lượng',th:'จำนวน'});
@@ -468,7 +475,7 @@ const FEE = 0.001;
 
 // ========== API ==========
 const API_BASE = location.hostname === 'any73991-lang.github.io'
-  ? 'https://6f4799133d664427a2297ae347dc1e4d.codebuddy.cloudstudio.run'
+  ? 'https://51c8b1e8612f4b1682c00e193f9d0f6d.codebuddy.cloudstudio.run'
   : '';
 var _demoRegData = null;
 
@@ -2850,8 +2857,289 @@ document.addEventListener('click', e => {
   navTo(href);
 });
 
+// ================================================================
+//  移动端导航系统 (平板/手机)
+//  - 汉堡菜单 → 侧滑抽屉
+//  - 底部固定导航栏
+//  - 触屏手势支持
+//  - 窗口大小切换自适应
+// ================================================================
+(function() {
+  var _mobileInit = false;
+  var _isMobile = false;
+
+  // 移动端侧滑菜单 HTML
+  function _buildDrawerHTML() {
+    return '<div class="mobile-nav-drawer" id="mobile-drawer">' +
+      '<div class="mobile-nav-header">' +
+      '<span class="brand-name" style="color:var(--text)">CoinUSDT C2C</span>' +
+      '<button class="mobile-nav-close" id="mobile-drawer-close">✕</button>' +
+      '</div>' +
+      '<div class="mobile-nav-links">' +
+      '<a href="/trade/BTC_USDT" data-path="/trade" class="mobile-nav-link">' +
+      '<span class="mobile-nav-icon">📈</span>' + (typeof t === 'function' ? t('trade') : 'Trade') + '</a>' +
+      '<a href="/c2c" data-path="/c2c" class="mobile-nav-link">' +
+      '<span class="mobile-nav-icon">🤝</span>' + (typeof t === 'function' ? t('c2c') : 'C2C') + '</a>' +
+      '<a href="/wallet" data-path="/wallet" class="mobile-nav-link">' +
+      '<span class="mobile-nav-icon">💼</span>' + (typeof t === 'function' ? t('assets') : 'Assets') + '</a>' +
+      '<a href="/orders" data-path="/orders" class="mobile-nav-link">' +
+      '<span class="mobile-nav-icon">📋</span>' + (typeof t === 'function' ? t('orders') : 'Orders') + '</a>' +
+      '<a href="/invite" data-path="/invite" class="mobile-nav-link">' +
+      '<span class="mobile-nav-icon">🎁</span>' + (typeof t === 'function' ? t('invite_title') : 'Invite') + '</a>' +
+      '<a href="/settings" data-path="/settings" class="mobile-nav-link">' +
+      '<span class="mobile-nav-icon">⚙️</span>' + (typeof t === 'function' ? t('settings') : 'Settings') + '</a>' +
+      '</div>' +
+      '<div class="mobile-nav-footer" id="mobile-nav-footer">' +
+      '<a href="/login" class="nav-btn nav-btn-primary auth-guest-only">' + (typeof t === 'function' ? t('login') : 'Login') + '</a>' +
+      '<a href="/register" class="nav-btn nav-btn-primary auth-guest-only">' + (typeof t === 'function' ? t('register') : 'Register') + '</a>' +
+      '</div>' +
+      '</div>' +
+      '<div class="mobile-nav-overlay" id="mobile-overlay"></div>';
+  }
+
+  // 底部导航栏 HTML
+  function _buildBottomNavHTML() {
+    return '<nav class="mobile-bottom-nav" id="mobile-bottom-nav">' +
+      '<a href="/trade/BTC_USDT" class="mobile-bottom-nav-item" data-path="/trade">' +
+      '<span class="mb-icon">📈</span><span>' + (typeof t === 'function' ? t('trade') : 'Trade') + '</span></a>' +
+      '<a href="/c2c" class="mobile-bottom-nav-item" data-path="/c2c">' +
+      '<span class="mb-icon">🤝</span><span>' + (typeof t === 'function' ? t('c2c') : 'C2C') + '</span></a>' +
+      '<a href="/wallet" class="mobile-bottom-nav-item" data-path="/wallet">' +
+      '<span class="mb-icon">💼</span><span>' + (typeof t === 'function' ? t('assets') : 'Assets') + '</span></a>' +
+      '<a href="/orders" class="mobile-bottom-nav-item" data-path="/orders">' +
+      '<span class="mb-icon">📋</span><span>' + (typeof t === 'function' ? t('orders') : 'Orders') + '</span></a>' +
+      '<a href="/settings" class="mobile-bottom-nav-item" data-path="/settings">' +
+      '<span class="mb-icon">⚙️</span><span>' + (typeof t === 'function' ? t('settings') : 'Settings') + '</span></a>' +
+      '</nav>';
+  }
+
+  // 检查是否为移动端
+  function _checkMobile() { return window.innerWidth <= 768; }
+
+  // 打开侧滑菜单
+  window.openMobileDrawer = function() {
+    var d = document.getElementById('mobile-drawer');
+    var o = document.getElementById('mobile-overlay');
+    if (d) d.classList.add('open');
+    if (o) o.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  };
+
+  // 关闭侧滑菜单
+  window.closeMobileDrawer = function() {
+    var d = document.getElementById('mobile-drawer');
+    var o = document.getElementById('mobile-overlay');
+    if (d) d.classList.remove('open');
+    if (o) o.classList.remove('open');
+    if (_isMobile) {
+      document.body.style.overflow = '';
+    }
+  };
+
+  // 更新移动端导航高亮
+  window._updateMobileHighlight = function(currentPath) {
+    // 更新抽屉内链接高亮
+    var drawerLinks = document.querySelectorAll('.mobile-nav-link');
+    drawerLinks.forEach(function(l) {
+      var lp = l.getAttribute('data-path');
+      if (lp && currentPath) {
+        l.classList.toggle('active', currentPath.startsWith(lp));
+      }
+    });
+    // 更新底部导航高亮
+    var bottomItems = document.querySelectorAll('.mobile-bottom-nav-item');
+    bottomItems.forEach(function(b) {
+      var bp = b.getAttribute('data-path');
+      if (bp && currentPath) {
+        b.classList.toggle('active', currentPath.startsWith(bp));
+      }
+    });
+  };
+
+  // 更新移动端登录状态
+  window._updateMobileAuth = function(loggedIn) {
+    var guestBtns = document.querySelectorAll('#mobile-nav-footer .auth-guest-only');
+    guestBtns.forEach(function(b) {
+      b.style.display = loggedIn ? 'none' : '';
+    });
+    // 如果已登录，在 footer 显示用户信息
+    var footer = document.getElementById('mobile-nav-footer');
+    if (footer && loggedIn && window.ST && window.ST.user) {
+      var existingUserInfo = footer.querySelector('.mobile-user-info');
+      if (!existingUserInfo) {
+        var div = document.createElement('div');
+        div.className = 'mobile-user-info';
+        div.style.cssText = 'display:flex;align-items:center;gap:10px;padding:4px 0';
+        div.innerHTML = '<div style="width:32px;height:32px;border-radius:50%;background:var(--gold);display:flex;align-items:center;justify-content:center;font-weight:700;color:#1E2329;font-size:13px">' +
+          (window.ST.user.username || 'U')[0].toUpperCase() + '</div>' +
+          '<div><div style="font-size:13px;font-weight:600;color:var(--text)">' +
+          (window.ST.user.username || '') + '</div>' +
+          '<div style="font-size:11px;color:var(--gold)">' +
+          (typeof window.fmtP === 'function' ? window.fmtP(window.ST.balance || 0) : '0') + ' USDT</div></div>';
+        footer.appendChild(div);
+      }
+    }
+  };
+
+  // 触屏手势: 向右滑动打开菜单
+  function _addSwipeGesture() {
+    var touchStartX = 0, touchStartY = 0;
+    document.addEventListener('touchstart', function(e) {
+      touchStartX = e.touches[0].clientX;
+      touchStartY = e.touches[0].clientY;
+    }, { passive: true });
+
+    document.addEventListener('touchend', function(e) {
+      var dx = e.changedTouches[0].clientX - touchStartX;
+      var dy = e.changedTouches[0].clientY - touchStartY;
+      // 向右滑动超过 60px 且横向大于纵向，且从屏幕左侧开始
+      if (dx > 60 && Math.abs(dx) > Math.abs(dy) && touchStartX < 40) {
+        window.openMobileDrawer();
+      }
+      // 在 drawer 上向左滑动关闭
+      if (dx < -60 && Math.abs(dx) > Math.abs(dy)) {
+        var drawer = document.getElementById('mobile-drawer');
+        if (drawer && drawer.classList.contains('open')) {
+          window.closeMobileDrawer();
+        }
+      }
+    }, { passive: true });
+  }
+
+  // 初始化移动端导航
+  window.initMobileNav = function() {
+    if (!_checkMobile()) return;
+
+    if (_mobileInit) {
+      // 已在移动模式，只需确保元素可见
+      document.body.classList.add('has-mobile-nav');
+      var existingDrawer = document.getElementById('mobile-drawer');
+      var existingNav = document.getElementById('mobile-bottom-nav');
+      if (existingDrawer) existingDrawer.style.display = '';
+      if (existingNav) existingNav.style.display = '';
+      _isMobile = true;
+      return;
+    }
+
+    _isMobile = true;
+    _mobileInit = true;
+    document.body.classList.add('has-mobile-nav');
+
+    // 1. 创建侧滑菜单
+    var container = document.createElement('div');
+    container.innerHTML = _buildDrawerHTML();
+    document.body.appendChild(container);
+
+    // 2. 创建底部导航栏
+    var bottomContainer = document.createElement('div');
+    bottomContainer.innerHTML = _buildBottomNavHTML();
+    document.body.appendChild(bottomContainer);
+
+    // 3. 绑定事件
+    var menuBtn = document.getElementById('mobile-menu-btn');
+    if (menuBtn) {
+      menuBtn.addEventListener('click', function(e) {
+        e.preventDefault();
+        window.openMobileDrawer();
+      });
+    }
+
+    var closeBtn = document.getElementById('mobile-drawer-close');
+    if (closeBtn) {
+      closeBtn.addEventListener('click', function() {
+        window.closeMobileDrawer();
+      });
+    }
+
+    var overlay = document.getElementById('mobile-overlay');
+    if (overlay) {
+      overlay.addEventListener('click', function() {
+        window.closeMobileDrawer();
+      });
+    }
+
+    // 抽屉内链接点击后关闭
+    document.querySelectorAll('.mobile-nav-link').forEach(function(a) {
+      a.addEventListener('click', function() {
+        setTimeout(function() { window.closeMobileDrawer(); }, 150);
+      });
+    });
+
+    // 底部导航链接点击
+    document.querySelectorAll('.mobile-bottom-nav-item').forEach(function(a) {
+      a.addEventListener('click', function(e) {
+        window.closeMobileDrawer();
+      });
+    });
+
+    // 4. 触屏手势
+    _addSwipeGesture();
+  };
+
+  // 销毁移动端导航（恢复到桌面模式）
+  window.destroyMobileNav = function() {
+    _isMobile = false;
+    document.body.classList.remove('has-mobile-nav');
+    document.body.style.overflow = '';
+
+    var drawer = document.getElementById('mobile-drawer');
+    var overlay = document.getElementById('mobile-overlay');
+    var bottomNav = document.getElementById('mobile-bottom-nav');
+
+    if (drawer) drawer.parentNode && drawer.parentNode.removeChild(drawer);
+    if (overlay) overlay.parentNode && overlay.parentNode.removeChild(overlay);
+    if (bottomNav) bottomNav.parentNode && bottomNav.parentNode.removeChild(bottomNav);
+
+    // 清理 body 下直接挂载的容器
+    var containers = document.querySelectorAll('.mobile-nav-drawer, .mobile-nav-overlay, .mobile-bottom-nav');
+    containers.forEach(function(el) {
+      if (el.parentNode) el.parentNode.removeChild(el);
+    });
+
+    _mobileInit = false;
+  };
+
+  // 窗口大小变化处理
+  var _resizeTimer = null;
+  window.addEventListener('resize', function() {
+    clearTimeout(_resizeTimer);
+    _resizeTimer = setTimeout(function() {
+      var nowMobile = _checkMobile();
+      if (nowMobile && !_isMobile) {
+        // 从桌面切换到移动端
+        window.initMobileNav();
+        // 重新高亮当前路径
+        var path = window.location.pathname;
+        var mp = path.match(/^\/(?:en|zh-CN|zh-TW|ja|ko|es|ru|fr|de|pt|vi|th)\/(.+)/);
+        var cp = mp ? '/' + mp[2] : path;
+        window._updateMobileHighlight && window._updateMobileHighlight(cp);
+        window._updateMobileAuth && window._updateMobileAuth(!!(window.ST && window.ST.token));
+      } else if (!nowMobile && _isMobile) {
+        // 从移动端切换到桌面
+        window.destroyMobileNav();
+      }
+      // 图表重绘
+      if (window.ST && window.ST.klines && window.ST.klines.length &&
+          document.getElementById('page-trade') &&
+          !document.getElementById('page-trade').classList.contains('hidden') &&
+          typeof window.drawChart === 'function') {
+        window.drawChart();
+      }
+    }, 200);
+  });
+
+  // 键盘 ESC 关闭菜单
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') {
+      window.closeMobileDrawer();
+    }
+  });
+})();
+
 // ========== 初始化 ==========
 document.addEventListener('DOMContentLoaded', () => {
+  // 执行移动端适配
+  initMobileNav();
   // 处理 404 重定向（GitHub Pages SPA fallback）
   var _redirectPath = sessionStorage.getItem('ct_redirect');
   if (_redirectPath) {
@@ -3213,6 +3501,26 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // ===== 止损限价输入 =====
   $('trade-stop-price')?.addEventListener('input', updateTradeTotal);
+
+    // ===== 客服悬浮按钮 =====
+  $('cs-float-btn')?.addEventListener('click', function() { $('cs-overlay').classList.remove('hidden'); });
+  $('cs-dialog-close')?.addEventListener('click', function() { $('cs-overlay').classList.add('hidden'); });
+  $('cs-overlay')?.addEventListener('click', function(e) { if (e.target === this) $('cs-overlay').classList.add('hidden'); });
+  $('cs-copy-tg')?.addEventListener('click', function() {
+    var tgId = 'CoinTradeHelpBot';
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(tgId).then(function() {
+        showToast('✅ ' + tgId + ' ' + t('copy_success') + '！');
+      }).catch(function() {
+        showToast('📋 Telegram ID: ' + tgId + '，' + t('copy_failed'));
+      });
+    } else {
+      showToast('📋 Telegram ID: ' + tgId);
+    }
+  });
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') { $('cs-overlay')?.classList.add('hidden'); }
+  });
 
   // 初始路由（如果有 404 redirect，跳转到目标路径）
   var _doRoute = function() { if (_redirectPath) { navTo(_redirectPath); } else { route(); } };
