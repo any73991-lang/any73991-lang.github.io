@@ -896,21 +896,17 @@ a:hover{opacity:.85}
 .cs-dialog-desc {
   font-size: 13px; color: var(--text2); margin: 0 0 16px; line-height: 1.6;
 }
-.cs-contact-list { display: flex; flex-direction: column; gap: 10px; }
-.cs-contact-item {
+/* 線上客服按鈕 */
+.cs-chat-btn {
   display: flex; align-items: center; gap: 12px;
-  padding: 14px 16px; background: var(--bg3); border: 1px solid var(--border);
-  border-radius: 8px; text-decoration: none; color: var(--text);
-  transition: all .15s; cursor: pointer;
+  padding: 18px 20px; background: linear-gradient(135deg, var(--gold), #d4a017);
+  border-radius: 10px; text-decoration: none; color: #1E2329;
+  font-size: 16px; font-weight: 700; transition: all .2s;
+  justify-content: center;
 }
-.cs-contact-item:hover { border-color: var(--gold); background: var(--gold-bg); }
-.cs-contact-icon { font-size: 22px; flex-shrink: 0; width: 36px; text-align: center; }
-.cs-contact-info { flex: 1; display: flex; flex-direction: column; gap: 2px; }
-.cs-contact-info strong { font-size: 13px; font-weight: 600; }
-.cs-contact-info span { font-size: 11px; color: var(--text3); }
-.cs-contact-arrow { font-size: 16px; color: var(--text3); flex-shrink: 0; }
-.cs-contact-telegram:hover { border-color: #2AABEE; background: rgba(42,171,238,0.08); }
-.cs-contact-email:hover { border-color: #EA4335; background: rgba(234,67,53,0.08); }
+.cs-chat-btn:hover { transform: translateY(-1px); box-shadow: 0 8px 28px rgba(240,185,11,.5); }
+.cs-chat-btn-icon { font-size: 24px; }
+.cs-chat-btn-arrow { font-size: 18px; }
 
 .cs-dialog-footer {
   margin: 16px 0 0; font-size: 11px; color: var(--text3); text-align: center;

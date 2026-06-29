@@ -3506,18 +3506,6 @@ document.addEventListener('DOMContentLoaded', () => {
   $('cs-float-btn')?.addEventListener('click', function() { $('cs-overlay').classList.remove('hidden'); });
   $('cs-dialog-close')?.addEventListener('click', function() { $('cs-overlay').classList.add('hidden'); });
   $('cs-overlay')?.addEventListener('click', function(e) { if (e.target === this) $('cs-overlay').classList.add('hidden'); });
-  $('cs-copy-tg')?.addEventListener('click', function() {
-    var tgId = 'CoinTradeHelpBot';
-    if (navigator.clipboard && navigator.clipboard.writeText) {
-      navigator.clipboard.writeText(tgId).then(function() {
-        showToast('✅ ' + tgId + ' ' + t('copy_success') + '！');
-      }).catch(function() {
-        showToast('📋 Telegram ID: ' + tgId + '，' + t('copy_failed'));
-      });
-    } else {
-      showToast('📋 Telegram ID: ' + tgId);
-    }
-  });
   document.addEventListener('keydown', function(e) {
     if (e.key === 'Escape') { $('cs-overlay')?.classList.add('hidden'); }
   });
