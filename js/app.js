@@ -481,12 +481,12 @@ var _demoRegData = null;
 
 // ========== Demo 持久化状态管理 ==========
 var _demoState = (function() {
-  var key = '_cdemo_v1';
+  var key = '_cdemo_v2';  // v2: 修复默认余额漏洞，旧数据自动废弃
   var s;
   try { s = JSON.parse(localStorage.getItem(key)); } catch(e) {}
-  if (!s || !s.balance || s.balance < 0) {
+  if (!s || typeof s.balance !== 'number') {
     s = {
-      balance: 100000,           // USDT 余额
+      balance: 0,                // 默认余额为 0，禁止默认赠送
       holdings: {},              // {BTC: 0.05, ETH: 0.5, ...}
       trades: [],                // [{id, side, symbol, type, price, amount, total, fee, time}]
       c2cAds: [],               // [{id, coin, side, price, min_amount, max_amount, payment_methods, username, userId}]
@@ -582,7 +582,7 @@ var _demoState = (function() {
     },
     getWithdraws: function() { return s.withdrawRequests; },
     reset: function() {
-      s = { balance: 100000, holdings: {}, trades: [], c2cAds: s.c2cAds, c2cOrders: [], depositRequests: [], withdrawRequests: [], pendingOrders: [] };
+      s = { balance: 0, holdings: {}, trades: [], c2cAds: s.c2cAds, c2cOrders: [], depositRequests: [], withdrawRequests: [], pendingOrders: [] };
       _save();
     }
   };
