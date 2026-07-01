@@ -475,6 +475,63 @@ a:hover{opacity:.85}
 #c2c-my-ads-modal .c2c-ad-status-tag.cancelled { background: rgba(246,70,93,0.15); color: var(--red); }
 #c2c-my-ads-modal .c2c-ad-status-tag.completed { background: rgba(240,185,11,0.15); color: var(--gold); }
 
+/* ========== 客服悬浮按钮 + 弹窗 ========== */
+.cs-float-btn {
+  position: fixed; bottom: 24px; right: 24px;
+  width: 56px; height: 56px; border-radius: 50%;
+  background: #F0B90B; color: #1E2329;
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer; z-index: 1500;
+  box-shadow: 0 4px 20px rgba(240,185,11,0.35);
+  transition: transform .2s, box-shadow .2s;
+}
+.cs-float-btn:hover { transform: scale(1.08); box-shadow: 0 6px 28px rgba(240,185,11,0.5); }
+.cs-float-icon { font-size: 26px; line-height: 1; }
+
+.cs-overlay {
+  position: fixed; inset: 0; z-index: 2000;
+  background: rgba(0,0,0,.6);
+  display: flex; align-items: center; justify-content: center;
+}
+.cs-overlay.hidden { display: none; }
+
+.cs-dialog {
+  background: #1E2329; border: 1px solid #2B3139;
+  border-radius: 12px; width: 400px; max-width: 90vw;
+  box-shadow: 0 16px 64px rgba(0,0,0,.6);
+  animation: csFadeIn .2s ease;
+}
+@keyframes csFadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+.cs-dialog-header {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 16px 20px; border-bottom: 1px solid #2B3139;
+}
+.cs-dialog-title { color: #F0B90B; font-size: 16px; margin: 0; font-weight: 700; }
+.cs-dialog-close {
+  background: none; border: none; color: #848E9C; font-size: 24px;
+  cursor: pointer; line-height: 1; padding: 0;
+}
+.cs-dialog-close:hover { color: #F6465D; }
+
+.cs-dialog-body { padding: 20px; }
+.cs-dialog-desc { color: #848E9C; font-size: 13px; margin: 0 0 16px 0; line-height: 1.6; }
+
+.cs-chat-btn {
+  display: flex; align-items: center; gap: 10px;
+  background: linear-gradient(135deg, #F0B90B, #F8D33A);
+  color: #1E2329; padding: 14px 20px; border-radius: 8px;
+  text-decoration: none; font-weight: 700; font-size: 15px;
+  transition: opacity .2s;
+}
+.cs-chat-btn:hover { opacity: .9; }
+.cs-chat-btn-icon { font-size: 20px; }
+.cs-chat-btn-arrow { margin-left: auto; font-size: 16px; }
+
+.cs-dialog-footer {
+  color: #5E6673; font-size: 11px; text-align: center;
+  margin: 16px 0 0 0;
+}
+
 /* scrollbar */
 ::-webkit-scrollbar{width:4px;height:4px}
 ::-webkit-scrollbar-track{background:transparent}

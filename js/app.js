@@ -2390,7 +2390,7 @@ function showC2C() {
   highlightNav('/c2c');
   document.title = 'C2C P2P | CoinUSDT C2C';
   // 重置法币和币种标签
-  C2C.fiatCurrency = 'CNY';
+  C2C.fiatCurrency = 'USD';
   C2C.filterCoin = 'USDT';
   C2C.filterNetwork = 'ALL';
   C2C.filterSide = 'all';
