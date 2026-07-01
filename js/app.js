@@ -202,9 +202,11 @@ d('status_pending_pay',  {'zh-CN':'待付款','zh-TW':'待付款',en:'Pending Pa
 d('status_pending_release',{'zh-CN':'待放币','zh-TW':'待放幣',en:'Pending Release',ja:'リリース待ち',ko:'출금대기',es:'Liberación pendiente',ru:'Ожидает выпуска',fr:'Libération en attente',de:'Freigabe ausstehend',pt:'Liberação pendente',vi:'Chờ giải phóng',th:'รอการปล่อย'});
 
 // ====== 支付方式 ======
-d('c2c_pay_bank',   {'zh-CN':'银行转账','zh-TW':'銀行轉帳',en:'Bank Transfer',ja:'銀行振込',ko:'은행이체',es:'Transferencia',ru:'Банковский перевод',fr:'Virement bancaire',de:'Banküberweisung',pt:'Transferência',vi:'Chuyển khoản',th:'โอนเงินผ่านธนาคาร'});
-d('c2c_pay_alipay', {'zh-CN':'支付宝','zh-TW':'支付寶',en:'Alipay',ja:'Alipay',ko:'알리페이',es:'Alipay',ru:'Alipay',fr:'Alipay',de:'Alipay',pt:'Alipay',vi:'Alipay',th:'Alipay'});
-d('c2c_pay_wechat', {'zh-CN':'微信支付','zh-TW':'微信支付',en:'WeChat Pay',ja:'WeChat Pay',ko:'위챗페이',es:'WeChat Pay',ru:'WeChat Pay',fr:'WeChat Pay',de:'WeChat Pay',pt:'WeChat Pay',vi:'WeChat Pay',th:'WeChat Pay'});
+d('c2c_pay_usdt',  { 'zh-CN':'USDT','zh-TW':'USDT',en:'USDT',ja:'USDT',ko:'USDT',es:'USDT',ru:'USDT',fr:'USDT',de:'USDT',pt:'USDT',vi:'USDT',th:'USDT' });
+d('c2c_pay_usd',   { 'zh-CN':'USD','zh-TW':'USD',en:'USD',ja:'USD',ko:'USD',es:'USD',ru:'USD',fr:'USD',de:'USD',pt:'USD',vi:'USD',th:'USD' });
+d('c2c_pay_ntd',   { 'zh-CN':'NT$','zh-TW':'NT$',en:'NTD',ja:'NT$',ko:'NT$',es:'NT$',ru:'NT$',fr:'NT$',de:'NT$',pt:'NT$',vi:'NT$',th:'NT$' });
+d('c2c_pay_eth',   { 'zh-CN':'ETH','zh-TW':'ETH',en:'ETH',ja:'ETH',ko:'ETH',es:'ETH',ru:'ETH',fr:'ETH',de:'ETH',pt:'ETH',vi:'ETH',th:'ETH' });
+d('c2c_pay_btc',   { 'zh-CN':'BTC','zh-TW':'BTC',en:'BTC',ja:'BTC',ko:'BTC',es:'BTC',ru:'BTC',fr:'BTC',de:'BTC',pt:'BTC',vi:'BTC',th:'BTC' });
 
 // ====== 提现状态 ======
 d('wd_approved',{'zh-CN':'已通过','zh-TW':'已通過',en:'Approved',ja:'承認済',ko:'승인됨',es:'Aprobado',ru:'Одобрено',fr:'Approuvé',de:'Genehmigt',pt:'Aprovado',vi:'Đã duyệt',th:'อนุมัติแล้ว'});
@@ -510,7 +512,7 @@ var _demoState = (function() {
         side: i < 3 ? 'sell' : 'buy',
         price: i < 3 ? 7.25 + i * 0.02 : 7.22 - (i - 3) * 0.01,
         min_amount: 100 + i * 50, max_amount: 5000 + i * 1000,
-        payment_methods: i % 3 === 0 ? 'bank' : i % 3 === 1 ? 'alipay,wechat' : 'bank,alipay,wechat',
+        payment_methods: i % 3 === 0 ? 'usdt' : i % 3 === 1 ? 'usd,ntd' : 'usdt,usd,ntd,eth,btc',
         username: m.name, userId: m.id, fiat: 'CNY', network: ''
       });
     });
@@ -2419,7 +2421,7 @@ async function loadC2CAds() {
     }
     body.innerHTML = ads.map(function(a) {
       var payTags = a.payment_methods.split(',').map(function(m) {
-        var label = m === 'bank' ? t('c2c_pay_bank') : m === 'alipay' ? t('c2c_pay_alipay') : m === 'wechat' ? t('c2c_pay_wechat') : m;
+        var label = m === 'usdt' ? 'USDT' : m === 'usd' ? 'USD' : m === 'ntd' ? 'NT$' : m === 'eth' ? 'ETH' : m === 'btc' ? 'BTC' : m;
         return '<span class="c2c-pay-tag">' + label + '</span>';
       }).join('');
       var avatarColor = a.side === 'sell' ? 'rgba(246,70,93,0.2)' : 'rgba(14,203,129,0.2)';
@@ -2751,7 +2753,7 @@ async function openMyAds() {
         : a.status === 'cancelled' ? '<span class="c2c-ad-status-tag cancelled">' + a.status + '</span>'
         : '<span class="c2c-ad-status-tag completed">' + a.status + '</span>';
       var payMethods = (a.payment_methods || '').split(',').map(function(m) {
-        var label = m === 'bank' ? t('c2c_pay_bank') : m === 'alipay' ? t('c2c_pay_alipay') : m === 'wechat' ? t('c2c_pay_wechat') : m;
+        var label = m === 'usdt' ? 'USDT' : m === 'usd' ? 'USD' : m === 'ntd' ? 'NT$' : m === 'eth' ? 'ETH' : m === 'btc' ? 'BTC' : m;
         return '<span class="c2c-pay-tag">' + label + '</span>';
       }).join(' ');
       var typeStyle = a.side === 'buy' ? 'color:var(--green)' : 'color:var(--red)';
