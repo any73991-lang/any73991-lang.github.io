@@ -475,7 +475,7 @@ const FEE = 0.001;
 
 // ========== API ==========
 const API_BASE = location.hostname === 'any73991-lang.github.io'
-  ? 'https://27f2a1d8902e4cb181790cd4dc8b4858.codebuddy.cloudstudio.run'
+  ? 'https://89d4097164704f298d98f8fd62c0eb88.codebuddy.cloudstudio.run'
   : '';
 var _demoRegData = null;
 
